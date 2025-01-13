@@ -1,0 +1,16 @@
+<resources>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="txt_10sp">10sp</dimen>
+    <dimen name="txt_20sp">20sp</dimen>
+    <dimen name="margin_5dp">5dp</dimen>
+    <dimen name="margin_10dp">10dp</dimen>
+    <dimen name="margin_20dp">20dp</dimen>
+    <dimen name="margin_30dp">30dp</dimen>
+    <dimen name="padding_10dp">10dp</dimen>
+    <dimen name="padding_20dp">20dp</dimen>
+    <dimen name="height_100dp">100dp</dimen>
+    <dimen name="fifteen_dp">15dp</dimen>
+    <dimen name="chat_button_height">70dp</dimen>
+    <dimen name="chat_button_width">70dp</dimen>
+    <dimen name="max_edittext_height">100dp</dimen>
+</resources>
