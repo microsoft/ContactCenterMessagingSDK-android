@@ -53,6 +53,11 @@ Here's a screenshot of the app in action:
 2. Click on the "Let's Chat" Button.
 3. Start interacting with the chat.
 
+## Troubleshoot
+If you face build issue related to namespace for randombytes package. Update namespace in its build.gradle.  
+
+namespace 'com.bitgo.randombytes' (path: node_modules -> react-native-randombytes -> android -> build.gradle) 
+
 ## Contributing
 
 This project welcomes contributions and suggestions.  Most contributions require you to agree to a
