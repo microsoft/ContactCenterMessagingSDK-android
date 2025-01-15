@@ -1,0 +1,57 @@
+# Ignore build output directories
+/build/
+/captures/
+/.idea/
+/local.properties
+
+# Ignore Android Studio specific files
+/.gradle/
+/*.iml
+
+# Ignore user-specific configuration files
+*.log
+*.class
+*.swp
+*.swo
+.DS_Store
+*.bak
+*.tmp
+*.orig
+*.swm
+.vscode/
+
+# Ignore Gradle wrapper files (only if you want to regenerate them)
+gradle-wrapper.jar
+gradle-wrapper.properties
+
+# Ignore generated files for release builds
+**/build/
+
+# Ignore Android Studio configuration files
+
+# Ignore local properties file (can be used for sensitive data like SDK locations)
+local.properties
+
+# Ignore Java generated files
+*.dex
+*.apk
+*.ap_
+*.jar
+
+# Ignore Proguard files
+proguard-rules.pro
+
+# Ignore generated files for test reports
+/test-results/
+
+# Ignore dependencies (should generally be included in the build)
+*.jks
+*.keystore
+
+# Ignore NDK build files
+*.o
+*.a
+*.so
+*.d
+*.obj
+*.lib

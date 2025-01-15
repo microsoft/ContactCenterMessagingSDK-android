@@ -1,14 +1,62 @@
-# Project
+## Building the Sample App
+First, clone the repo:
 
-> This repo has been populated by an initial template to help get you started. Please
-> make sure to update the content to build a great experience for community-building.
+git clone https://github.com/microsoft/ContactCenterMessagingSDK-android.git
 
-As the maintainer of this project, please make a few updates:
+Next, Open terminal and run "npm install" on root folder (provided package.json copied to root folder). 
 
-- Improving this README.MD file to provide a great experience
-- Updating SUPPORT.MD with content about this project's support experience
-- Understanding the security reporting process in SECURITY.MD
-- Remove this section from the README
+Building the sample then depends on your build tools.
+
+## Android Studio (Recommended)
+(These instructions were tested with gradle 8.7, Android Studio Koala | 2024.1.1 Patch 2 , OpenJDK 19.0.2)
+
+Open Android Studio and select File->Open... or from the Android Launcher select Import project (Eclipse ADT, Gradle, etc.) and navigate to the root directory of your project.
+Select the directory or drill in and select the file build.gradle in the cloned repo.
+Click 'OK' to open the the project in Android Studio.
+A Gradle sync should start, but you can force a sync and build the 'app' module as needed.
+Gradle (command line)
+Build the APK: ./gradlew build
+
+Android Studio
+Select Run -> Run 'app' (or Debug 'app') from the menu bar
+Select the device you wish to run the app on and click 'OK'
+
+## Instructions for Using the Chat Feature in the Sample Android App:
+1. Paste Your Script or Add the Required Information:
+In your app’s landing screen, you will find input fields where you need to enter:
+orgId
+orgUrl
+widgetId
+
+Alternatively, you can paste a script, that automatically fills in these details for you.
+
+2. Click on the "Let's Chat" Button:
+Once you've entered the required information (or pasted the script), look for a button labeled "Let's Chat" on your screen.
+Tap on this button to initiate the chat. The app will connect to the specified chat system and load the widget for you.
+
+3.Start Interacting with the Chat:
+After clicking the button, you will see the chat interface appear on the screen.
+You can now type messages, send media, or interact with the chat in real-time. 
+The app will allow you to communicate with customer support or any automated services available.
+
+## App Screenshot
+
+Here's a screenshot of the app in action:
+
+![Screenshot of the App](LCWsample/screenshot_01.png)
+![Screenshot of the App](LCWsample/screenshot_02.png)
+
+
+## How to Use
+
+1. Paste your script or add orgId, orgUrl, and widgetId separately.
+2. Click on the "Let's Chat" Button.
+3. Start interacting with the chat.
+
+## Troubleshoot
+If you face build issue related to namespace for randombytes package. Update namespace in its build.gradle.  
+
+namespace 'com.bitgo.randombytes' (path: node_modules -> react-native-randombytes -> android -> build.gradle) 
 
 ## Contributing
 
