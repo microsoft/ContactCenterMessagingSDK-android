@@ -1,11 +1,22 @@
 ## Building the Sample App
-First, clone the repo:
 
-git clone https://github.com/microsoft/ContactCenterMessagingSDK-android.git
+Manual Integration:
+1. Clone the repository. 
+    git clone https://github.com/microsoft/ContactCenterMessagingSDK-android.git
+2. Open the terminal and run "npm install" on root folder (provided package.json copied to root folder). 
+4. Manually download the AAR files from release for desired version - https://github.com/microsoft/ContactCenterMessagingSDK-android/releases
+5. Place aar files in libs.
+6. Build the app based on your build tools.
+7. Run the app
 
-Next, Open terminal and run "npm install" on root folder (provided package.json copied to root folder). 
-
-Building the sample then depends on your build tools.
+Integration through gradle:
+1. Clone the repository. 
+    git clone https://github.com/microsoft/ContactCenterMessagingSDK-android.git
+2. Open the terminal and run "npm install" on root folder (provided package.json copied to root folder). 
+3. Update the desired 'sdkVersion' in the app's build.gradle file.
+4. Download the AAR files - "./gradlew downloadAars"
+5. Sync/configure the app.
+6. Run the app.
 
 ## Android Studio (Recommended)
 (These instructions were tested with gradle 8.7, Android Studio Koala | 2024.1.1 Patch 2 , OpenJDK 19.0.2)
