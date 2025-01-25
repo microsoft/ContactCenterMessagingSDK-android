@@ -9,7 +9,7 @@ Manual Integration:
 5. Build the app based on your build tools.
 6. Run the app
 
-Integration through gradle:
+Integration through Gradle:
 1. Clone the repository. 
     git clone https://github.com/microsoft/ContactCenterMessagingSDK-android.git
 2. Open the terminal and run "npm install" on root folder (provided package.json copied to root folder). 
