@@ -1,4 +1,5 @@
 import org.jetbrains.kotlin.storage.CacheResetOnProcessCanceled.enabled
+import java.net.URL
 
 plugins {
     alias(libs.plugins.android.application)
@@ -48,11 +49,29 @@ repositories {
     }
 }
 
+// Download aar files from GitHub
+val sdkVersion = "v0.0.1-beta.3"
+task("downloadAarFiles") {
+    doLast {
+        println("Download AARs task started...")
+        val aar1Url = "https://github.com/microsoft/ContactCenterMessagingSDK-android/releases/download/$sdkVersion/ContactCenterMessagingWidget.aar"
+        val aar2Url = "https://github.com/microsoft/ContactCenterMessagingSDK-android/releases/download/$sdkVersion/OmnichannelChatSDK.aar"
+
+        val aar1File = file("${project.rootDir}/app/libs/ContactCenterMessagingWidget.aar")
+        val aar2File = file("${project.rootDir}/app/libs/OmnichannelChatSDK.aar")
+
+        URL(aar1Url).openStream().use { input -> aar1File.outputStream().use { output -> input.copyTo(output) } }
+        URL(aar2Url).openStream().use { input -> aar2File.outputStream().use { output -> input.copyTo(output) } }
+    }
+}
+
+tasks.named("preBuild") {
+    dependsOn("downloadAarFiles")
+}
+
 dependencies {
-    /*implementation("crm.omnichannel.lcwsdk:OmnichannelChatSDK:0.0.0-pr.28")
-    implementation("crm.omnichannel.lcwsdk:livechatwidget:0.0.1-pr.12")*/
-    implementation(files("libs/ContactCenterMessagingWidget-0.0.2.aar"))
-    implementation(files("libs/OmnichannelChatSDK-0.0.2.aar"))
+    implementation(files("libs/ContactCenterMessagingWidget.aar"))
+    implementation(files("libs/OmnichannelChatSDK.aar"))
     implementation("com.google.code.gson:gson:2.10.1")
     implementation("com.facebook.react:react-native:+")
     implementation("org.webkit:android-jsc:+")
