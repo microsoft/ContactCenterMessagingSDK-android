@@ -4,10 +4,10 @@ Manual Integration:
 1. Clone the repository. 
     git clone https://github.com/microsoft/ContactCenterMessagingSDK-android.git
 2. Open the terminal and run "npm install" on root folder (provided package.json copied to root folder). 
-4. Manually download the AAR files from release for desired version - https://github.com/microsoft/ContactCenterMessagingSDK-android/releases
-5. Place aar files in libs.
-6. Build the app based on your build tools.
-7. Run the app
+3. Manually download the AAR files from release for desired version - https://github.com/microsoft/ContactCenterMessagingSDK-android/releases
+4. Place aar files in libs.
+5. Build the app based on your build tools.
+6. Run the app
 
 Integration through gradle:
 1. Clone the repository. 
