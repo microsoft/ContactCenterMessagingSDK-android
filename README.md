@@ -14,7 +14,7 @@ Integration through gradle:
     git clone https://github.com/microsoft/ContactCenterMessagingSDK-android.git
 2. Open the terminal and run "npm install" on root folder (provided package.json copied to root folder). 
 3. Update the desired 'sdkVersion' in the app's build.gradle file.
-4. Download the AAR files - "./gradlew downloadAars"
+4. Download the AAR files - "./gradlew downloadAarFiles"
 5. Sync/configure the app.
 6. Run the app.
 
