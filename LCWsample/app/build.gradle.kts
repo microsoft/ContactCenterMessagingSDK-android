@@ -48,6 +48,23 @@ repositories {
         dirs("libs")
     }
 }
+
+// Download aar files from GitHub
+val sdkVersion = "v0.0.1-beta.3"
+task("downloadAarFiles") {
+    doLast {
+        println("Download AARs task started...")
+        val aar1Url = "https://github.com/microsoft/ContactCenterMessagingSDK-android/releases/download/$sdkVersion/ContactCenterMessagingWidget.aar"
+        val aar2Url = "https://github.com/microsoft/ContactCenterMessagingSDK-android/releases/download/$sdkVersion/OmnichannelChatSDK.aar"
+
+        val aar1File = file("${project.rootDir}/app/libs/ContactCenterMessagingWidget.aar")
+        val aar2File = file("${project.rootDir}/app/libs/OmnichannelChatSDK.aar")
+
+        URL(aar1Url).openStream().use { input -> aar1File.outputStream().use { output -> input.copyTo(output) } }
+        URL(aar2Url).openStream().use { input -> aar2File.outputStream().use { output -> input.copyTo(output) } }
+    }
+}
+
 tasks.named("preBuild") {
     dependsOn("downloadAarFiles")
 }
@@ -69,27 +86,4 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-}
-
-val sdkVersion = "v0.0.1-beta.3"
-
-// Download aar files from GitHub
-task("downloadAarFiles") {
-    doLast {
-        println("Download AARs task started...")
-        val aar1Url = "https://github.com/microsoft/ContactCenterMessagingSDK-android/releases/download/$sdkVersion/ContactCenterMessagingWidget.aar"
-        val aar2Url = "https://github.com/microsoft/ContactCenterMessagingSDK-android/releases/download/$sdkVersion/OmnichannelChatSDK.aar"
-
-        val aar1File = file("${project.rootDir}/app/libs/ContactCenterMessagingWidget.aar")
-        val aar2File = file("${project.rootDir}/app/libs/OmnichannelChatSDK.aar")
-
-        URL(aar1Url).openStream().use { input -> aar1File.outputStream().use { output -> input.copyTo(output) } }
-        URL(aar2Url).openStream().use { input -> aar2File.outputStream().use { output -> input.copyTo(output) } }
-    }
-}
-
-tasks.whenTaskAdded {
-    if (name == "build") {
-        dependsOn("downloadAars")
-    }
 }
