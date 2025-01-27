@@ -1,4 +1,11 @@
-## Building the Sample App
+# Contact Center Messaging SDK - Android
+
+> ⚠️ The software is a pre-release version. It may not operate correctly. It may be different from the
+commercially released version. You may not use the software in the live opening environment unless
+Microsoft permits you to do so under another agreement. You are highly encouraged to upgrade within
+30 days following first availability of a commercial release of the software.
+
+## Building the Sample App - LCWsample
 
 Manual Integration:
 1. Clone the repository. 
