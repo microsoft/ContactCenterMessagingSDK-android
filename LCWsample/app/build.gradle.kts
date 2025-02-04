@@ -34,6 +34,9 @@ android {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
+    packagingOptions {
+        pickFirst("**")
+    }
     kotlinOptions {
         jvmTarget = "1.8"
     }
@@ -67,4 +70,7 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+    implementation ("io.adaptivecards:adaptivecards-android:2.9.0")
+    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
+    implementation ("com.google.android.flexbox:flexbox:3.0.0")
 }

@@ -3,3 +3,18 @@ plugins {
     alias(libs.plugins.android.application) apply false
     alias(libs.plugins.jetbrains.kotlin.android) apply false
 }
+
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+    }
+
+    dependencies{
+        modules {
+            module("com.google.android:flexbox") {
+                replacedBy("com.google.android.flexbox:flexbox")
+            }
+        }
+    }
+}
