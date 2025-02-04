@@ -32,7 +32,6 @@ class ChatActivity : AppCompatActivity() {
         binding = ActivityChatBinding.inflate(layoutInflater)
         setContentView(binding.root)
         initUtility()
-        initSDK()
     }
 
     private fun initUtility() {
@@ -75,6 +74,7 @@ class ChatActivity : AppCompatActivity() {
                 etAuth.setText(authTkn)
             }
         }
+        initSDK()
     }
 
     fun launchChat(view: View?) {
