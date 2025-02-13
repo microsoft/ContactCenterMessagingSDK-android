@@ -53,7 +53,7 @@ repositories {
 }
 
 // Download aar files from GitHub
-val sdkVersion = "v0.0.1-beta.3"
+val sdkVersion = "v0.0.2"
 task("downloadAarFiles") {
     doLast {
         println("Download AARs task started...")
