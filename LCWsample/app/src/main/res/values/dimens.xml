@@ -13,4 +13,32 @@
     <dimen name="chat_button_height">70dp</dimen>
     <dimen name="chat_button_width">70dp</dimen>
     <dimen name="max_edittext_height">100dp</dimen>
+
+    <dimen name="margin_5">5dp</dimen>
+    <dimen name="margin_10">10dp</dimen>
+    <dimen name="margin_20">20dp</dimen>
+    <dimen name="margin_30">30dp</dimen>
+    <dimen name="margin_40">40dp</dimen>
+
+    <dimen name="padding_5">5dp</dimen>
+    <dimen name="padding_8">8dp</dimen>
+    <dimen name="padding_10">10dp</dimen>
+    <dimen name="padding_20">20dp</dimen>
+    <dimen name="padding_30">30dp</dimen>
+    <dimen name="padding_40">40dp</dimen>
+
+    <dimen name="textSize_10">10sp</dimen>
+    <dimen name="textSize_12">12sp</dimen>
+    <dimen name="textSize_14">14sp</dimen>
+    <dimen name="textSize_16">16sp</dimen>
+    <dimen name="textSize_18">18sp</dimen>
+    <dimen name="textSize_20">20sp</dimen>
+    <dimen name="textSize_40">40sp</dimen>
+
+    <dimen name="max_height_100">100dp</dimen>
+    <dimen name="elevation_5">5dp</dimen>
+    <dimen name="elevation_15">15dp</dimen>
+    <dimen name="width_70">70dp</dimen>
+    <dimen name="height_70">70dp</dimen>
+
 </resources>

@@ -10,4 +10,11 @@
     <string name="txt_auth_tkn">Auth Token</string>
     <string name="hint_optional">(Optional)</string>
     <string name="hint_paste_your_script">Paste your script\n</string>
+    <string name="copy_fcm_token">Copy FCM Token</string>
+    <string name="reset">Reset</string>
+    <string name="verify_config">Verify your configuration and press Let\'s Chat button below to start.</string>
+    <string name="data_app_id">DATA APP ID</string>
+    <string name="org_id">ORG ID</string>
+    <string name="org_url">ORG URL</string>
+    <string name="auth_token">Auth Token</string>
 </resources>
