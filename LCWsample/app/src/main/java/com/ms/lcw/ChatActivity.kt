@@ -13,7 +13,6 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import com.lcw.lsdk.builder.LCWOmniChannelConfigBuilder
 import com.lcw.lsdk.chat.LiveChatMessaging
