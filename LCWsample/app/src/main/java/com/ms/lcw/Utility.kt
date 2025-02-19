@@ -3,71 +3,67 @@ package com.ms.lcw
 import android.content.Context
 import android.content.SharedPreferences
 import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import com.lcw.lsdk.data.requests.OmnichannelConfig
 import com.lcw.lsdk.logger.OLog
 import com.ms.lcw.script.ScriptAttributeExtractor
 
 class Utility {
 
-    private fun getSharedPreferences(context: Context): SharedPreferences {
-        return context.getSharedPreferences("OCPrefs", Context.MODE_PRIVATE)
+    fun storeItem(context: Context, key: String, item: OmnichannelConfig) {
+        val sharedPreferences: SharedPreferences = context.getSharedPreferences("OCPrefs", Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        val gson = Gson()
+        val json = gson.toJson(item)
+        editor.putString(key, json)
+        editor.apply()
     }
 
-    private fun getGson(): Gson {
-        return Gson()
+    fun storeAuth(context: Context, key: String, item: String) {
+        val sharedPreferences: SharedPreferences = context.getSharedPreferences("OCPrefs", Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.putString(key, item)
+        editor.apply()
     }
 
-    private fun <T> saveObjectToPreferences(context: Context, key: String, item: T) {
-        val sharedPreferences = getSharedPreferences(context)
-        val json = getGson().toJson(item)
-        sharedPreferences.edit().putString(key, json).apply()
+    fun storeFCMToken(context: Context, key: String, item: String) {
+        val sharedPreferences: SharedPreferences = context.getSharedPreferences("OCPrefs", Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.putString(key, item)
+        editor.apply()
     }
 
-    private fun <T> getObjectFromPreferences(context: Context, key: String, type: Class<T>): T? {
-        val sharedPreferences = getSharedPreferences(context)
+    fun retrieveItem(context: Context, key: String): OmnichannelConfig? {
+        val sharedPreferences: SharedPreferences = context.getSharedPreferences("OCPrefs", Context.MODE_PRIVATE)
+        val gson = Gson()
+
+        // Retrieve the JSON string
         val json = sharedPreferences.getString(key, null)
+
+        // Convert the JSON string back to the Item object
         return if (json != null) {
-            getGson().fromJson(json, type)
+            val type = object : TypeToken<OmnichannelConfig>() {}.type
+            gson.fromJson(json, type)
         } else {
             null
         }
     }
 
-    fun storeItem(context: Context, key: String, item: OmnichannelConfig) {
-        saveObjectToPreferences(context, key, item)
-    }
-
-    fun storeAuth(context: Context, key: String, item: String) {
-        val sharedPreferences = getSharedPreferences(context)
-        sharedPreferences.edit().putString(key, item).apply()
-    }
-
-    fun retrieveItem(context: Context, key: String): OmnichannelConfig? {
-        return getObjectFromPreferences(context, key, OmnichannelConfig::class.java)
-    }
-
     fun getFCMToken(context: Context, key: String): String {
-        return getSharedPreferences(context).getString(key, "") ?: ""
+        val sharedPreferences: SharedPreferences = context.getSharedPreferences("OCPrefs", Context.MODE_PRIVATE)
+        return sharedPreferences.getString(key, null) ?: ""
     }
 
     fun getAuth(context: Context, key: String): String {
-        return getSharedPreferences(context).getString(key, "") ?: ""
+        val sharedPreferences: SharedPreferences = context.getSharedPreferences("OCPrefs", Context.MODE_PRIVATE)
+        return sharedPreferences.getString(key, null) ?: ""
     }
 
-    fun extract(scriptTag: String?): OmnichannelConfig? {
-        if (scriptTag.isNullOrEmpty()) return null
-
-        val attributes = ScriptAttributeExtractor.extractAttributes(scriptTag)
-
-        return attributes?.let {
-            OmnichannelConfig(
-                widgetId = it.dataAppId,
-                orgId = it.dataOrgId,
-                orgUrl = it.dataOrgUrl
-            )
-        } ?: run {
-            OLog.d("No valid script attributes found.")
-            null
-        }
+    fun clearOrgs(context: Context, key: String) {
+        val sharedPreferences: SharedPreferences =
+            context.getSharedPreferences("OCPrefs", Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.remove(key)
+        editor.apply()
     }
 }
