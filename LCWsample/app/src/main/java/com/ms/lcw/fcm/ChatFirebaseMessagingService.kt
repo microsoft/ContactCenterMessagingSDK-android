@@ -45,7 +45,7 @@ class ChatFirebaseMessagingService : FirebaseMessagingService() {
     }
 
     private fun showArrivalNotification(title: String, body: String) {
-        if (LiveChatMessaging.getInstance().isChatInProgress && !ChatData.isMinimise()) {
+        if (LiveChatMessaging.getInstance().isChatVisibleAndActive) {
             Log.d("FCM", "Notification bounce due to active chat screen")
             return
         }
