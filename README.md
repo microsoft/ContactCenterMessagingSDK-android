@@ -1,4 +1,4 @@
-# Dynamics 365 Contact Center - Messaging SDK - iOS
+# Dynamics 365 Contact Center - Messaging SDK - Android
 
 > ⚠️ The software is available as a Public Preview with release support for select Microsoft
 partners and customers. To receive support for your release, contact CC-Mobile-Preview@microsoft.com 
@@ -10,37 +10,40 @@ to guarantee timely support during the Preview period.
   * [About](#about)
   * [Installation](#installation)
     + [Pre-Requisites](#pre-requisites)
-    + [Method One: Manual Integration](#method-one-manual-integration)
-    + [Method Two: Cocoapods](#method-two-cocoapods)
-    + [Instructions for Using the Chat Feature in the Sample App](#instructions-for-using-the-chat-feature-in-the-sample-app)
-  * [Initializing](#initializing)
-    + [InitOmnichannelChatSDK API](#initomnichannelchatsdk-api)
-    + [Authentication](#authentication)
+    + [Building the Sample App - LCWsample](#building-the-sample-app---lcwsample)
+      - [Manual Integration](#manual-integration)
+      - [Integration through Gradle](#integration-through-gradle)
+    + [Android Studio (Recommended)](#android-studio-recommended)
+    + [Instructions for Using the Chat Feature in the Sample Android App](#instructions-for-using-the-chat-feature-in-the-sample-android-app)
+  * [Initialization](#initialization)
   * [Messaging Widget](#messaging-widget)
   * [Core Messaging Framework](#core-messaging-framework)
-    + [Get Success and Error Responses](#get-success-and-error-responses)
-    + [initOmnichannelChatSDK](#initomnichannelchatsdk)
-    + [getAgentAvailability](#getagentavailability)
-    + [onNewMessage](#onnewmessage)
-    + [startChat](#startchat)
-    + [getAgentTypingStatus](#getagenttypingstatus)
-    + [sendCustomerTyping](#sendcustomertyping)
-    + [onAgentEndSession](#onagentendsession)
-    + [getLCWLiveChatConfig](#getlcwlivechatconfig)
-    + [getPreChatSurvey](#getprechatsurvey)
-    + [sendMessage](#sendmessage)
-    + [getAllMessages](#getallmessages)
-    + [getLiveChatTranscript](#getlivechattranscript)
-    + [getLiveChatRawTranscript](#getlivechatrawtranscript)
-    + [getConversationDetails](#getconversationdetails)
-    + [getDataMaskingRules](#getdatamaskingrules)
-    + [uploadFileAttachment](#uploadfileattachment)
-    + [downloadFileAttachment](#downloadfileattachment)
-    + [getChatToken](#getchattoken)
-    + [emailTranscriptCall](#emailtranscriptcall)
-    + [endOCSDKChat](#endocsdkchat)
-  * [Contributing](#contributing)
-  * [Trademarks](#trademarks)
+    + [Initialization](#initialization-1)
+    + [Authentication](#authentication)
+    + [Start Chat](#start-chat)
+    + [Get PreChat Survey](#get-prechat-survey)
+    + [Get Live Chat Config](#get-live-chat-config)
+    + [Get Current Live Chat Context](#get-current-live-chat-context)
+    + [Get Data Masking Rules](#get-data-masking-rules)
+    + [Get Chat Reconnect Context](#get-chat-reconnect-context)
+    + [Get Conversation Details](#get-conversation-details)
+    + [Get Chat Token](#get-chat-token)
+    + [Send Message](#send-message)
+    + [On Typing Event](#on-typing-event)
+    + [On New Message](#on-new-message)
+    + [On Agent End Session](#on-agent-end-session)
+    + [Send Customer Typing](#send-customer-typing)
+    + [Email Live Chat Transcript](#email-live-chat-transcript)
+    + [Get Live Chat Transcript](#get-live-chat-transcript)
+    + [End Chat](#end-chat)
+    + [Get Agent Availability](#get-agent-availability)
+    + [Download File Attachment](#download-file-attachment)
+    + [Upload File Attachment](#upload-file-attachment)
+    + [Post Chat Survey Context](#post-chat-survey-context)
+    + [Get Reconnect Context](#get-reconnect-context)
+    + [LCWMessagingDelegate](#lcwmessagingdelegate)
+    + [getConversationDetails Logic in ChatActivity](#getconversationdetails-logic-in-chatactivity)
+  * [Troubleshooting](#troubleshooting)
 
 ## About
 
@@ -84,41 +87,44 @@ to our roadmap.
         *	For reference, see:
             * [Configure a chat widget | Microsoft Learn](https://learn.microsoft.com/en-us/dynamics365/customer-service/administer/add-chat-widget)
             * [Embed chat widget in your website or portal | Microsoft Learn](https://learn.microsoft.com/en-us/dynamics365/customer-service/administer/embed-chat-widget-portal)
-* Application deployment target minimum of iOS 14 or above
-* XCode 15 and above
-* Cocoapods
+*	Android SDK/API target minimum of 26 or above 
+*	package.json file (included) 
 
-### Method One: Manual Integration
-1. Clone the repository ContactCenterMessagingSDK-ios.
-2. Go to the root folder of ContactCenterMessagingApp.
-3. Open the Podfile and either remove or comment out the following lines to prevent CocoaPods from automatically adding the SDK:
-    ```
-    $sdkVersion = 'v1.0.0' 
-    pod 'ContactCenterMessagingSDK', :podspec => 'https://github.com/microsoft/ContactCenterMessagingSDK-ios/releases/download/' + $sdkVersion + '/ContactCenterMessagingSDK-ios.podspec'
-    ```
-4. Open the terminal and navigate to the root directory of the ContactCenterMessagingApp to install the pods for the Adaptivecards dependency. Execute the following command in the terminal.
-command : pod install 
-5. Manually download the xcframeworks from releases section for desired version and add into to the root folder of ContactCenterMessagingApp. https://github.com/microsoft/ContactCenterMessagingSDK-ios/releases
-6. Open ContactCenterMessagingApp.xcworkspace in xcode.
-7. Add the downloaded xcframeworks into the project. For adding XCframeworks 
-Click on 'ContactCenterMessagingApp' -> Select 'Targets' -> Select 'General' -> Open 'Frameworks, Library and Embedded Content' -> Click on '+' icon -> Click on 'Add Other' -> Select 'Add Files' -> Select following xcframeworks
-        a. ContactCenterMessagingSDK.xcframework
-        b. ContactCenterMessagingWidget.xcframework
-        c. OmnichannelChatSDK.xcframework
-9. Open ViewController class and add omnichannel credentials OrgID, OrgURL and WidgetId.
-10. Clean build and run the application.
+### Building the Sample App - LCWsample
 
-### Method Two: Cocoapods
-1. Clone the repository ContactCenterMessagingSDK-ios.
-2. Go to the root folder of ContactCenterMessagingApp.
-3. Open podfile and update ContactCenterMessagingSDK version.
-4. Open the terminal and navigate to the root directory of the ContactCenterMessagingApp to install the pods for the Adaptivecards dependency & ContactCenterMessagingSDKs. Execute the following command in the terminal.
-command : pod install
-5. Open ContactCenterMessagingApp.xcworkspace in xcode.
-6. Open ViewController class and add omnichannel credentials OrgID, OrgURL and WidgetId.
-7. Clean build and run the application.
+#### Manual Integration:
+1. Clone the repository. 
+    git clone https://github.com/microsoft/ContactCenterMessagingSDK-android.git
+2. Open the terminal and run "npm install" on root folder (provided package.json copied to root folder). 
+3. Manually download the AAR files from release for desired version - https://github.com/microsoft/ContactCenterMessagingSDK-android/releases
+4. Place aar files in libs.
+5. Build the app based on your build tools.
+6. Run the app
 
-### Instructions for Using the Chat Feature in the Sample App:
+#### Integration through Gradle:
+1. Clone the repository. 
+    git clone https://github.com/microsoft/ContactCenterMessagingSDK-android.git
+2. Open the terminal and run "npm install" on root folder (provided package.json copied to root folder). 
+3. Update the desired 'sdkVersion' in the app's build.gradle file.
+4. Download the AAR files - "./gradlew downloadAarFiles"
+5. Sync/configure the app.
+6. Run the app.
+
+### Android Studio (Recommended)
+(These instructions were tested with gradle 8.7, Android Studio Koala | 2024.1.1 Patch 2 , OpenJDK 19.0.2)
+
+Open Android Studio and select File->Open... or from the Android Launcher select Import project (Eclipse ADT, Gradle, etc.) and navigate to the root directory of your project.
+Select the directory or drill in and select the file build.gradle in the cloned repo.
+Click 'OK' to open the the project in Android Studio.
+A Gradle sync should start, but you can force a sync and build the 'app' module as needed.
+Gradle (command line)
+Build the APK: ./gradlew build
+
+Android Studio
+Select Run -> Run 'app' (or Debug 'app') from the menu bar
+Select the device you wish to run the app on and click 'OK'
+
+### Instructions for Using the Chat Feature in the Sample Android App:
 1. Paste Your Script (taken from the Chat Workstream Page) or Add the Required Information:
 
 In your app’s landing screen, you will find input fields where you need to enter:
@@ -137,806 +143,390 @@ After clicking the button, you will see the chat interface appear on the screen.
 You can now type messages, send media, or interact with the chat in real-time. 
 The app will allow you to communicate with customer support or any automated services available.
 
-## Initializing
-### InitOmnichannelChatSDK API
-You need to initialize the Omnichannel SDK with your omnichannel credentials and desired settings before doing any other operations. You can do this via InitOmnichannelChatSDK API. You can call this api using LiveChatMessaging class from ContactCenterMessagingSDK framework, either at startup, or at the desired point in your application flow. 
+## Initialization
 
-omniChannelConfig is mandatory. This includes your org details and other optional parameters that dictate chat behavior and what details are passed to the Agent. A detailed list of available parameters is below.
+The engagement is initialized with the LCWApiResponse API call for bot Copilot Studio conversations and Customer Service Rep conversations. 
 
-**API**:
-```objc
-public func initialize(omniChannelConfig:LCWOmniChannelConfigRequest,
-                       chatSDKconfig: LCWChatSDKConfigRequest?,
-                       initializeChatConfig:LCWInitializeParamsRequest?,
-                       authToken: String?, /// For customer authentication -- see "Authentication"
-                       environment: String /// Configure the current environment setting, such as test, production, etc.
-                      )
+Upon a successful request, the CompletionHandler's onResponse method is invoked (Optional), returning an ApiResult with either a success or error response.
+
+> ❗ Note: You should not directly instantiate the LCWApiResponse class. Instead use the following Messaging builder class: _Completionhandler is optional interface to get callbacks of APi Response_
+
+```.kt
+//Parameters
+val omnichannelConfig = OmnichannelConfig(
+    orgId = “YOUR_ORG_ID”,
+    orgUrl = “ORG_URL”,
+    widgetId = “WIDGET_ID”
+)
+
+//Request builder
+val lcwOmniChannelConfigBuilder =
+    LCWOmniChannelConfigBuilder.EngagementBuilder(omnichannelConfig, chatSdkConfig).build()
+
+//Invoking
+LiveChatMessaging.getInstance()
+   . initialize(this, lcwOmniChannelConfigBuilder, "auth_token", "environment")
+LiveChatMessaging.getInstance().launchLcwBrandedMessaging(this)
 ```
-
-**Builders**:
-```objc
-public struct LCWOmniChannelConfigRequest { /// Use this builder for omnichannel configuration, which includes various settings. Required.
-    public let orgId: String? /// Provide the Microsoft-supplied organization ID to identify your organization.
-    public let orgUrl: String? /// Enter the Microsoft-supplied organization URL to identify your org.
-    public let widgetId: String? /// Use the Microsoft-provided widget ID to identify your omnichannel chat.
-}
-
-public struct LCWChatSDKConfigRequest { /// Used to configure the chat, including several parameters. Optional.
-    public var dataMasking: LCWDataMaskingSDKConfig? /// Used to input settings for data masking 
-    public var telemetry: LCWTelemetrySDKConfig? /// Used to enable or disable telemetry tracking for chat.
-    public var persistentChat: LCWPersistentChatConfig? /// Used to enable or disable persistent chat
-    public var chatReconnect: LCWChatReconnectConfig? /// Used to turn chat reconnect functionality on or off
-}
-
-public struct LCWDataMaskingSDKConfig {
-    public var disable: Bool = true /// This flag controls enabling or disabling data masking. Default value is true, disabled
-    public var maskingCharacter: String? /// Define masking regex characters
-}
-
-public struct LCWTelemetrySDKConfig {
-    public var disable: Bool? = false /// This flag controls telemetry activation. Default value is false, disabled.
-}
-
-public struct LCWPersistentChatConfig {
-    public var disable: Bool = false /// This flag controls persistent chat, which is false by default.
-    public var tokenUpdateTime: String? /// This parameter lets you set the token update time.
-}
-
-public struct LCWChatReconnectConfig {
-    public var disable: Bool = true /// This flag enables or disables chat reconnection. The default value is true, disabled
-}
-
-public struct LCWInitializeParamsRequest { /// Used to provide omnichannel chat SDK initialization parameters, optional
-     public let sendCacheHeaders: Bool? /// A Boolean value set true to send cache headers with the response, particularly for browsers
-     public let useRuntimeCache: Bool? /// A Boolean is used to control whether the runtime cache is utilized during the chat session. When useRuntimeCache is set to true, it allows the system to use cached data for faster performance and reduced latency, particularly for browsers
-}
-```
-### Authentication
-
-Dynamics Contact Center always recommends using persistent chat for mobile, which requires customer 
-authentication. You identify the customer during initialization by providing an auth token containing 
-an identifier such as a Dynamics Record ID, with the token signed by your identity provider.
-
-Details on setting up a token are available here: https://learn.microsoft.com/en-us/dynamics365/customer-service/administer/create-chat-auth-settings
-
 ## Messaging Widget
-Customizations available in the out of the box messaging widget are documented here with visual examples:
+Customizations available in the out of the box messaging widget are documented here:
 
 [Android Widget Customizations](Android_Widget_Customizations.pdf)
 
-## Core Messaging Framework 
+## Core Messaging Framework
 This section describes the messaging lifecycle functions in the SDK.
+### Initialization
+You need to initialize the Omnichannel SDK with your omnichannel credentials before doing any other operations. You can call this method either at startup, or at the desired point in your application flow.
 
-### Get Success and Error Responses
+This requires your org details and authentication details for the customer. See Authentication section for more information.
 
-Most APIs use LCWResponse for success and error responses. To access them, call successResponse.getResponse() for success responses in [String: Any]? format and errorObj.getErrorMessage() for error messages. 
-
-For errors in sendMessages or uploadFileAttachment, identify the unsent message or failed upload via error?.getErrorProperties(), which includes the id from the request.
-
-```objc
-@objc public class LCWResponse : NSObject {
-    public func getResponse() -> [String : Any]?
-     public func getErrorMessage() -> String?
-    public func getErrorProperties() -> [String : Any]?
-}
+API
+```kotlin
+LiveChatMessaging.getInstance()
+   . initialize(this, lcwOmniChannelConfigBuilder, "auth_token", "environment")
+LiveChatMessaging.getInstance().launchLcwBrandedMessaging(this)
 ```
 
-### initOmnichannelChatSDK
-This API is used to initialize the OmnichannelChatSDK. It requires a view controller object and provides a completion handler to handle the response.
+Builders
+```kotlin
+val omnichannelConfig = OmnichannelConfig(
+    orgId = “YOUR_ORG_ID”,
+    orgUrl = “ORG_URL”,
+    widgetId = “WIDGET_ID”
+)
+```
+
+### Authentication
+Dynamics Contact Center always recommends using persistent chat for mobile, which requires customer authentication. You identify the customer during initialization by providing an auth token containing an identifier such as a Dynamics Record ID, with the token signed by your identity provider.
+
+Details on setting up a token are available here: https://learn.microsoft.com/en-us/dynamics365/customer-service/administer/create-chat-auth-settings
+
+### Start Chat
+This starts a Contact Center session, and is used when the customer opens the messaging app or tries to start a new conversation.
+
 #### Method
-```objc
-public func initOmnichannelChatSDK(_ viewController: UIViewController, _ completionHandler: ((_ success: LCWResponse?, _ error: LCWResponse?) -> Void)?)
-```
-#### Parameters
-* `viewController`: A UIViewController object that represents the view controller where the chat SDK will be initialized.
-  * `completionHandler`: An optional closure that is called when the API call completes. It has two parameters:
-    * `success`: An optional LCWResponse object that contains the details of the successful response.
-    * `error`: An optional LCWResponse object that contains the details of the error response.
-#### Example
-```objc
-let viewController = UIViewController()
-LiveChatWidgetCore.initOmnichannelChatSDK(viewController) {(success, error) in
-    if let successResponse = success, let dictSuccess = successResponse..getResponse() {
-        // Handle success
-        print("Initialization successful: \(dictSuccess)")
-    } else if let errorResponse = error, let errorMsg = errorResponse. getErrorMessage() {
-        // Handle error
-        print("Error: \(errorMsg)")
-    }
-}
+```kotlin
+val request = StartChatRequestBuilder().buildStartChatRequestParams(
+    StartChatOptionalParams(
+        liveChatContext = // EXISTING chat context data
+        preChatResponse = // PreChatSurvey response,
+        customContext =//// EXISTING custom context data
+        os = "Android",
+        locale = null,
+        device = Build.DEVICE,
+        browser = null,
+        initContext = null,
+        reconnectId = reconnectId,
+        sendDefaultInitContext = false,
+        isProactiveChat = false,
+        latitude = null,
+        longitude = null,
+        portalContactId = null
+  )
+public void startChat(requestParam, completionHandler) {}
 ```
 
-
-### getAgentAvailability
-This API is used to check the availability of agents. It takes optional parameters for the request and provides a completion handler to handle the response.
+### Get PreChat Survey
+Retrieves the Pre-Chat Survey configured in Customer Service Admin Center for the selected Org and App ID.
 #### Method
-```objc
-public func getAgentAvailability(_ optionalParams: LCWAgentAvailabilityRequest? = nil, _ completionHandler: @escaping ((_ success: LCWResponse?, _ error: LCWResponse?) -> Void))
+```kotlin
+LiveChatMessaging.getInstance().getPreChatSurvey(request, completionhandler) {}
 ```
-#### Parameters
-* `optionalParams`: An optional parameter of type LCWAgentAvailabilityRequest. This parameter can be used to pass additional request details. All parameters are optional in LCWAgentAvailabilityRequest.
-  * `preChatResponse`: A dictionary containing pre-chat response.
-  * `customContext`: A dictionary containing custom context information.
-  * `browser`: A string representing the browser being used. particularly for browsers.
-  * `os`: A string representing the operating system being used.
-  * `locale`: A string representing the locale.
-  * `device`: A string representing the device being used.
-  * `initContext`: A dictionary containing initialization context information.
-  * `reconnectId`: A string representing the reconnect ID.
-  * `portalContactId`: A string representing the portal contact ID.
-* `completionHandler`: A closure that is called when the API call completes. It has two parameters:
-  * `success`: A closure that is called when the API call completes. It has two parameters:
-  * `error`: An optional LCWResponse object that contains the details of the error response.
-#### Example
-```objc
-let optionalParams = LCWAgentAvailabilityRequest(
-    preChatResponse: ["question1": "answer1"],
-    customContext: ["key": "value"],
-    browser: "",
-    os: "iOS",
-    locale: "en-US",
-    device: "iPhone",
-    initContext: ["contextKey": "contextValue"],
-    reconnectId: "12345",
-    portalContactId: "67890"
+
+### Get Live Chat Config
+Retrieves the customized behavior and style settings from Customer Service Admin Center for the selected Org and App ID.
+#### Method
+```kotlin
+val optionalRequest =  GetLiveChatConfigOptionalParams(
+    sendCacheHeaders = false, // Boolean
+    useRuntimeCache = null // Boolean
 )
 
-LiveChatWidgetCore.getAgentAvailability(optionalParams) { (success, error) in
-     if let successResponse = success, let dictSuccess = successResponse..getResponse() {
-        	// Handle success
-        	print(" Agent availability: \(dictSuccess)")
-    } else if let errorResponse = error, let errorMsg = errorResponse. getErrorMessage() {
-        // Handle error
-        print("Error: \(errorMsg)")
-    }
-}
+LiveChatMessaging.getInstance(). getLiveChatConfig (optionalRequest, completionhandler) {}
 ```
 
-### onNewMessage
-This API is used to handle new incoming messages. It takes parameters for the request and provides a completion block to handle the response.
+### Get Current Live Chat Context
+Gets the current live chat context information to be used to reconnect to the same conversation.
 #### Method
-```objc
-public func onNewMessage(_ params: LCWGetMessageRequest, completionBlock: @escaping ((_ success: LCWGetMessageResponse?, _ error: LCWResponse?) -> Void))  
-```
-#### Parameters
-* `params`: A parameter of type LCWGetMessageRequest. This parameter contains the details of the message request.
-  * `rehydrate`: A boolean value indicating whether to rehydrate previous messages from existing conversation. The default value is false.
-* `completionBlock`: A closure that is called when the API call completes. It has two parameters:
-  * `success`: An optional LCWGetMessageResponse object that contains the details of the successful response
-  * `error`: An optional LCWResponse object that contains the details of the error response
-#### Example
-```objc
-let messageRequest = LCWGetMessageRequest(rehydrate: true)
-LiveChatWidgetCore.onNewMessage(messageRequest) { (success, error) in
-  if let successResponse = success, let dictSuccess = successResponse..getResponse() {
-        // Handle success
-        print(" New message received: \(dictSuccess)")
-    } else if let errorResponse = error, let errorMsg = errorResponse. getErrorMessage() {
-        // Handle error
-        print("Error: \(errorMsg)")
-    }
-}
+```kotlin
+LiveChatMessaging.getInstance().getLiveChatContextFromApi(CompletionHandler handler) {}
 ```
 
 
-
-### startChat
-This API is used to start a chat session. It takes optional parameters for the request and provides a completion handler to handle the response.
+### Get Data Masking Rules
+Retrieves the data masking regex patterns that are configured in the Customer Service Admin Center for the selected Org and App ID. See here: https://learn.microsoft.com/en-us/dynamics365/customer-service/administer/data-masking-settings
 #### Method
-```objc
-public func startChat(_ optionalParams: LCWStartChatRequest? = nil, _ completionHandler: @escaping ((_ success: LCWResponse?, _ error: LCWResponse?) -> Void))  
+```kotlin
+LiveChatMessaging.getInstance().getDataMaskingRules(LCWRequest requestParam, CompletionHandler handler) {}
 ```
-#### Parameters
-* `optionalParams`: An optional parameter of type LCWStartChatRequest. This parameter can be used to pass additional request details. All parameters in LCWStartChatRequest are optional.
-  * `liveChatContext`: A dictionary containing the live chat context.
-  * `preChatResponse`: A dictionary containing pre-chat responses.
-  * `customContext`: A dictionary containing custom context information.
-  * `browser`: A string representing the browser being used (the widget will report "App", we recommend using the same value)
-  * `os`: A string representing the operating system being used.
-  * `locale`: A string representing the locale.
-  * `device`: A string representing the device being used.
-  * `initContext`: An optional parameter of type LCWInitializeParamsRequest containing initialization context information.
-    * `sendCacheHeaders`: A Boolean value set true to send cache headers with the response, particularly for browsers. 
-    * `useRuntimeCache`: A Boolean is used to control whether the runtime cache is utilized during the chat session. When useRuntimeCache is set to true, it allows the system to use cached data for faster performance and reduced latency, particularly for browsers.
-  * `reconnectId`: A string representing the reconnect ID.
-  * `isProactiveChat`: A boolean value indicating whether the chat is proactive.
-  * `latitude`: A string representing the latitude.
-  * `longitude`: A string representing the longitude.
-  * `portalContactId`: A string representing the portal contact ID.
-* `completionHandler`: A closure that is called when the API call completes. It has two parameters:
-  * `success`: An optional LCWResponse object that contains the details of the successful response.
-  * `error`: An optional LCWResponse object that contains the details of the error response.
-#### Example
-```objc
-let startChatRequest = LCWStartChatRequest(
-    liveChatContext: ["contextKey": "contextValue"],
-    preChatResponse: ["question1": "answer1"],
-    customContext: ["key": "value"],
-    browser: "Chrome",
-    os: "iOS",
-    locale: "en-US",
-    device: "iPhone",
-    initContext: nil,
-    reconnectId: nil,
-    isProactiveChat: true,
-    latitude: "37.7749",
-    longitude: "-122.4194",
-    portalContactId: "67890"
+
+### Get Chat Reconnect Context
+It gets the current reconnectable chat context information to connect to a previous existing chat session.
+Setting reconnection options is required, see here: https://learn.microsoft.com/en-us/dynamics365/customer-service/administer/configure-reconnect-chat?tabs=customerserviceadmincenter#enable-reconnection-to-a-previous-chat-session
+
+#### Method
+```kotlin
+val optionalRequest = LCWChatReconnectContextRequestBuilder().buildChatReconnectContextRequestParams(
+    reconnectId = "" 
 )
 
-LiveChatWidgetCore.startChat(startChatRequest) { (success, error) in
-       if let successResponse = success, let dictSuccess = successResponse..getResponse() {
-        // Handle success
-        print(" Chat started successfully: \(dictSuccess)")
-    } else if let errorResponse = error, let errorMsg = errorResponse. getErrorMessage() {
-        // Handle error
-        print("Error: \(errorMsg)")
-    }
-
-}
+LiveChatMessaging.getInstance().getChatReconnectContext(optionalRequest)
 ```
 
-
-### getAgentTypingStatus
-This API is used to check the typing status of an agent. It provides a completion handler to handle the response.
+### Get Conversation Details
+Gets the details of the current conversation such as its state & when the agent joined the conversation.
 #### Method
-```objc
-public func getAgentTypingStatus(completionHandler: @escaping ((_ success: LCWResponse?, _ error: LCWResponse?) -> Void))  
-```
-#### Parameters
-* `completionHandler`: A closure that is called when the API call completes. It has two parameters:
-  * `success`: An optional LCWResponse object that contains the details of the successful response.
-  * `error`: An optional LCWResponse object that contains the details of the error response.
-#### Example
-```objc
-LiveChatWidgetCore.getAgentTypingStatus { (success, error) in
-
-  if let successResponse = success, let dictSuccess = successResponse..getResponse() {
-        // Handle success
-        print(" Agent typing status: \(dictSuccess)")
-    } else if let errorResponse = error, let errorMsg = errorResponse. getErrorMessage() {
-        // Handle error
-        print("Error: \(errorMsg)")
-    }
-
-}
-```
-
-
-
-### sendCustomerTyping
-This API is used to send the typing status of a customer. It provides a completion handler to handle the response.
-#### Method
-```objc
-public func sendCustomerTyping(completionHandler: ((_ success: LCWResponse?, _ error: LCWResponse?) -> Void)?)  
-```
-#### Parameters
-* `completionHandler`: An optional closure that is called when the API call completes. It has two parameters:
-  * `success`: An optional LCWResponse object that contains the details of the successful response.
-  * `error`: An optional LCWResponse object that contains the details of the error response.
-
-#### Example
-```objc
-LiveChatWidgetCore.sendCustomerTyping { (success, error) in
-        if let successResponse = success, let dictSuccess = successResponse..getResponse() {
-        // Handle success
-        print(" Customer typing status sent: \(dictSuccess)")
-    } else if let errorResponse = error, let errorMsg = errorResponse. getErrorMessage() {
-        // Handle error
-        print("Error: \(errorMsg)")
-    }
-}
-```
-
-
-
-
-### onAgentEndSession
-This API is used to handle the event when an agent ends a chat session. It provides a completion handler to handle the response.
-#### Method
-```objc
-public func onAgentEndSession(completionHandler: ((_ success: LCWResponse?, _ error: LCWResponse?) -> Void)?)  
-```
-#### Parameters
-* `completionHandler`: An optional closure that is called when the API call completes. It has two parameters:
-  * `success`: An optional LCWResponse object that contains the details of the successful response.
-  * `error`: An optional LCWResponse object that contains the details of the error response.
-#### Example
-```objc
-LiveChatWidgetCore.onAgentEndSession { (success, error) in
-         if let successResponse = success, let dictSuccess = successResponse..getResponse() {
-        // Handle success
-        print(" Agent ended session: \(dictSuccess)")
-    } else if let errorResponse = error, let errorMsg = errorResponse. getErrorMessage() {
-        // Handle error
-        print("Error: \(errorMsg)")
-    }
-}
-```
-
-
-
-### getLCWLiveChatConfig
-This API is used to retrieve the live chat configuration in the LiveChatWidgetCore. It takes optional parameters for the request and provides a completion handler to handle the response. 
-The ChatConfig contains many parameters defined in the Customer Service Admin Center.
-#### Method
-```objc
-public func getLCWLiveChatConfig(_ optionalParams: LCWInitializeParamsRequest, completionHandler: ((_ response: LCWResponse?, _ error: LCWResponse?) -> Void)?)
-```
-#### Parameters
-* `optionalParams`: A parameter of type LCWInitializeParamsRequest. This parameter can be used to pass additional request details.
-  * `sendCacheHeaders`: A Boolean value set true to send cache headers with the response, particularly for browsers.
-  * `useRuntimeCache`: A Boolean is used to control whether the runtime cache is utilized during the chat session. When useRuntimeCache is set to true, it allows the system to use cached data for faster performance and reduced latency, particularly for browsers.
-* `completionHandler`: An optional closure that is called when the API call completes. It has two parameters:
-  * `success`: An optional LCWResponse object that contains the details of the successful response.
-  * `error`: An optional LCWResponse object that contains the details of the error response.
-#### Example
-```objc
-public struct LCWInitializeParamsRequest: Codable {
-     public let sendCacheHeaders: Bool?
-     public let useRuntimeCache: Bool?
-     
-     public init(sendCacheHeaders: Bool?, useRuntimeCache: Bool?) {
-         self.sendCacheHeaders = sendCacheHeaders
-         self.useRuntimeCache = useRuntimeCache
-     }
-}
-
-let initParams = LCWInitializeParamsRequest(sendCacheHeaders: true, useRuntimeCache: false)
-LiveChatWidgetCore.getLCWLiveChatConfig(initParams) { (response, error) in
-           if let successResponse = success, let dictSuccess = successResponse..getResponse() {
-        // Handle success
-        print(" Live chat configuration: \(dictSuccess)")
-    } else if let errorResponse = error, let errorMsg = errorResponse. getErrorMessage() {
-        // Handle error
-        print("Error: \(errorMsg)")
-    }
-}
-```
-
-### getPreChatSurvey
-This API is used to retrieve the pre-chat survey json. It provides a completion handler to handle the response.
-#### Method
-```objc
-public func getPreChatSurvey(completionHandler: ((_ response: LCWResponse?, _ error: LCWResponse?) -> Void)?)
-```
-#### Parameters
-* `completionHandler`: An optional closure that is called when the API call completes. It has two parameters:
-  * `success`: An optional LCWResponse object that contains the details of the successful response.
-  * `error`: An optional LCWResponse object that contains the details of the error response.
-#### Example
-```objc
-LiveChatWidgetCore.getPreChatSurvey { (response, error) in
-          if let successResponse = success, let dictSuccess = successResponse..getResponse() {
-        // Handle success
-        print(" Pre-chat survey retrieved: \(dictSuccess)")
-    } else if let errorResponse = error, let errorMsg = errorResponse. getErrorMessage() {
-        // Handle error
-        print("Error: \(errorMsg)")
-    }
-}
-```
-
-### sendMessage
-This API is used to send a message. It takes parameters for the message, a unique identifier, and provides a completion handler to handle the response.
-#### Method
-```objc
-public func sendMessage(params: LCWSendMessageRequest, id: String, _ completionHandler: ((_ response: LCWResponse?, _ error: LCWResponse?) -> Void)?)
-```
-#### Parameters
-* `params`: A parameter of type LCWSendMessageRequest. This parameter contains the details of the message to be sent.
-  * `content`: A string representing the content of the message.
-  * `tags`: An optional array of strings representing tags associated with the message.
-  * `timestamp`: An optional date representing the timestamp of the message.
-  * `metadata`: An optional dictionary containing additional metadata for the message.
-* `id`: A string representing a unique identifier given by the user.
-* `completionHandler`: An optional closure that is called when the API call completes. It has two parameters:
-  * `success`: An optional LCWResponse object that contains the details of the successful response.
-  * `error`: An optional LCWResponse object that contains the details of the error response.
-#### Example
-```objc
-public struct LCWSendMessageRequest: Codable {
-    public var content: String = ""
-    public var tags: [String]?
-    public var timestamp: Date?
-    public var metadata: [String: Any]?
-}
-
-let messageRequest = LCWSendMessageRequest(
-    content: "Hello, how can I help you?",
-    tags: ["FromCustomer"],
-    timestamp: Date(),
-    metadata: ["key": "value"]
-)
-let uniqueId = "12345"
-
-LiveChatWidgetCore.sendMessage(params: messageRequest, id: uniqueId) { (response, error) in
-       if let successResponse = success, let dictSuccess = successResponse..getResponse() {
-        // Handle success
-        print(" Message sent successfully: \(dictSuccess)")
-    } else if let errorResponse = error, let errorMsg = errorResponse. getErrorMessage() {
-        // Handle error
-        print("Error: \(errorMsg)")
-    }
-}
-```
-
-### getAllMessages
-This API is used to retrieve all messages of chat. It provides a completion handler to handle the response.
-#### Method
-```objc
-public func getAllMessages(completionHandler: @escaping ((_ success: [LCWGetMessageResponse]?, _ error: LCWResponse?) -> Void))
-```
-#### Parameters
-* `completionHandler`: An optional closure that is called when the API call completes. It has two parameters:
-  * `success`: An optional LCWResponse object that contains the details of the successful response.
-  * `error`: An optional LCWResponse object that contains the details of the error response.
-#### Example
-```objc
-LiveChatWidgetCore.getAllMessages { (success, error) in
-      if let successResponse = success, let dictSuccess = successResponse..getResponse() {
-        // Handle success
-        print(" Message: \(dictSuccess)")
-    } else if let errorResponse = error, let errorMsg = errorResponse. getErrorMessage() {
-        // Handle error
-        print("Error: \(errorMsg)")
-    }
-}
-
-```
-
-### getLiveChatTranscript
-This API is used to retrieve the live chat transcript in the LiveChatWidgetCore. It takes optional parameters for the request and provides a completion handler to handle the response.
-#### Method
-```objc
-public func getLiveChatTranscript(_ optionalParams: LCWLiveChatContextRequest?, completionHandler: @escaping ((_ success: [LCWGetMessageResponse]?, _ error: LCWResponse?) -> Void))
-```
-#### Parameters
-* `optionalParams`: An optional parameter of type LCWLiveChatContextRequest. This parameter can be used to pass additional request details.
-  * `liveChatContext`: A dictionary containing the live chat context.
-* `completionHandler`: An optional closure that is called when the API call completes. It has two parameters:
-  * `success`: An optional LCWResponse object that contains the details of the successful response.
-  * `error`: An optional LCWResponse object that contains the details of the error response.
-#### Example
-```objc
-public struct LCWLiveChatContextRequest {
-    public var liveChatContext: [String: Any]?
-}
- 
-let chatContextRequest = LCWLiveChatContextRequest(liveChatContext: ["contextKey": "contextValue"])
-
-LiveChatWidgetCore.getLiveChatTranscript(chatContextRequest) { (success, error) in
-      if let successResponse = success, let dictSuccess = successResponse..getResponse() {
-        // Handle success
-        print(" Messages transcript: \(dictSuccess)")
-    } else if let errorResponse = error, let errorMsg = errorResponse. getErrorMessage() {
-        // Handle error
-        print("Error: \(errorMsg)")
-    }
-}
-```
-
-
-### getLiveChatRawTranscript
-This API is used to retrieve the raw live chat transcript in the LiveChatWidgetCore. It takes optional parameters for the request and provides a completion handler to handle the response.
-#### Method
-```objc
-public func getLiveChatRawTranscript(_ optionalParams: LCWLiveChatContextRequest?, completionHandler: @escaping ((_ success: String?, _ error: LCWResponse?) -> Void))
-```
-#### Parameters
-* `optionalParams`: An optional parameter of type LCWLiveChatContextRequest. This parameter can be used to pass additional request details.
-  * `liveChatContext`: A dictionary containing the live chat context.
-* `completionHandler`: An optional closure that is called when the API call completes. It has two parameters:
-  * `success`: An optional LCWResponse object that contains the details of the successful response.
-  * `error`: An optional LCWResponse object that contains the details of the error response.
-#### Example
-```objc
-public struct LCWLiveChatContextRequest {
-    public var liveChatContext: [String: Any]?
-}
- 
-let chatContextRequest = LCWLiveChatContextRequest(liveChatContext: ["contextKey": "contextValue"])
-
-LiveChatWidgetCore.getLiveChatRawTranscript(chatContextRequest) { (success, error) in
-        if let successResponse = success, let dictSuccess = successResponse..getResponse() {
-        // Handle success
-        print(" Raw chat transcript: \(dictSuccess)")
-    } else if let errorResponse = error, let errorMsg = errorResponse. getErrorMessage() {
-        // Handle error
-        print("Error: \(errorMsg)")
-    }
-}
-```
-
-
-### getConversationDetails
-This API is used to retrieve the details of a conversation. It takes optional parameters for the request and provides a completion handler to handle the response.
-#### Method
-```objc
-public func getConversationDetails(_ optionalParams: LCWLiveChatContextRequest? = nil, completionHandler: @escaping ((_ success: LCWResponse?, _ error: LCWResponse?) -> Void))
-```
-#### Parameters
-* `optionalParams`: An optional parameter of type LCWLiveChatContextRequest. This parameter can be used to pass additional request details.
-  * `liveChatContext`: A dictionary containing the live chat context.
-* `completionHandler`: An optional closure that is called when the API call completes. It has two parameters:
-  * `success`: An optional LCWResponse object that contains the details of the successful response.
-  * `error`: An optional LCWResponse object that contains the details of the error response.
-#### Example
-```objc
-public struct LCWLiveChatContextRequest: Codable {
-    public var liveChatContext: [String: Any]?
-}
- 
-let conversationContextRequest = LCWLiveChatContextRequest(liveChatContext: ["contextKey": "contextValue"])
-
-LiveChatWidgetCore.getConversationDetails(conversationContextRequest) { (success, error) in
-          if let successResponse = success, let dictSuccess = successResponse..getResponse() {
-        // Handle success
-        print(" Conversation details: \(dictSuccess)")
-    } else if let errorResponse = error, let errorMsg = errorResponse. getErrorMessage() {
-        // Handle error
-        print("Error: \(errorMsg)")
-    }
-}
-```
-
-
-### getDataMaskingRules
-This API is used to retrieve the data masking rules in the LiveChatWidgetCore. It provides a completion handler to handle the response.
-#### Method
-```objc
-public func getDataMaskingRules(completionHandler: ((_ success: LCWResponse?, _ error: LCWResponse?) -> Void)?)
-```
-#### Parameters
-* `completionHandler`: An optional closure that is called when the API call completes. It has two parameters:
-  * `success`: An optional LCWResponse object that contains the details of the successful response.
-  * `error`: An optional LCWResponse object that contains the details of the error response.
-#### Example
-```objc
-LiveChatWidgetCore.getDataMaskingRules { (success, error) in
-        if let successResponse = success, let dictSuccess = successResponse..getResponse() {
-        // Handle success
-        print(" Data masking rules retrieved: \(dictSuccess)")
-    } else if let errorResponse = error, let errorMsg = errorResponse. getErrorMessage() {
-        // Handle error
-        print("Error: \(errorMsg)")
-    }
-}
-```
-
-### uploadFileAttachment
-This API is used to upload a file attachment in the LiveChatWidgetCore. It takes parameters for the file information, a unique identifier, and provides a completion handler to handle the response.
-#### Method
-```objc
-public func uploadFileAttachment(params: LCWFileInfoRequest, id: String = "", completionHandler: ((_ success: LCWResponse?, _ error: LCWResponse?) -> Void)?)
-```
-#### Parameters
-* `params`: A parameter of type LCWFileInfoRequest. This parameter contains the details of the file to be uploaded.
-  * `data`: A string representing the file data.
-  * `name`: A string representing the file name.
-  * `size`: A double representing the file size.
-  * `type`: A string representing the file type.
-* `id`: An optional closure that is called when the API call completes. It has two parameters:
-* `completionHandler`: An optional closure that is called when the API call completes. It has two parameters:
-  * `success`: An optional LCWResponse object that contains the details of the successful response.
-  * `error`: An optional LCWResponse object that contains the details of the error response.
-#### Example
-```objc
-public struct LCWFileInfoRequest: Codable {
-    public var data: String
-    public var name: String
-    public var size: Double
-    public var type: String
-}
-
-let fileInfoRequest = LCWFileInfoRequest(
-    data: "base64EncodedString",
-    name: "example.txt",
-    size: 1024.0,
-    type: "text/plain"
-)
-let uniqueId = "12345"
-
-LiveChatWidgetCore.uploadFileAttachment(params: fileInfoRequest, id: uniqueId) { (success, error) in
-    if let successResponse = success {
-        // Handle success
-        print("File uploaded successfully: \(successResponse)")
-    } else if let errorResponse = error {
-        // Handle error
-        print("Error: \(errorResponse)")
-    }
-}
-```
-
-### downloadFileAttachment
-This API is used to download a file attachment in the LiveChatWidgetCore. It takes parameters for the file metadata and provides a completion handler to handle the response.
-#### Method
-```objc
-public func downloadFileAttachment(params: LCWFileMetadataRequest, completionHandler: ((_ response: LCWResponse?, _ error: LCWResponse?) -> Void)?)
-```
-#### Parameters
-* `params`: A parameter of type LCWFileMetadataRequest. This parameter contains the details of the file to be downloaded.
-  * `fileSharingProtocolType`: An optional integer representing the file sharing protocol type.
-  * `id`: A string representing the file ID.
-  * `name`: An optional string representing the file name.
-  * `size`: An optional integer representing the file size.
-  * `type`: A string representing the file type.
-  * `url`: An optional string representing the file URL.
-* `completionHandler`: An optional closure that is called when the API call completes. It has two parameters:
-  * `success`: An optional LCWResponse object that contains the details of the successful response.
-  * `error`: An optional LCWResponse object that contains the details of the error response.
-#### Example
-```objc
-public struct LCWFileMetadataRequest: Codable {
-    public var fileSharingProtocolType: Int64?
-    public var id: String
-    public var name: String?
-    public var size: Int64?
-    public var type: String
-    public var url: String?
-}
-
-let fileMetadataRequest = LCWFileMetadataRequest(
-    fileSharingProtocolType: 1,
-    id: "file123",
-    name: "example.txt",
-    size: 1024,
-    type: "text/plain",
-    url: "https://example.com/file123"
+```kotlin
+val optionalParams = GetConversationDetailsOptionalParams(
+    liveChatContext = LiveChatContext(), // EXISTING chat context data
 )
 
-LiveChatWidgetCore.downloadFileAttachment(params: fileMetadataRequest) { (response, error) in
-           if let successResponse = success, let dictSuccess = successResponse..getResponse() {
-        // Handle success
-        print(" File downloaded successfully: \(dictSuccess)")
-    } else if let errorResponse = error, let errorMsg = errorResponse. getErrorMessage() {
-        // Handle error
-        print("Error: \(errorMsg)")
-    }
-}
+val optionalRequest =
+ LCWGetConversationDetailsRequestBuilder().buildGetConversationDetailsRequestParams(params);
+LiveChatMessaging.getInstance(). getConversationDetails (optionalRequest)
 ```
 
-### getChatToken
-This API is used to retrieve a chat token in the LiveChatWidgetCore. It takes optional parameters for the request and provides a completion handler to handle the response.
+### Get Chat Token
+Retrievs the token used to initiate a chat with Contact Center.
 #### Method
-```objc
-public func getChatToken(_ optionalParams: LCWGetChatTokenRequest? = nil, completionHandler: ((_ response: LCWResponse?, _ error: LCWResponse?) -> Void)?)
-```
-#### Parameters
-* `optionalParams`: An optional parameter of type LCWGetChatTokenRequest. This parameter can be used to pass additional request details.
-  * `refreshToken`: A boolean value indicating whether to refresh the token. The default value is false.
-* `completionHandler`: An optional closure that is called when the API call completes. It has two parameters:
-  * `success`: An optional LCWResponse object that contains the details of the successful response.
-  * `error`: An optional LCWResponse object that contains the details of the error response.
-#### Example
-```objc
-public struct LCWGetChatTokenRequest: Codable {
-    public var refreshToken: Bool? = false
-}
-
-let chatTokenRequest = LCWGetChatTokenRequest(refreshToken: true)
-
-LiveChatWidgetCore.getChatToken(chatTokenRequest) { (response, error) in
-    
-         if let successResponse = success, let dictSuccess = successResponse..getResponse() {
-        // Handle success
-        print(" Chat token retrieved: \(dictSuccess)")
-    } else if let errorResponse = error, let errorMsg = errorResponse. getErrorMessage() {
-        // Handle error
-        print("Error: \(errorMsg)")
-    }
-}
+```kotlin
+LiveChatMessaging.getInstance().getChatToken (CompletionHandler handler) {}
 ```
 
-### emailTranscriptCall
-This API is used to email the chat transcript in the LiveChatWidgetCore. It takes parameters for the email request, optional live chat context, and provides a completion handler to handle the response.
+### Send Message
+Sends message to the Agent or Customer Service Rep from the current customer.
 #### Method
-```objc
-public func emailTranscriptCall(param: LCWEmailTranscriptRequest, optionalParam: LCWLiveChatContextRequest? = nil, completionHandler: ((_ success: LCWResponse?, _ error: LCWResponse?) -> Void)?)
-```
-#### Parameters
-* `param`: A parameter of type LCWEmailTranscriptRequest. This parameter contains the details of the email request.
-  * `attachmentMessage`: A string representing the message to be attached.
-  * `emailAddress`: A string representing the email address to send the transcript to.
-  * `locale`: An optional string representing the locale.
-* `optionalParam`: An optional parameter of type LCWLiveChatContextRequest. This parameter can be used to pass additional live chat context details.
-  * `liveChatContext`: A dictionary containing the live chat context.
-* `completionHandler`: An optional closure that is called when the API call completes. It has two parameters:
-  * `success`: An optional LCWResponse object that contains the details of the successful response.
-  * `error`: An optional LCWResponse object that contains the details of the error response.
-#### Example
-```objc
-public struct LCWEmailTranscriptRequest: Codable {
-    public var attachmentMessage: String
-    public var emailAddress: String
-    public var locale: String?
-}
- 
-public struct LCWLiveChatContextRequest: Codable {
-    public var liveChatContext: [String: Any]?
-}
- 
-let emailRequest = LCWEmailTranscriptRequest(
-    attachmentMessage: "Please find the chat transcript attached.",
-    emailAddress: "example@example.com",
-    locale: "en-US"
+```kotlin
+val option = ChatSDKMessage(
+    content = text,
+    tags = tags, // list of strings (tags)
+    timestamp = timestamp,
+    metadata = metadata
 )
-let liveChatContext = LCWLiveChatContextRequest(liveChatContext: ["contextKey": "contextValue"])
+val messageId = “” //unique message id, or random generated id
 
-LiveChatWidgetCore.emailTranscriptCall(param: emailRequest, optionalParam: liveChatContext) { (success, error) in
- 
-        if let successResponse = success, let dictSuccess = successResponse..getResponse() {
-        // Handle success
-        print(" Transcript emailed successfully: \(dictSuccess)")
-    } else if let errorResponse = error, let errorMsg = errorResponse. getErrorMessage() {
-        // Handle error
-        print("Error: \(errorMsg)")
-    }
-}
+val request = LCWSendCustomerMessageRequestBuilder().buildSendCustomerMessageRequestParams(option, messageId)
+
+LiveChatMessaging.getInstance().sendMessage(request, completionHandler) {}
 ```
 
-### endOCSDKChat
-Ends the current Omnichannel SDK chat session.
+### On Typing Event
+Subscribes to an Agent typing event. These events are sent on start of agent typing but no end event is sent, so only render a typing animation for 3-5 seconds.
 #### Method
-```objc
-endOCSDKChat { (success, error) in
-    if let successResponse = success {
-        // Handle success
-    } else if let errorResponse = error {
-        // Handle error
-    }
-}
-```
-#### Parameters
-* `completionHandler`: An optional closure that is called when the API call completes. It has two parameters:
-  * `success`: An optional LCWResponse object that contains the details of the successful response.
-  * `error`: An optional LCWResponse object that contains the details of the error response.
-#### Example
-```objc
- 
+```kotlin
+LiveChatMessaging.getInstance().onAgentTyping(completionHandler) {}
 ```
 
-### downloadFileAttachment
-...
+### On New Message
+Subscribes to new incoming messages of the current conversation such as system messages, client messages, agent messages, adaptive cards and attachments.
 #### Method
-```objc
- 
+```kotlin
+val  optional =  OnNewMessageOptionalParams (
+   rehydrate = true/false
+) ;
+val request= LCWOnNewMessageRequestBuilder().buildOnNewMessageRequestParams(optional);
+LiveChatMessaging.getInstance().onNewMessage(request, copletionalhandler) {} 
+
+// Completion handler is optional.
 ```
-#### Parameters
-* `completionHandler`: An optional closure that is called when the API call completes. It has two parameters:
-  * `success`: An optional LCWResponse object that contains the details of the successful response.
-  * `error`: An optional LCWResponse object that contains the details of the error response.
-#### Example
-```objc
-endOCSDKChat { (success, error) in
-        if let successResponse = success, let dictSuccess = successResponse..getResponse() {
-        // Handle success
-        print(" Chat ended successfully:  \(dictSuccess)")
-    } else if let errorResponse = error, let errorMsg = errorResponse. getErrorMessage() {
-        // Handle error
-        print("Error: \(errorMsg)")
+
+### On Agent End Session
+Subscribes to an agent ending the session of the conversation.
+#### Method
+```kotlin
+LiveChatMessaging.getInstance().onAgentEndSession (completionHandler) {}
+```
+
+### Send Customer Typing
+Tells the agent the customer is typing. Only sent at start of typing activity, not end.
+#### Method
+```kotlin
+LiveChatMessaging.getInstance().sendTyping () {} 
+
+// OR
+
+val request = LCWSentTypingRequestBuilder().buildSentTypingRequestParams();
+LiveChatMessaging.getInstance().onNewMessage(request,  copletionalhandler) {}
+```
+
+### Email Live Chat Transcript
+Sends customer an email with a transcript of the conversation. You must collect and supply the customer's email.
+#### Method
+```kotlin
+val  param=  ChatTranscriptBody(
+    emailAddress = “johnsmith@outlook.com”, // valid email
+    attachmentMessage: String, // custom body
+    locale = Locale.getDefault().toString() //optional
+)
+
+val  optional =  EmailLiveChatTranscriptOptionaParams(
+   liveChatContext = LiveChatContext()
+)
+
+val request = LCWEmailLiveChatTranscriptRequestBuilder()
+    .buildEmailLiveChatTranscriptRequestParams(param, optional)
+
+
+LiveChatMessaging.getInstance().onAgentEndSession (request, completionHandler) {}
+```
+
+### Get Live Chat Transcript
+Fetches current conversation transcript data in a JSON. Used for populating the transcript 
+for customers returning to an ongoing conversation.
+#### Method
+```kotlin
+LiveChatMessaging.getInstance().getLiveChatTranscript (completionHandler) {}
+OR
+val  optional =  GetLiveChatTranscriptOptionalParams (
+   liveChatContext = LiveChatContext()
+)
+val request = LCWGetLiveChatTranscriptRequestBuilder().buildGetLiveChatTranscriptRequestParams(optional)
+
+LiveChatMessaging.getInstance().getLiveChatTranscript (request, completionHandler) {}
+```
+
+### End Chat
+Ends the current Contact Center conversation.
+#### Method
+```kotlin
+```
+
+### Get Agent Availability
+Gets information on whether a queue is available, and whether there are agents available in that queue, as well as queue position and average wait time. 
+This call is only supported in an authenticated chat.
+#### Method
+```kotlin
+val  optional =  GetAgentAvailabilityOptionalParams()
+val request = LCWGetAgentAvailabilityRequestBuilder().buildAgentAvailabilityRequestParams(param)
+
+LiveChatMessaging.getInstance().getAgentAvailability (request, completionHandler) {}
+OR
+LiveChatMessaging.getInstance().getAgentAvailability (completionHandler) {}
+```
+
+### Download File Attachment
+Downloads the file attachment of the incoming message as a Base64 string response.
+#### Method
+```kotlin
+val  fileMataData= FileMetadata (id, name, size, type, url, fileSharingProtocolType)
+
+val request = LCWDownloadAttachmentRequestBuilder().buildDownloadAttachmentRequestParams(fileMetadata)
+
+LiveChatMessaging.getInstance().downloadFileAttachment(request, completionHandler) {}
+```
+
+### Upload File Attachment
+Sends a file attachment to the current conversation.
+#### Method
+```kotlin
+val  fileMataData=  IFileInfo (name, type, size, data)
+
+val request = LCWUploadAttachmentRequestBuilder().buildUploadAttachmentRequestParams(fileMetadata, “base64String")
+
+LiveChatMessaging.getInstance().uploadFileAttachment(request, completionHandler) {}
+```
+
+### Post Chat Survey Context
+Gets the participant type that should be used for the survey and both the default and bot survey details.
+#### Method
+```kotlin
+LiveChatMessaging.getInstance().getPostChatSurveyContext (request, completionHandler) {}
+```
+
+### Get Reconnect Context
+Retrieves the chat context needed for a reconnect
+#### Method
+```kotlin
+val request = LCWChatReconnectContextRequestBuilder().buildChatReconnectContextRequestParams(
+    reconnectId = ""
+) 
+LiveChatMessaging.getInstance(). getChatReconnectContext (request, completionHandler) {}
+```
+
+### LCWMessagingDelegate
+To enable your application to monitor various SDK events, provide an instance of the LCWMessagingDelegate interface and implement the delegate methods. The following delegate methods are available to capture these events.
+
+Example: `LiveChatMessaging.getInstance().setLCWMessagingDelegate(object: LCWMessagingDelegate())`
+
+#### Methods
+
+* `override fun onChatMinimizeButtonClick()`
+  * Called when the chat is minimize button is clicked.
+* `override fun onViewDisplayed()`
+  * Called when the chat screen starts to visualise.
+* `override fun onChatInitiated()`
+  *	Called when the chat is initiated.
+* `override fun onCustomerChatEnded()`
+  *	Called when the chat is ended by the customer.
+* `override fun onAgentChatEnded()`
+  *	Called when the agent ends the chat.
+* `override fun onAgentAssigned(content: String)`
+  *	Called when live agent is assigned also gives related system message.
+* `override fun onLinkClicked()`
+  *	Called when url link in message is clicked also gives url.
+* `override fun onNewCustomerMessage (message: ChatSDKMessage)`
+  *	Called when new message has arrived including system messages.
+* `override fun onNewMessageReceived(message: GetMessageResponse?)`
+  *	Called when new message has arrived including system messages.
+* `override fun onError(error: ErrorResponse?)`
+  *	Called when an error occurs with Network, api or generic.
+* `override fun onPreChatSurveyDisplayed()`
+  *	Called when a Pre-chat survey is displayed.
+* `override fun OnPostChatSurveyDisplayed()`
+  *	Called when a Post-chat survey is displayed.
+* `override fun onChatRestored()`
+  *	Called when chat is restored or transcript reloaded.
+
+### getConversationDetails Logic in ChatActivity
+This code snippet retrieves the details of the current live chat conversation and updates the sample app UI accordingly based on the conversation's state.
+
+* **Fetching Conversation Details**: The LiveChatMessaging.getInstance().getConversationDetails method is called to fetch the current conversation details. This returns a response wrapped in an ApiResult object.
+* **UI Updates**: Update the chat button state or text depending upon the conversation state, ex. If active-> “Restore Chat” else “New Chat”
+
+#### Sample
+```kotlin
+LiveChatMessaging.getInstance().getConversationDetails { response ->
+    runOnUiThread {
+        OLog.d("ChatActivity getConversationDetails: $response")
+
+        when (response) {
+            is ApiResult.Success -> {
+
+                val conversationDetail = response.response as? ConversationDetail
+                conversationDetail?.state?.let {
+                    when (it) {
+                        ConversationStateEnum.Closed.key,
+                        ConversationStateEnum.WrapUp.key -> {
+                            btnText.setText("Let's Chat")
+                            btnText.setTextColor(ContextCompat.getColor(this@ChatActivity, R.color.messagingThemeBackground))
+                        }
+                        ConversationStateEnum.Active.key -> {
+
+                            btnText.setText("Restore Chat")
+                            btnText.setTextColor(ContextCompat.getColor(this@ChatActivity, R.color.infoColor))
+                        }
+
+                        else -> {
+                            btnText.setText("Let's Chat")
+                            btnText.setTextColor(ContextCompat.getColor(this@ChatActivity, R.color.messagingThemeBackground))
+                        }
+                    }
+                }
+
+                OLog.d("ChatActivity@getConversationDetails: ${response.response}")
+            }
+
+            is ApiResult.Error -> {
+                btnText.setText("Let's Chat")
+                btnText.setTextColor(ContextCompat.getColor(this@ChatActivity, R.color.messagingThemeBackground))
+            }
+        }
     }
 }
 ```
 
-## Contributing
 
-This project welcomes contributions and suggestions.  Most contributions require you to agree to a
-Contributor License Agreement (CLA) declaring that you have the right to, and actually do, grant us
-the rights to use your contribution. For details, visit https://cla.opensource.microsoft.com.
+## Troubleshooting
+If you face build issue related to namespace for randombytes package. Update namespace in its build.gradle.  
 
-When you submit a pull request, a CLA bot will automatically determine whether you need to provide
-a CLA and decorate the PR appropriately (e.g., status check, comment). Simply follow the instructions
-provided by the bot. You will only need to do this once across all repos using our CLA.
-
-This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/).
-For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or
-contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
-
-## Trademarks
-
-This project may contain trademarks or logos for projects, products, or services. Authorized use of Microsoft 
-trademarks or logos is subject to and must follow 
-[Microsoft's Trademark & Brand Guidelines](https://www.microsoft.com/en-us/legal/intellectualproperty/trademarks/usage/general).
-Use of Microsoft trademarks or logos in modified versions of this project must not cause confusion or imply Microsoft sponsorship.
-Any use of third-party trademarks or logos are subject to those third-party's policies.
+namespace 'com.bitgo.randombytes' (path: node_modules -> react-native-randombytes -> android -> build.gradle) 
