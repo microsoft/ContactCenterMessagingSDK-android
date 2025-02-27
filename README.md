@@ -5,12 +5,26 @@ partners and customers. To receive support for your release, contact CC-Mobile-P
 with your release date and plans. Customers must have an agreement with the Contact Center team
 to guarantee timely support during the Preview period.
 
+### Building the Sample App - LCWsample
+
+1. Clone the repository git clone https://github.com/microsoft/ContactCenterMessagingSDK-android.git
+2. Open the terminal and run "npm install" on root folder (provided package.json copied to root folder). 
+3. Download the AAR files - "./gradlew downloadAarFiles" (optional)
+4. Sync/configure the app.
+5. Build the app based on your build tools.
+6. Run the app
+
+## Troubleshooting
+If you face build issue related to namespace for randombytes package. Update namespace in its build.gradle.  
+
+namespace 'com.bitgo.randombytes' (path: node_modules -> react-native-randombytes -> android -> build.gradle) 
+
 ## Table of Contents
 
   * [About](#about)
   * [Installation](#installation)
     + [Pre-Requisites](#pre-requisites)
-    + [Building the Sample App - LCWsample](#building-the-sample-app---lcwsample)
+    + [Integrating the SDK.](#Integrating-the-SDK.)
       - [Manual Integration](#manual-integration)
       - [Integration through Gradle](#integration-through-gradle)
     + [Android Studio (Recommended)](#android-studio-recommended)
@@ -90,23 +104,20 @@ to our roadmap.
 *	Android SDK/API target minimum of 26 or above 
 *	package.json file (included) 
 
-### Building the Sample App - LCWsample
+### Integrating the SDK.
 
 #### Manual Integration:
-1. Clone the repository. 
-    git clone https://github.com/microsoft/ContactCenterMessagingSDK-android.git
+1. Add package.json to the root folder.
 2. Open the terminal and run "npm install" on root folder (provided package.json copied to root folder). 
 3. Manually download the AAR files from release for desired version - https://github.com/microsoft/ContactCenterMessagingSDK-android/releases
-4. Place aar files in libs.
+4. Place aar files in libs (app -> libs).
 5. Build the app based on your build tools.
 6. Run the app
 
 #### Integration through Gradle:
-1. Clone the repository. 
-    git clone https://github.com/microsoft/ContactCenterMessagingSDK-android.git
+1. Add package.json to the root folder.
 2. Open the terminal and run "npm install" on root folder (provided package.json copied to root folder). 
 3. Update the desired 'sdkVersion' in the app's build.gradle file.
-4. Download the AAR files - "./gradlew downloadAarFiles"
 5. Sync/configure the app.
 6. Run the app.
 
@@ -145,13 +156,10 @@ The app will allow you to communicate with customer support or any automated ser
 
 ## Initialization
 
-The engagement is initialized with the LCWApiResponse API call for bot Copilot Studio conversations and Customer Service Rep conversations. 
-
-Upon a successful request, the CompletionHandler's onResponse method is invoked (Optional), returning an ApiResult with either a success or error response.
+Initialise the SDK with valid OmnichannelConfig parameters.
 
 > ❗ Note: You should not directly instantiate the LCWApiResponse class. Instead use the following Messaging builder class: _Completionhandler is optional interface to get callbacks of APi Response_
 
-```.kt
 //Parameters
 val omnichannelConfig = OmnichannelConfig(
     orgId = “YOUR_ORG_ID”,
@@ -184,7 +192,6 @@ API
 ```kotlin
 LiveChatMessaging.getInstance()
    . initialize(this, lcwOmniChannelConfigBuilder, "auth_token", "environment")
-LiveChatMessaging.getInstance().launchLcwBrandedMessaging(this)
 ```
 
 Builders
@@ -524,9 +531,3 @@ LiveChatMessaging.getInstance().getConversationDetails { response ->
     }
 }
 ```
-
-
-## Troubleshooting
-If you face build issue related to namespace for randombytes package. Update namespace in its build.gradle.  
-
-namespace 'com.bitgo.randombytes' (path: node_modules -> react-native-randombytes -> android -> build.gradle) 
