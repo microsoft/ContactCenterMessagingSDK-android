@@ -7,50 +7,69 @@ to guarantee timely support during the Preview period.
 
 ### Building the Sample App - LCWsample
 
-1. Clone the repository git clone https://github.com/microsoft/ContactCenterMessagingSDK-android.git
-2. Open the terminal and run "npm install" on root folder (provided package.json copied to root folder). 
-3. Download the AAR files - "./gradlew downloadAarFiles" (optional)
+1. Clone the repository  
+   `git clone https://github.com/microsoft/ContactCenterMessagingSDK-android.git`
+
+2. Open the terminal and run `npm install` in the root folder (the provided `package.json` is copied to the root folder).
+
+3. Download the AAR files (optional)  
+   `./gradlew downloadAarFiles`
+
 4. Sync/configure the app.
+
 5. Build the app based on your build tools.
-6. Run the app
+
+6. Run the app.
 
 ### Android Studio (Recommended)
-(These instructions were tested with gradle 8.7, Android Studio Koala | 2024.1.1 Patch 2 , OpenJDK 19.0.2)
+(These instructions were tested with Gradle 8.7, Android Studio Koala | 2024.1.1 Patch 2, OpenJDK 19.0.2)
 
-Open Android Studio and select File->Open... or from the Android Launcher select Import project (Eclipse ADT, Gradle, etc.) and navigate to the root directory of your project.
-Select the directory or drill in and select the file build.gradle in the cloned repo.
-Click 'OK' to open the project in Android Studio.
-A Gradle sync should start, but you can force a sync and build the 'app' module as needed.
-Gradle (command line)
-Build the APK: ./gradlew build
+1. Open Android Studio and select `File -> Open...`, or from the Android Launcher, select `Import project (Eclipse ADT, Gradle, etc.)` and navigate to the root directory of your project.
 
-Android Studio
-Select Run -> Run 'app' (or Debug 'app') from the menu bar
-Select the device you wish to run the app on and click 'OK'
+2. Select the directory or drill into the project and select the `build.gradle` file in the cloned repo.
+
+3. Click 'OK' to open the project in Android Studio.
+
+4. A Gradle sync should start. You can force a sync and build the 'app' module as needed.
+
+### Gradle (command line)
+Build the APK:  
+`./gradlew build`
+
+### Android Studio
+1. Select `Run -> Run 'app'` (or `Debug 'app'`) from the menu bar.
+
+2. Select the device you wish to run the app on and click 'OK'.
 
 ### Instructions for Using the Chat Feature in the Sample Android App:
-1. Paste Your Script (taken from the Chat Workstream Page) or Add the Required Information:
 
-In your app’s landing screen, you will find input fields where you need to enter:
-orgId
-orgUrl
-widgetId
+1. **Paste Your Script (taken from the Chat Workstream Page) or Add the Required Information:**
 
-Alternatively, you can paste a script, which will automatically fill in these details for you.
+   In your app’s landing screen, you will find input fields where you need to enter:
+    - `orgId`
+    - `orgUrl`
+    - `widgetId`
 
-2. Click on the "Let's Chat" Button:
-Once you've entered the required information (or pasted the script), look for a button labeled "Let's Chat" on your screen.
-Tap on this button to initiate the chat. The app will connect to the specified chat system and load the widget for you.
+   Alternatively, you can paste a script, which will automatically fill in these details for you.
 
-3.Start Interacting with the Chat:
-After clicking the button, you will see the chat interface appear on the screen.
-You can now type messages, send media, or interact with the chat in real-time. 
-The app will allow you to communicate with customer support or any automated services available.
+2. **Click on the "Let's Chat" Button:**
+
+   Once you've entered the required information (or pasted the script), look for a button labeled "Let's Chat" on your screen.
+
+   Tap on this button to initiate the chat. The app will connect to the specified chat system and load the widget for you.
+
+3. **Start Interacting with the Chat:**
+
+   After clicking the button, you will see the chat interface appear on the screen.  
+   You can now type messages, send media, or interact with the chat in real-time.  
+   The app will allow you to communicate with customer support or any automated services available.
 
 ## Troubleshooting
-If you face build issue related to namespace for randombytes package. Update namespace in its build.gradle.  
 
-namespace 'com.bitgo.randombytes' (path: node_modules -> react-native-randombytes -> android -> build.gradle) 
+If you face a build issue related to the namespace for the `randombytes` package, update the namespace in its `build.gradle`:
+
+```gradle
+namespace 'com.bitgo.randombytes'  // (path: node_modules -> react-native-randombytes -> android -> build.gradle)
 
 ## Table of Contents
 
@@ -562,31 +581,32 @@ Example: `LiveChatMessaging.getInstance().setLCWMessagingDelegate(object: LCWMes
 #### Methods
 
 * `override fun onChatMinimizeButtonClick()`
-  * Called when the chat is minimize button is clicked.
+    - Called when the chat minimize button is clicked.
 * `override fun onViewDisplayed()`
-  * Called when the chat screen starts to visualise.
+    - Called when the chat screen starts to visualize.
 * `override fun onChatInitiated()`
-  *	Called when the chat is initiated.
+    - Called when the chat is initiated.
 * `override fun onCustomerChatEnded()`
-  *	Called when the chat is ended by the customer.
+    - Called when the chat is ended by the customer.
 * `override fun onAgentChatEnded()`
-  *	Called when the agent ends the chat.
+    - Called when the agent ends the chat.
 * `override fun onAgentAssigned(content: String)`
-  *	Called when live agent is assigned also gives related system message.
+    - Called when a live agent is assigned, also gives related system message.
 * `override fun onLinkClicked()`
-  *	Called when url link in message is clicked also gives url.
-* `override fun onNewCustomerMessage (message: ChatSDKMessage)`
-  *	Called when new message has arrived including system messages.
+    - Called when a URL link in the message is clicked, also gives the URL.
+* `override fun onNewCustomerMessage(message: ChatSDKMessage)`
+    - Called when a new message has arrived, including system messages.
 * `override fun onNewMessageReceived(message: GetMessageResponse?)`
-  *	Called when new message has arrived including system messages.
+    - Called when a new message has arrived, including system messages.
 * `override fun onError(error: ErrorResponse?)`
-  *	Called when an error occurs with Network, api or generic.
+    - Called when an error occurs with network, API, or generic issues.
 * `override fun onPreChatSurveyDisplayed()`
-  *	Called when a Pre-chat survey is displayed.
-* `override fun OnPostChatSurveyDisplayed()`
-  *	Called when a Post-chat survey is displayed.
+    - Called when a pre-chat survey is displayed.
+* `override fun onPostChatSurveyDisplayed()`
+    - Called when a post-chat survey is displayed.
 * `override fun onChatRestored()`
-  *	Called when chat is restored or transcript reloaded.
+    - Called when chat is restored or transcript reloaded.
+
 
 ### getConversationDetails Logic in ChatActivity
 This code snippet retrieves the details of the current live chat conversation and updates the sample app UI accordingly based on the conversation's state.
