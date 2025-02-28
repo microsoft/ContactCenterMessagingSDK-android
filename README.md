@@ -267,8 +267,11 @@ to our roadmap.
 
 6. **Run the app.**
 
-> ❗You can also manually download the AAR files for desired version - https://github.com/microsoft/ContactCenterMessagingSDK-android/releases
-> ❗Place aar files in libs (app -> libs).
+> ❗ **You can also manually download the AAR files for the desired version**  
+> [Download AAR files here](https://github.com/microsoft/ContactCenterMessagingSDK-android/releases)
+
+> ❗ **Place the AAR files in the `libs` folder**  
+> Navigate to `app -> libs` and place the downloaded AAR files there.
 
 ### Troubleshooting
 If you face build issue related to flexbox dependency, add below code to project level buld.gradle (inside allprojects block)
