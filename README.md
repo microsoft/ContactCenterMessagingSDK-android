@@ -106,20 +106,93 @@ to our roadmap.
 
 ### Integrating the SDK.
 
-#### Manual Integration:
-1. Add package.json to the root folder.
-2. Open the terminal and run "npm install" on root folder (provided package.json copied to root folder). 
-3. Manually download the AAR files from release for desired version - https://github.com/microsoft/ContactCenterMessagingSDK-android/releases
-4. Place aar files in libs (app -> libs).
+#### Adding/Configuring package.json
+1. Open your project directory: Navigate to the root folder of your Android project.
+2. Initialize npm: Run the following command in the terminal inside your project directory. This will create a new package.json file:
+    **npm init**
+3. This will ask a series of questions to configure your package.json file, such as:
+    Project name, Version, Description, Entry point, Repository information (if any), License type.
+    -You can just hit "Enter" for most prompts to accept the default values, or you can customize the values as you see fit.
+    -Alternatively, you can skip all questions by using: **npm init -y**
+4. Install dependencies
+   npm install react-native@0.70
+   npm install react-native-randombytes@3.6.1
+   npm install react-native-get-random-values@1.8.0.
+5. **Alternatively you can simply refer/copy package.json from sample app and run** **npm install**
+
+#### Adding/Configuring build.gradle depedencies
+
+1. Open the build.gradle.kts (project's) or settings.gradle.kt file.
+   Add below code for dependency resolution
+   dependencyResolutionManagement {
+     repositoriesMode.set(RepositoriesMode.PREFER_SETTINGS)
+     repositories {
+       mavenCentral()
+       maven(url = "$rootDir/node_modules")
+       maven(url = "$rootDir/node_modules/react-native/android")
+       maven(url = "$rootDir/node_modules/jsc-android/dist")
+       maven(url = "https://maven.google.com")
+       google()
+     }
+   }
+  include(":randombytes")
+  project(":randombytes").projectDir = file("./node_modules/react-native-randombytes/android")
+
+  include(":randomvalues")
+  project(":randomvalues").projectDir = file("./node_modules/react-native-get-random-values/android")
+
+2. Open the build.gradle.kts (app's) file of your app module.
+3. Add the SDK dependencies under the dependencies section and other snippet:
+   repositories {
+     flatDir {
+       dirs 'libs'
+     }
+   }
+   dependencies {
+     implementation(files("libs/ContactCenterMessagingWidget.aar"))
+     implementation(files("libs/OmnichannelChatSDK.aar"))   
+     implementation("com.google.code.gson:gson:2.10.1")  
+     implementation("com.facebook.react:react-native:+")  
+     implementation("org.webkit:android-jsc:+")  
+     implementation(project(":randombytes"))  
+     implementation(project(":randomvalues"))
+     implementation("com.google.android.flexbox:flexbox:3.0.0")
+     implementation("io.adaptivecards:adaptivecards-android:2.9.0")
+   }
+
+4. Manually download the AAR files for desired version - https://github.com/microsoft/ContactCenterMessagingSDK-android/releases
+5. Place aar files in libs (app -> libs).
+   OR you can automate the aar download task adding below code in app's build.gradle.kt
+   // Download aar files from GitHub 
+   // (Run the command "./gradlew downloadAarFiles")
+   val sdkVersion = "v1.0.1"
+   task("downloadAarFiles") {
+   doLast {
+   println("Download AARs task started...")
+   val aar1Url = "https://github.com/microsoft/ContactCenterMessagingSDK-android/releases/download/$sdkVersion/ContactCenterMessagingWidget.aar"
+   val aar2Url = "https://github.com/microsoft/ContactCenterMessagingSDK-android/releases/download/$sdkVersion/OmnichannelChatSDK.aar"
+        val aar1File = file("${project.rootDir}/app/libs/ContactCenterMessagingWidget.aar")
+        val aar2File = file("${project.rootDir}/app/libs/OmnichannelChatSDK.aar")
+
+        URL(aar1Url).openStream().use { input -> aar1File.outputStream().use { output -> input.copyTo(output) } }
+        URL(aar2Url).openStream().use { input -> aar2File.outputStream().use { output -> input.copyTo(output) } }
+    }
+   }
+
+    tasks.named("preBuild") {
+    dependsOn("downloadAarFiles")
+   }
 5. Build the app based on your build tools.
 6. Run the app
 
-#### Integration through Gradle:
-1. Add package.json to the root folder.
-2. Open the terminal and run "npm install" on root folder (provided package.json copied to root folder). 
-3. Update the desired 'sdkVersion' in the app's build.gradle file.
-5. Sync/configure the app.
-6. Run the app.
+## Troubleshooting
+If you face build issue related to flexbox dependency, add below code to project level buld.gradle (inside allprojects block)
+dependencies{
+    modules {
+    module("com.google.android:flexbox") {
+    replacedBy("com.google.android.flexbox:flexbox")
+    }
+}
 
 ### Android Studio (Recommended)
 (These instructions were tested with gradle 8.7, Android Studio Koala | 2024.1.1 Patch 2 , OpenJDK 19.0.2)
