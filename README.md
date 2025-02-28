@@ -69,9 +69,9 @@ Build the APK:
 If you face a build issue related to the namespace for the `randombytes` package, update the namespace in its `build.gradle`:
 
 ```gradle
-namespace 'com.bitgo.randombytes'  // (path: node_modules -> react-native-randombytes -> android -> build.gradle)
-
-## Table of Contents
+   namespace 'com.bitgo.randombytes'  // (path: node_modules -> react-native-randombytes -> android -> build.gradle)
+```
+##Table of Contents
 
   * [About](#about)
   * [Installation](#installation)
