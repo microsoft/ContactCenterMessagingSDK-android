@@ -57,7 +57,9 @@ namespace 'com.bitgo.randombytes' (path: node_modules -> react-native-randombyte
     + [Get Reconnect Context](#get-reconnect-context)
     + [LCWMessagingDelegate](#lcwmessagingdelegate)
     + [getConversationDetails Logic in ChatActivity](#getconversationdetails-logic-in-chatactivity)
-  * [Troubleshooting](#troubleshooting)
+
+  * [Troubleshooting](#troubleshooting-1)
+  * [Push notification implementation](#push-notification-support-firebase-cloud-messaging-setup)
 
 ## About
 
@@ -185,7 +187,7 @@ to our roadmap.
 5. Build the app based on your build tools.
 6. Run the app
 
-## Troubleshooting
+### Troubleshooting
 If you face build issue related to flexbox dependency, add below code to project level buld.gradle (inside allprojects block)
 dependencies{
     modules {
@@ -604,3 +606,21 @@ LiveChatMessaging.getInstance().getConversationDetails { response ->
     }
 }
 ```
+## Push notification support (Firebase Cloud Messaging Setup)
+
+1. Create an FCM Project:
+    Before setting up Firebase Cloud Messaging in your app, you need to create an FCM project in the Firebase Console. Follow the instructions there to create and configure your project.
+   https://console.firebase.google.com/
+
+2. Set Up Firebase Cloud Messaging:
+   After creating the FCM project, follow the detailed instructions to configure Firebase Cloud Messaging for your Android app:
+   https://firebase.google.com/docs/cloud-messaging/android/client
+
+3. Obtain the Device Token:
+   After completing the setup, retrieve the device token, which is required to send push notifications to your app.
+
+4. Initializing the token inside SDK
+   Once your FCM project is created and the Firebase setup is complete, you can initialize the SDK within your application. 
+   Add the following line of code to set the device token before launching the chat:
+
+   _LiveChatMessaging.getInstance().setFcmToken(“YOUR_DEVICE_TOKEN”)_ 
