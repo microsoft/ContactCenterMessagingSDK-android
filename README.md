@@ -14,6 +14,39 @@ to guarantee timely support during the Preview period.
 5. Build the app based on your build tools.
 6. Run the app
 
+### Android Studio (Recommended)
+(These instructions were tested with gradle 8.7, Android Studio Koala | 2024.1.1 Patch 2 , OpenJDK 19.0.2)
+
+Open Android Studio and select File->Open... or from the Android Launcher select Import project (Eclipse ADT, Gradle, etc.) and navigate to the root directory of your project.
+Select the directory or drill in and select the file build.gradle in the cloned repo.
+Click 'OK' to open the the project in Android Studio.
+A Gradle sync should start, but you can force a sync and build the 'app' module as needed.
+Gradle (command line)
+Build the APK: ./gradlew build
+
+Android Studio
+Select Run -> Run 'app' (or Debug 'app') from the menu bar
+Select the device you wish to run the app on and click 'OK'
+
+### Instructions for Using the Chat Feature in the Sample Android App:
+1. Paste Your Script (taken from the Chat Workstream Page) or Add the Required Information:
+
+In your app’s landing screen, you will find input fields where you need to enter:
+orgId
+orgUrl
+widgetId
+
+Alternatively, you can paste a script, which will automatically fill in these details for you.
+
+2. Click on the "Let's Chat" Button:
+Once you've entered the required information (or pasted the script), look for a button labeled "Let's Chat" on your screen.
+Tap on this button to initiate the chat. The app will connect to the specified chat system and load the widget for you.
+
+3.Start Interacting with the Chat:
+After clicking the button, you will see the chat interface appear on the screen.
+You can now type messages, send media, or interact with the chat in real-time. 
+The app will allow you to communicate with customer support or any automated services available.
+
 ## Troubleshooting
 If you face build issue related to namespace for randombytes package. Update namespace in its build.gradle.  
 
@@ -104,7 +137,7 @@ to our roadmap.
             * [Configure a chat widget | Microsoft Learn](https://learn.microsoft.com/en-us/dynamics365/customer-service/administer/add-chat-widget)
             * [Embed chat widget in your website or portal | Microsoft Learn](https://learn.microsoft.com/en-us/dynamics365/customer-service/administer/embed-chat-widget-portal)
 *	Android SDK/API target minimum of 26 or above 
-*	package.json file (included) 
+*	package.json file (included in sample app) 
 
 ### Integrating the SDK.
 
@@ -162,9 +195,7 @@ to our roadmap.
      implementation("io.adaptivecards:adaptivecards-android:2.9.0")
    }
 
-4. Manually download the AAR files for desired version - https://github.com/microsoft/ContactCenterMessagingSDK-android/releases
-5. Place aar files in libs (app -> libs).
-   OR you can automate the aar download task adding below code in app's build.gradle.kt
+ 4. You can automate the aar download task adding below code in app's build.gradle.kt
    // Download aar files from GitHub 
    // (Run the command "./gradlew downloadAarFiles")
    val sdkVersion = "v1.0.1"
@@ -187,6 +218,9 @@ to our roadmap.
 5. Build the app based on your build tools.
 6. Run the app
 
+> ❗You can also manually download the AAR files for desired version - https://github.com/microsoft/ContactCenterMessagingSDK-android/releases
+> ❗Place aar files in libs (app -> libs).
+
 ### Troubleshooting
 If you face build issue related to flexbox dependency, add below code to project level buld.gradle (inside allprojects block)
 dependencies{
@@ -196,44 +230,9 @@ dependencies{
     }
 }
 
-### Android Studio (Recommended)
-(These instructions were tested with gradle 8.7, Android Studio Koala | 2024.1.1 Patch 2 , OpenJDK 19.0.2)
-
-Open Android Studio and select File->Open... or from the Android Launcher select Import project (Eclipse ADT, Gradle, etc.) and navigate to the root directory of your project.
-Select the directory or drill in and select the file build.gradle in the cloned repo.
-Click 'OK' to open the the project in Android Studio.
-A Gradle sync should start, but you can force a sync and build the 'app' module as needed.
-Gradle (command line)
-Build the APK: ./gradlew build
-
-Android Studio
-Select Run -> Run 'app' (or Debug 'app') from the menu bar
-Select the device you wish to run the app on and click 'OK'
-
-### Instructions for Using the Chat Feature in the Sample Android App:
-1. Paste Your Script (taken from the Chat Workstream Page) or Add the Required Information:
-
-In your app’s landing screen, you will find input fields where you need to enter:
-orgId
-orgUrl
-widgetId
-
-Alternatively, you can paste a script, which will automatically fill in these details for you.
-
-2. Click on the "Let's Chat" Button:
-Once you've entered the required information (or pasted the script), look for a button labeled "Let's Chat" on your screen.
-Tap on this button to initiate the chat. The app will connect to the specified chat system and load the widget for you.
-
-3.Start Interacting with the Chat:
-After clicking the button, you will see the chat interface appear on the screen.
-You can now type messages, send media, or interact with the chat in real-time. 
-The app will allow you to communicate with customer support or any automated services available.
-
 ## Initialization
 
 Initialise the SDK with valid OmnichannelConfig parameters.
-
-> ❗ Note: You should not directly instantiate the LCWApiResponse class. Instead use the following Messaging builder class: _Completionhandler is optional interface to get callbacks of APi Response_
 
 //Parameters
 val omnichannelConfig = OmnichannelConfig(
@@ -249,7 +248,6 @@ val lcwOmniChannelConfigBuilder =
 //Invoking
 LiveChatMessaging.getInstance()
    . initialize(this, lcwOmniChannelConfigBuilder, "auth_token", "environment")
-LiveChatMessaging.getInstance().launchLcwBrandedMessaging(this)
 ```
 ## Messaging Widget
 Customizations available in the out of the box messaging widget are documented here:
