@@ -53,7 +53,7 @@ repositories {
 }
 
 // Download aar files from GitHub
-val sdkVersion = "v0.0.2"
+val sdkVersion = "v1.0.1"
 task("downloadAarFiles") {
     doLast {
         println("Download AARs task started...")
@@ -92,4 +92,9 @@ dependencies {
     implementation ("io.adaptivecards:adaptivecards-android:2.9.0")
     implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
     implementation ("com.google.android.flexbox:flexbox:3.0.0")
+
+    //implementation (libs.firebase.analytics)
+    implementation (libs.firebase.messaging.ktx)
+    implementation(platform(libs.firebase.bom))
+
 }

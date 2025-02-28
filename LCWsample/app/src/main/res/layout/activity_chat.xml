@@ -1,25 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_below="@id/toolbar"
-        android:background="@color/messagingThemeBackground"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Dark"
-        app:title="@string/app_name"
-        app:titleTextColor="@android:color/white" />
+        android:layout_height="wrap_content"
+        android:theme="@style/MessageTheme.AppBarTheme">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/MessagingToolbar"
+            style="@style/MessagingToolbarDefault.MessagingToolbar">
+
+            <androidx.appcompat.widget.ActionMenuView
+                android:id="@+id/left_menu"
+                android:layout_width="wrap_content"
+                android:layout_height="?attr/actionBarSize"
+                android:gravity="left" />
+
+            <TextView
+                android:id="@+id/toolbar_title"
+                style="@style/ToolbarTitleDefault.ToolbarTitleDefault" />
+        </androidx.appcompat.widget.Toolbar>
+
+    </com.google.android.material.appbar.AppBarLayout>
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/toolbar"
-        android:layout_marginTop="@dimen/margin_10dp">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -36,29 +48,28 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/bg_customer_chat_bubble"
-                android:hint="@string/hint_paste_your_script"
-                android:maxHeight="@dimen/max_edittext_height"
-                android:padding="@dimen/padding_10dp" />
+                android:maxHeight="@dimen/max_height_100"
+                android:padding="@dimen/padding_10dp"
+                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/titleDialogSearch"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:padding="5dp"
-                android:text="@string/txt_or"
+                android:padding="@dimen/padding_5"
                 android:textColor="@color/txt_color_black"
-                android:textSize="18sp"
+                android:textSize="@dimen/textSize_18"
                 android:textStyle="bold"
-                android:visibility="visible" />
+                android:visibility="gone" />
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
+                android:layout_margin="@dimen/margin_5dp"
                 android:visibility="visible"
-                app:cardElevation="5dp">
+                app:cardElevation="@dimen/elevation_5">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -67,13 +78,79 @@
                     android:gravity="top"
                     android:orientation="vertical">
 
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <Button
+                            android:id="@+id/btnFCM"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="@color/transparent"
+                            android:gravity="center"
+                            android:padding="@dimen/padding_10"
+                            android:text="@string/copy_fcm_token"
+                            android:textColor="@android:color/holo_blue_dark"
+                            android:textSize="@dimen/textSize_14"
+                            android:textStyle="italic"
+                            android:visibility="visible" />
+
+                        <Button
+                            android:id="@+id/btnReset"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="@color/transparent"
+                            android:gravity="center"
+                            android:padding="@dimen/padding_10"
+                            android:text="@string/reset"
+                            android:textColor="@android:color/holo_blue_dark"
+                            android:textSize="@dimen/textSize_14"
+                            android:textStyle="italic"
+                            android:visibility="visible" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/usernameInfo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:padding="@dimen/padding_8"
+                        android:text="@string/verify_config"
+                        android:textColor="@color/txt_color_black"
+                        android:textSize="@dimen/textSize_16"
+                        android:textStyle="normal"
+                        android:visibility="gone" />
+
+                    <TextView
+                        android:id="@+id/tv_owid"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/margin_5dp"
+                        android:gravity="start"
+                        android:text="@string/data_app_id"
+                        android:textColor="@color/txt_color_black"
+                        android:textSize="@dimen/txt_10sp"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/et_orgWidgetId"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/margin_5"
+                        android:background="@drawable/bg_customer_chat_bubble"
+                        android:hint="data-app-id"
+                        android:padding="@dimen/padding_10" />
+
                     <TextView
                         android:id="@+id/tvOrgId"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
+                        android:layout_margin="@dimen/margin_5"
                         android:gravity="start"
-                        android:text="@string/orgId"
+                        android:text="@string/org_id"
                         android:textColor="@color/txt_color_black"
                         android:textSize="@dimen/txt_10sp"
                         android:textStyle="bold" />
@@ -82,38 +159,18 @@
                         android:id="@+id/et_orgId"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/margin_5dp"
+                        android:layout_margin="@dimen/margin_5"
                         android:background="@drawable/bg_customer_chat_bubble"
-                        android:hint="WIDGET ID"
-                        android:padding="5dp" />
-
-                    <TextView
-                        android:id="@+id/tv_owid"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/margin_5dp"
-                        android:gravity="start"
-                        android:text="@string/txt_org_widget_id"
-                        android:textColor="@color/txt_color_black"
-                        android:textSize="10sp"
-                        android:textStyle="bold" />
-
-                    <EditText
-                        android:id="@+id/et_orgWidgetId"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/margin_5dp"
-                        android:background="@drawable/bg_customer_chat_bubble"
-                        android:hint="ORG WIDGET ID"
-                        android:padding="10dp" />
+                        android:hint="data-org-id"
+                        android:padding="@dimen/padding_5" />
 
                     <TextView
                         android:id="@+id/tvUrl"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
+                        android:layout_margin="@dimen/margin_5"
                         android:gravity="start"
-                        android:text="@string/txt_org_url"
+                        android:text="@string/org_url"
                         android:textColor="@color/txt_color_black"
                         android:textSize="@dimen/txt_10sp"
                         android:textStyle="bold" />
@@ -122,18 +179,18 @@
                         android:id="@+id/et_widgetUrl"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/margin_5dp"
+                        android:layout_margin="@dimen/margin_5"
                         android:background="@drawable/bg_customer_chat_bubble"
-                        android:hint="ORG URL"
-                        android:padding="10dp" />
+                        android:hint="data-org-url"
+                        android:padding="@dimen/padding_10" />
 
                     <TextView
                         android:id="@+id/tvAuth"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
+                        android:layout_margin="@dimen/margin_5"
                         android:gravity="start"
-                        android:text="@string/txt_auth_tkn"
+                        android:text="@string/auth_token"
                         android:textColor="@color/txt_color_black"
                         android:textSize="@dimen/txt_10sp"
                         android:textStyle="bold" />
@@ -142,12 +199,14 @@
                         android:id="@+id/et_auth"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/margin_5dp"
+                        android:layout_margin="@dimen/margin_5"
                         android:background="@drawable/bg_customer_chat_bubble"
-                        android:hint="@string/hint_optional"
-                        android:maxHeight="@dimen/height_100dp"
-                        android:padding="@dimen/padding_10dp" />
+                        android:hint="(Optional)"
+                        android:maxHeight="@dimen/max_height_100"
+                        android:padding="@dimen/padding_10" />
                 </LinearLayout>
+
+
             </androidx.cardview.widget.CardView>
 
             <LinearLayout
@@ -155,23 +214,24 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right|center_vertical"
-                android:layout_margin="@dimen/margin_20dp"
+                android:layout_margin="@dimen/margin_20"
                 android:background="@color/customerBubbleBackground"
-                android:elevation="@dimen/fifteen_dp"
+                android:elevation="@dimen/elevation_15"
                 android:gravity="right|center"
                 android:onClick="launchChat"
                 android:orientation="horizontal"
-                android:padding="@dimen/padding_10dp">
+                android:padding="@dimen/padding_10">
 
                 <ImageView
                     android:id="@+id/ivChat"
-                    android:layout_width="@dimen/chat_button_width"
-                    android:layout_height="@dimen/chat_button_height"
+                    android:layout_width="@dimen/width_70"
+                    android:layout_height="@dimen/height_70"
                     android:layout_gravity="center"
-                    android:layout_margin="@dimen/margin_10dp"
+                    android:layout_margin="@dimen/margin_10"
                     android:background="@drawable/blue_circular"
-                    android:gravity="end"
-                    android:padding="@dimen/padding_20dp"
+                    android:elevation="@dimen/elevation_15"
+                    android:gravity="right"
+                    android:padding="@dimen/padding_20"
                     android:src="@drawable/ic_chat_icon"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textColor="@android:color/white" />
@@ -187,4 +247,4 @@
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
-</RelativeLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
