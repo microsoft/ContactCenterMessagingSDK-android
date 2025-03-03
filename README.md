@@ -71,14 +71,12 @@ If you face a build issue related to the namespace for the `randombytes` package
 ```gradle
    namespace 'com.bitgo.randombytes'  // (path: node_modules -> react-native-randombytes -> android -> build.gradle)
 ```
-##Table of Contents
+## Table of Contents
 
   * [About](#about)
   * [Installation](#installation)
     + [Pre-Requisites](#pre-requisites)
-    + [Integrating the SDK.](#Integrating-the-SDK.)
-      - [Manual Integration](#manual-integration)
-      - [Integration through Gradle](#integration-through-gradle)
+    + [Integration](#integration)
     + [Android Studio (Recommended)](#android-studio-recommended)
     + [Instructions for Using the Chat Feature in the Sample Android App](#instructions-for-using-the-chat-feature-in-the-sample-android-app)
   * [Initialization](#initialization)
@@ -109,9 +107,8 @@ If you face a build issue related to the namespace for the `randombytes` package
     + [Get Reconnect Context](#get-reconnect-context)
     + [LCWMessagingDelegate](#lcwmessagingdelegate)
     + [getConversationDetails Logic in ChatActivity](#getconversationdetails-logic-in-chatactivity)
-
   * [Troubleshooting](#troubleshooting-1)
-  * [Push notification implementation](#push-notification-support-firebase-cloud-messaging-setup)
+  * [Push Notifications](#push-notifications)
 
 ## About
 
@@ -158,9 +155,9 @@ to our roadmap.
 *	Android SDK/API target minimum of 26 or above 
 *	package.json file (included in sample app) 
 
-### Integrating the SDK.
+### Integration
 
-### Adding/Configuring `package.json`
+**Adding/Configuring `package.json`**
 
 1. **Open your project directory:** Navigate to the root folder of your Android project.
 2. **Initialize npm:** Run the following command in the terminal inside your project directory. This will create a new `package.json` file:
@@ -658,22 +655,130 @@ LiveChatMessaging.getInstance().getConversationDetails { response ->
     }
 }
 ```
-## Push Notification Support (Firebase Cloud Messaging Setup)
 
-1. **Create an FCM Project:**
-   Before setting up Firebase Cloud Messaging in your app, you need to create an FCM project in the Firebase Console. Follow the instructions there to create and configure your project.  
-   [Firebase Console](https://console.firebase.google.com/)
+## Push Notifications
+### Requirements
+Our iOS push notifications require accounts with [Azure Notification Hub](https://azure.microsoft.com/en-us/products/notification-hubs) and [Google Firebase](https://firebase.google.com/).
 
-2. **Set Up Firebase Cloud Messaging:**
-   After creating the FCM project, follow the detailed instructions to configure Firebase Cloud Messaging for your Android app:  
-   [Firebase Cloud Messaging Setup](https://firebase.google.com/docs/cloud-messaging/android/client)
+Instructions:
+* [Setting up Azure Notification Hub](https://learn.microsoft.com/en-us/azure/notification-hubs/create-notification-hub-portal) 
+* [Configuring Google Firebase](https://learn.microsoft.com/en-us/azure/notification-hubs/configure-google-firebase-cloud-messaging)
 
-3. **Obtain the Device Token:**
-   After completing the setup, retrieve the device token, which is required to send push notifications to your app.
+You will also need:
+* The **App Id** for the workstream used by your application.
+* The **org_url** for your Contact Center dataverse
+* An authorization **token** for your Contact Center dataverse API
 
-4. **Initializing the Token inside SDK:**
-   Once your FCM project is created and the Firebase setup is complete, you can initialize the SDK within your application.  
-   Add the following line of code to set the device token before launching the chat:
+### Contact Center Configuration
+> ⚠️ Configuration is currently only available through the API. In the near future we will add a configuration
+interface to the Customer Service Admin Center. Your configurations will appear there when it is released
+and it will not require any changes on your part.
+
+> Configuration settings only need to be set once per workstream to enable both Android and iOS applications.
+
+1. Create a ChannelInstanceSecret entry:
+
+```bash
+curl --request POST \
+  --url https://{{org_url}}/api/data/v9.2/msdyn_channelinstancesecrets \
+  --header 'authorization: Bearer {{token}}' \
+  --header 'content-type: application/json' \
+  --data '{
+}'
+```
+
+2. Get ChannelInstance Secret Id (msdyn_channelinstancesecretid):
+
+```bash
+curl --request GET \
+  --url https://{{org_url}}/api/data/v9.2/msdyn_channelinstancesecrets \
+  --header 'authorization: Bearer {{token}}'
+```
+
+3. Update ChannelInstanceSecret entry with the following values:
+
+```bash
+curl --request PATCH \
+  --url 'https://{{org_url}}/api/data/v9.2/msdyn_channelinstancesecrets({{msdyn_channelinstancesecretid}})' \
+  --header 'authorization: Bearer {{token}}' \
+  --header 'content-type: application/json' \
+  --data '{
+  "msdyn_name": "notificationHubConnectonString",
+  "msdyn_secretvalue": "{{azurenotificationhub_connection_string}}"
+}'
+```
+
+4. Create an Azure Notification Hub entry:
+
+```bash
+curl --request POST \
+  --url https://{{org_url}}/api/data/v9.2/msdyn_azurenotificationhubs \
+  --header 'authorization: Bearer {{token}}' \
+  --header 'content-type: application/json' \
+  --data '{
+  
+}'
+```
+
+5. Get Azure Notification Hub Id (msdyn_azurenotificationhubid):
+
+```bash
+curl --request GET \
+  --url https://{{org_url}}/api/data/v9.2/msdyn_azurenotificationhubs \
+  --header 'authorization: Bearer {{token}}'
+```
+
+6. Update Azure Notification Hub entry with the following values:
+
+```bash
+curl --request PATCH \
+  --url 'https://{{org_url}}/api/data/v9.2/msdyn_azurenotificationhubs({{msdyn_azurenotificationhubid}})' \
+  --header 'authorization: Bearer {{token}}' \
+  --header 'content-type: application/json' \
+  --data '{
+  "msdyn_connectionstringid@odata.bind": "msdyn_channelinstancesecrets({{msdyn_channelinstancesecretid}})",
+  "msdyn_defaultnotificationbody": "Default Notification Content",
+  "msdyn_shownotificationtitle": false,
+  "msdyn_notificationtitle": null,
+  "msdyn_showmessagepreview": true,
+  "msdyn_azurenotificationhubname": "{{azurenotificationhub_name}}"
+}'
+```
+> **msdyn_defaultnotificationbody**: String, this is the default message shown in preview<br>
+**msdyn_shownotificationtitle**: Bool, defines whether or not we show a title above the preview message<br>
+**msdyn_notificationtitle**: String, the title shown if notificationtitle is true<br>
+**msdyn_showmessagepreview**: Bool, defines whether the rep's message is shown in the push notification. If
+false, defaultnotificationbody is always used. If true, defaultnotificationbody is only used when the agent
+sends a message without text, such as an attachment.<br>
+**msdyn_azurenotificationhubname**: String, your hub name in Azure Notification Hub.
+
+
+7. Get LiveChatConfig id (msdyn_livechatconfigid) entry linked to the workstream
+
+```bash
+curl --request GET \
+  --url 'https://{{org_url}}/api/data/v9.2/msdyn_livechatconfigs?%24filter=msdyn_widgetappid%2520eq%2520{{widget_app_id}}' \
+  --header 'authorization: Bearer {{token}}'
+```
+
+8. Link the Azure Notification Hub to the LiveChatConfig entry:
+
+```bash
+curl --request PATCH \
+  --url 'https://{{org_url}}/api/data/v9.2/msdyn_livechatconfigs({{msdyn_livechatconfigid}})' \
+  --header 'authorization: Bearer {{token}}' \
+  --header 'content-type: application/json' \
+  --data '{
+  "msdyn_azurenotificationhubid@odata.bind": "msdyn_azurenotificationhubs({{msdyn_azurenotificationhubid}})"
+}'
+```
+
+## Configuring Application
+
+**Initializing the Token inside SDK:**
+
+Once your FCM project is created and the Firebase setup is complete, you can initialize the SDK within your application.  
+Add the following line of code to set the device token before launching the chat:
 
    ```java
    LiveChatMessaging.getInstance().setFcmToken("YOUR_DEVICE_TOKEN")
