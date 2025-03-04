@@ -658,7 +658,7 @@ LiveChatMessaging.getInstance().getConversationDetails { response ->
 
 ## Push Notifications
 ### Requirements
-Our iOS push notifications require accounts with [Azure Notification Hub](https://azure.microsoft.com/en-us/products/notification-hubs) and [Google Firebase](https://firebase.google.com/).
+Our Android push notifications require accounts with [Azure Notification Hub](https://azure.microsoft.com/en-us/products/notification-hubs) and [Google Firebase](https://firebase.google.com/).
 
 Instructions:
 * [Setting up Azure Notification Hub](https://learn.microsoft.com/en-us/azure/notification-hubs/create-notification-hub-portal) 
