@@ -109,6 +109,9 @@ If you face a build issue related to the namespace for the `randombytes` package
     + [getConversationDetails Logic in ChatActivity](#getconversationdetails-logic-in-chatactivity)
   * [Troubleshooting](#troubleshooting-1)
   * [Push Notifications](#push-notifications)
+  * [Custom fontfamily](#)
+    + [Configure](#)
+    + [Limitations](#)
 
 ## About
 
