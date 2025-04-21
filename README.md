@@ -109,13 +109,13 @@ If you face a build issue related to the namespace for the `randombytes` package
     + [getConversationDetails Logic in ChatActivity](#getconversationdetails-logic-in-chatactivity)
   * [Troubleshooting](#troubleshooting-1)
   * [Push Notifications](#push-notifications)
-  * [Custom font & fontFamily](#custom-font-family)
-    + [Agent font & fontFamily](#agent-font)
-    + [Customer font & fontFamily](#customer-font)
-    + [Image adaptive card font & fontFamily](#image-adaptive-card-font--fontfamily)
-    + [Video adaptive card font & fontFamily](#video-adaptive-card-font--fontfamily)
-    + [Basic adaptive card font & fontFamily](#basic-adaptive-card-font--fontfamily)
-  * [Markdown parsing limitaions](#markdown-parsing-limitations)
+  * [Custom font & font-family](#custom-font--font-family)
+    + [Agent font & font-family](#agent-font--font-family)
+    + [Customer font & font-family](#customer-font--font-family)
+    + [Image adaptive card font & font-family](#image-adaptive-card-font--font-family)
+    + [Video adaptive card font & font-family](#video-adaptive-card-font--font-family)
+    + [Basic adaptive card font & font-family](#basic-adaptive-card-font--font-family)
+  * [Markdown parsing limitations](#markdown-parsing-limitations)
    
 
 ## About
@@ -791,14 +791,14 @@ Add the following line of code to set the device token before launching the chat
    ```java
    LiveChatMessaging.getInstance().setFcmToken("YOUR_DEVICE_TOKEN")
    ```
-## Custom Font-Family
+## Custom font & font-family
 To use a custom font in your application, follow these steps:
 
 Steps:
 1. Place the font_name.ttf file inside the res/font/ folder.
 2. Override the following style in your application's res/values/styles.xml:
 
-### Agent Font
+### Agent font & font-family
 
 ```xml
     <style name="AgentBubbleTextViewDefault" parent="@android:style/TextAppearance.Medium">
@@ -814,7 +814,7 @@ Steps:
         <item name="android:padding">@dimen/agentTextViewPadding</item>
     </style>
 ```
-### Customer Font
+### Customer font & font-family
 ```xml
     <style name="CustomerBubbleTextViewDefault" parent="@android:style/TextAppearance.Medium">
         <item name="android:layout_height">wrap_content</item>
@@ -829,7 +829,7 @@ Steps:
     </style>
 ```
 
-### Image adaptive card font & fontFamily
+### Image adaptive card font & font-family
 ```xml
 <style name="ImageCardTitleDefault">
         <item name="android:layout_width">wrap_content</item>
@@ -861,7 +861,7 @@ Steps:
         <item name="android:fontFamily">@font/arial</item>
     </style>
 ```
-### Video adaptive card font & fontFamily
+### Video adaptive card font & font-family
 ```xml
 <style name="VideoCardTitleDefault">
         <item name="android:layout_height">wrap_content</item>
@@ -908,7 +908,7 @@ Steps:
         <item name="android:fontFamily">@font/arial</item>
     </style>
 ```
-### Basic adaptive card font & fontFamily
+### Basic adaptive card font & font-family
 To support custom font for basic adaptive card text, override HostConfig.json file inside asset folder
 ```json
 {
