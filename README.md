@@ -867,7 +867,7 @@ Steps:
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:gravity">start|center_vertical</item>
-        <item name="android:layout_gravity">left</item>
+        <item name="android:layout_gravity">start</item>
         <item name="android:textColor">@color/txt_color_black</item>
         <item name="android:textSize">@dimen/videoCardTitleTextSize</item>
         <item name="android:textStyle">bold</item>
