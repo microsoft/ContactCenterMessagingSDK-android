@@ -109,6 +109,14 @@ If you face a build issue related to the namespace for the `randombytes` package
     + [getConversationDetails Logic in ChatActivity](#getconversationdetails-logic-in-chatactivity)
   * [Troubleshooting](#troubleshooting-1)
   * [Push Notifications](#push-notifications)
+  * [Custom font & fontFamily](#custom-font-family)
+    + [Agent font & fontFamily](#agent-font)
+    + [Customer font & fontFamily](#customer-font)
+    + [Image adaptive card font & fontFamily](#image-adaptive-card-font--fontfamily)
+    + [Video adaptive card font & fontFamily](#video-adaptive-card-font--fontfamily)
+    + [Basic adaptive card font & fontFamily](#basic-adaptive-card-font--fontfamily)
+  * [Markdown parsing limitaions](#markdown-parsing-limitaions)
+   
 
 ## About
 
@@ -782,4 +790,182 @@ Add the following line of code to set the device token before launching the chat
 
    ```java
    LiveChatMessaging.getInstance().setFcmToken("YOUR_DEVICE_TOKEN")
+   ```
+## Custom Font-Family
+To use a custom font in your application, follow these steps:
+
+Steps:
+1. Place the font_name.ttf file inside the res/font/ folder.
+2. Override the following style in your application's res/values/styles.xml:
+
+### Agent Font
+
+```xml
+    <style name="AgentBubbleTextViewDefault" parent="@android:style/TextAppearance.Medium">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:textColor">@color/agentBubbleTextColor</item>
+        <item name="android:textSize">@dimen/agentBubbleTextSize</item>
+        <item name="android:textColorLink">@color/agentTextLinkColor</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="agentIcon">@drawable/ic_agent_avatar</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:fontFamily">@font/arial</item>
+        <item name="android:padding">@dimen/agentTextViewPadding</item>
+    </style>
+```
+### Customer Font
+```xml
+    <style name="CustomerBubbleTextViewDefault" parent="@android:style/TextAppearance.Medium">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:textColor">@color/customerBubbleTextColor</item>
+        <item name="android:textSize">@dimen/customerBubbleTextSize</item>
+        <item name="android:gravity">right</item>
+        <item name="android:textAlignment">textStart</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:fontFamily">@font/arial</item>
+        <item name="android:padding">@dimen/customerTextViewPadding</item>
+    </style>
+```
+
+### Image adaptive card font & fontFamily
+```xml
+<style name="ImageCardTitleDefault">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">start|center_vertical</item>
+        <item name="android:textSize">@dimen/imageCardTitleTextSize</item>
+        <item name="android:textColor">@color/imageCardTitleTextColor</item>
+        <item name="android:padding">@dimen/imageCardTitlePadding</item>
+        <item name="android:textColorLink">@color/agentTextLinkColor</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:fontFamily">@font/arial</item>
+    </style>
+
+    <style name="ImageCardSubTitleDefault">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">start|center_vertical</item>
+        <item name="android:textSize">@dimen/imageCardSubTitleTextSize</item>
+        <item name="android:padding">@dimen/imageCardSubTitlePadding</item>
+        <item name="android:fontFamily">@font/arial</item>
+    </style>
+
+    <style name="ImageCardTextDefault">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">start|center_vertical</item>
+        <item name="android:textSize">@dimen/imageCardTextSize</item>
+        <item name="android:padding">@dimen/imageCardTextPadding</item>
+        <item name="android:fontFamily">@font/arial</item>
+    </style>
+```
+### Video adaptive card font & fontFamily
+```xml
+<style name="VideoCardTitleDefault">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:gravity">start|center_vertical</item>
+        <item name="android:layout_gravity">left</item>
+        <item name="android:textColor">@color/txt_color_black</item>
+        <item name="android:textSize">@dimen/videoCardTitleTextSize</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_marginTop">@dimen/videoCardTitleMarginTop</item>
+        <item name="android:fontFamily">@font/arial</item>
+    </style>
+
+    <style name="VideoCardSubtitleDefault">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:gravity">start|center_vertical</item>
+        <item name="android:layout_gravity">left</item>
+        <item name="android:textSize">@dimen/videoCardSubtitleTextSize</item>
+        <item name="android:layout_marginTop">@dimen/videoCardSubtitleTextMarginTop</item>
+        <item name="android:fontFamily">@font/arial</item>
+    </style>
+
+    <style name="VideoCardTextDefault">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:gravity">start|center_vertical</item>
+        <item name="android:layout_gravity">left</item>
+        <item name="android:textColor">@color/txt_color_black</item>
+        <item name="android:textSize">@dimen/videoCardDescriptionTextSize</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_marginTop">@dimen/videoCardSubtitleTextMarginTop</item>
+        <item name="android:fontFamily">@font/arial</item>
+    </style>
+
+    <style name="VideoCardButtonDefault">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:singleLine">false</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/videoCardButtonTextSize</item>
+        <item name="android:fontFamily">@font/arial</item>
+    </style>
+```
+### Basic adaptive card font & fontFamily
+To support custom font for basic adaptive card text, override HostConfig.json file inside asset folder
+```json
+{
+  "fontFamily": "arial",
+  "fontTypes": {
+    "default": {
+      "fontSizes": {
+        "small": 12,
+        "default": 17,
+        "medium": 15,
+        "large": 17,
+        "extraLarge": 19
+      }
+    },
+    "monospace": {
+      "fontSizes": {
+        "small": 12,
+        "default": 17,
+        "medium": 15,
+        "large": 17,
+        "extraLarge": 19
+      }
+    }
+  },
+  "containerStyles": {
+    "default": {
+      "foregroundColors": {
+        "default": {
+          "default": "#000000"
+        }
+      },
+      "backgroundColor": "#FFFFFF"
+    }
+  },
+  "actions": {
+    "actionsOrientation": "Vertical",
+    "actionAlignment": "stretch"
+  }
+}
+```
+
+### Markdown parsing limitaions
+
+Android currently has limited support for Markdown, particularly with blockquotes.
+
+Single-line blockquotes (e.g., > This is a quote) are generally supported.
+
+However, complex combinations of Markdown elements within a blockquote — such as bold, lists, or nested formatting — may not render correctly.
+
+Multi-line blockquotes or blockquotes containing rich Markdown may display inconsistently across devices or Android versions.
+
+
+
+
+
+
+ 
+
+
 
