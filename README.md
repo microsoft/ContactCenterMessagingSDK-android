@@ -950,8 +950,7 @@ To support custom font for basic adaptive card text, override HostConfig.json fi
 }
 ```
 
-### Markdown parsing limitaions
-
+### Markdown parsing limitations
 Android currently has limited support for Markdown, particularly with blockquotes.
 
 Single-line blockquotes (e.g., > This is a quote) are generally supported.
