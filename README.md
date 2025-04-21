@@ -115,7 +115,7 @@ If you face a build issue related to the namespace for the `randombytes` package
     + [Image adaptive card font & fontFamily](#image-adaptive-card-font--fontfamily)
     + [Video adaptive card font & fontFamily](#video-adaptive-card-font--fontfamily)
     + [Basic adaptive card font & fontFamily](#basic-adaptive-card-font--fontfamily)
-  * [Markdown parsing limitaions](#markdown-parsing-limitaions)
+  * [Markdown parsing limitaions](#markdown-parsing-limitations)
    
 
 ## About
