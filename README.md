@@ -821,7 +821,6 @@ Steps:
         <item name="android:layout_width">wrap_content</item>
         <item name="android:textColor">@color/customerBubbleTextColor</item>
         <item name="android:textSize">@dimen/customerBubbleTextSize</item>
-        <item name="android:gravity">right</item>
         <item name="android:textAlignment">textStart</item>
         <item name="android:textAllCaps">false</item>
         <item name="android:fontFamily">@font/arial</item>
