@@ -22,7 +22,7 @@ to guarantee timely support during the Preview period.
 6. Run the app.
 
 ### Android Studio (Recommended)
-(These instructions were tested with Gradle 8.7, Android Studio Koala | 2024.1.1 Patch 2, OpenJDK 19.0.2)
+(These instructions were tested with Gradle 8.7, Android Studio Koala | 2024.1.1 Patch 2, OpenJDK 19.0.2, kotlin 2.1.0)
 
 1. Open Android Studio and select `File -> Open...`, or from the Android Launcher, select `Import project (Eclipse ADT, Gradle, etc.)` and navigate to the root directory of your project.
 
