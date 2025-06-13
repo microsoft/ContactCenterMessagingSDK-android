@@ -296,8 +296,8 @@ Initialise the SDK with valid OmnichannelConfig parameters.
 ```kotlin
     val omnichannelConfig = OmnichannelConfig(
         orgId = “YOUR_ORG_ID”,
-        orgUrl = “ORG_URL”,
-        widgetId = “WIDGET_ID”
+        orgUrl = “YOUR_ORG_URL”,
+        widgetId = “YOUR_APP_ID”
     )
 ```
 
@@ -330,8 +330,8 @@ Builders
 ```kotlin
     val omnichannelConfig = OmnichannelConfig(
         orgId = “YOUR_ORG_ID”,
-        orgUrl = “ORG_URL”,
-        widgetId = “WIDGET_ID”
+        orgUrl = “YOUR_ORG_URL”,
+        widgetId = “YOUR_WIDGET_ID”
 )
 ```
 
@@ -527,6 +527,7 @@ LiveChatMessaging.getInstance().getLiveChatTranscript (request, completionHandle
 Ends the current Contact Center conversation.
 #### Method
 ```kotlin
+LiveChatMessaging.getInstance().endChat(CompletionHandler handler) {}
 ```
 
 ### Get Agent Availability
