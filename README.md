@@ -166,8 +166,8 @@ to our roadmap.
 ### Integration
 **Important (from version 1.1.0 onward):**
 
-- The `randombytes` dependency is no longer required.  
-  Ensure any references to `randombytes` are removed from your `build.gradle` and/or `settings.gradle` files.
+- The `randombytes` and `randomvalues` dependency is no longer required.  
+  Ensure any references to `randombytes` and `randomvalues` are removed from your `build.gradle` and/or `settings.gradle` files.
 
 - You no longer need to run `npm install` as part of the setup.
 
