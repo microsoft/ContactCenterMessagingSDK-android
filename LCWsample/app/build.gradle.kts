@@ -124,7 +124,7 @@ dependencies {
     // --- NEW: Add react-android directly to the consuming app with exclusions ---
     // This ensures core React Native classes (like ReactPackage) are on the classpath.
     // Exclusions prevent native library duplication/conflicts with your AAR.
-    implementation(files("libs/ContactCenterMessagingWidget_beta7.aar"))
+    implementation(files("libs/ContactCenterMessagingWidgetBeta.aar"))
     implementation(files("libs/OmnichannelChatSDK.aar"))
 
     implementation("com.facebook.react:react-android:0.80.0")
@@ -137,7 +137,7 @@ dependencies {
     //implementation ("io.adaptivecards:adaptivecards-android:3.7.1")
 
     // currently adaptivr card is built locally with NSDK 28
-    implementation(files("libs/adaptivecards-ndk-28.aar"))
+    implementation(files("libs/adaptivecards-ndk28.aar"))
 
     // Firebase dependencies (if used in your pure Android app)
     // implementation (libs.firebase.analytics) // Uncomment if needed

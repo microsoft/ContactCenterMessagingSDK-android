@@ -366,6 +366,8 @@
     <dimen name="preChatChoiceSetMinHeight">40dp</dimen>
     <dimen name="preChatTextInputMinHeight">40dp</dimen>
     <dimen name="preChatButtonMinHeight">40dp</dimen>
+    <dimen name="margin_30dp">30dp</dimen>
+    <dimen name="padding_10dp">10dp</dimen>
 
 </resources>
 
