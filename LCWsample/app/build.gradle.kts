@@ -124,7 +124,7 @@ dependencies {
     // --- NEW: Add react-android directly to the consuming app with exclusions ---
     // This ensures core React Native classes (like ReactPackage) are on the classpath.
     // Exclusions prevent native library duplication/conflicts with your AAR.
-    implementation(files("libs/ContactCenterMessagingWidgetBeta.aar"))
+    implementation(files("libs/ContactCenterMessagingWidgetBeta3.aar"))
     implementation(files("libs/OmnichannelChatSDK.aar"))
 
     implementation("com.facebook.react:react-android:0.80.0")
