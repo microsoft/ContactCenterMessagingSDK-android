@@ -7,6 +7,7 @@ import com.google.firebase.FirebaseOptions
 class ChatApplication : Application() {
     override fun onCreate() {
         super.onCreate()
+        //SoLoader.init(applicationContext, OpenSourceMergedSoMapping)
         //Manually initialize Firebase using FirebaseOptions
         //Refer your google-services.json
         val options = FirebaseOptions.Builder()

@@ -1,44 +1,372 @@
 <resources>
-    <dimen name="fab_margin">16dp</dimen>
-    <dimen name="txt_10sp">10sp</dimen>
-    <dimen name="txt_20sp">20sp</dimen>
-    <dimen name="margin_5dp">5dp</dimen>
-    <dimen name="margin_10dp">10dp</dimen>
-    <dimen name="margin_20dp">20dp</dimen>
-    <dimen name="margin_30dp">30dp</dimen>
-    <dimen name="padding_10dp">10dp</dimen>
-    <dimen name="padding_20dp">20dp</dimen>
-    <dimen name="height_100dp">100dp</dimen>
-    <dimen name="fifteen_dp">15dp</dimen>
-    <dimen name="chat_button_height">70dp</dimen>
-    <dimen name="chat_button_width">70dp</dimen>
-    <dimen name="max_edittext_height">100dp</dimen>
+    <dimen name="messagingActivity_horizontal_margin">16dp</dimen>
+    <dimen name="messagingActivity_vertical_margin">16dp</dimen>
+    <dimen name="messagingSendTextSize">16sp</dimen>
+    <dimen name="messagingSendBorderRadius">0dp</dimen>
+    <dimen name="messagingSendBorderSize">3dp</dimen>
+    <dimen name="messagingArrowPadding">20dp</dimen>
+    <dimen name="agentBubbleBorderSize">2dp</dimen>
+    <dimen name="agentBubbleTextSize">16sp</dimen>
+    <dimen name="agentBubbleBorderRadius">5dp</dimen>
+    <dimen name="customerBubbleBorderSize">1dp</dimen>
+    <dimen name="customerBubbleTextSize">16sp</dimen>
+    <dimen name="customerMessageInputTextSize">15sp</dimen>
+    <dimen name="customerMessageInputPadding">4dp</dimen>
+    <dimen name="customerBubbleMediaTextSize">12sp</dimen>
+    <dimen name="customerBubbleBorderRadius">0dp</dimen>
+    <dimen name="typingBubbleBorderSize">0dp</dimen>
+    <dimen name="typingBubbleTextSize">16sp</dimen>
+    <dimen name="typingBubbleBorderRadius">5dp</dimen>
+    <dimen name="systemBubbleBorderSize">0dp</dimen>
+    <dimen name="systemBubbleTextSize">12sp</dimen>
+    <dimen name="systemBubbleBorderRadius">5dp</dimen>
+    <dimen name="agentBubbleMarginLeft">5dp</dimen>
+    <dimen name="agentBubbleMarginTop">5dp</dimen>
+    <dimen name="agentBubbleMarginRight">70dp</dimen>
+    <dimen name="agentBubbleMarginBottom">10dp</dimen>
+    <dimen name="customerBubbleMarginLeft">70dp</dimen>
+    <dimen name="customerBubbleMarginTop">10dp</dimen>
+    <dimen name="customerBubbleMarginRight">10dp</dimen>
+    <dimen name="customerBubbleMarginBottom">10dp</dimen>
+    <dimen name="customerBubbleMediaMarginBottom">10dp</dimen>
+    <dimen name="typingBubbleMarginLeft">0dp</dimen>
+    <dimen name="typingBubbleMarginTop">0dp</dimen>
+    <dimen name="typingBubbleMarginRight">0dp</dimen>
+    <dimen name="typingBubbleMarginBottom">0dp</dimen>
+    <dimen name="systemBubbleMarginLeft">0dp</dimen>
+    <dimen name="systemBubbleMarginTop">0dp</dimen>
+    <dimen name="systemBubbleMarginRight">0dp</dimen>
+    <dimen name="systemBubbleMarginBottom">0dp</dimen>
+    <dimen name="agentBubblePadding">10dp</dimen>
+    <dimen name="customerBubblePadding">10dp</dimen>
+    <dimen name="customerBubbleMediaPadding">0dp</dimen>
+    <dimen name="typingBubblePadding">20dp</dimen>
+    <dimen name="systemBubblePadding">10dp</dimen>
+    <dimen name="agentBubbleMediaPadding">0dp</dimen>
+    <dimen name="typingBubbleDrawablePadding">10dp</dimen>
+    <dimen name="agentSpeechBorderSize">2dp</dimen>
+    <dimen name="agentSpeechTextSize">15sp</dimen>
+    <dimen name="agentSpeechBorderRadius">0dp</dimen>
+    <dimen name="customerSpeechBorderSize">2dp</dimen>
+    <dimen name="customerSpeechTextSize">15sp</dimen>
+    <dimen name="customerSpeechBorderRadius">2dp</dimen>
+    <dimen name="typingSpeechBorderSize">0dp</dimen>
+    <dimen name="typingSpeechTextSize">15sp</dimen>
+    <dimen name="typingSpeechBorderRadius">5dp</dimen>
+    <dimen name="systemSpeechBorderSize">0dp</dimen>
+    <dimen name="systemSpeechTextSize">15sp</dimen>
+    <dimen name="systemSpeechBorderRadius">2dp</dimen>
+    <dimen name="agentSpeechMarginLeft">0dp</dimen>
+    <dimen name="agentSpeechMarginTop">0dp</dimen>
+    <dimen name="agentSpeechMarginRight">0dp</dimen>
+    <dimen name="agentBubbleMediaMarginBottom">10dp</dimen>
+    <dimen name="agentSpeechMarginBottom">0dp</dimen>
+    <dimen name="customerSpeechMarginLeft">0dp</dimen>
+    <dimen name="customerSpeechMarginTop">0dp</dimen>
+    <dimen name="customerSpeechMarginRight">0dp</dimen>
+    <dimen name="customerSpeechMarginBottom">0dp</dimen>
+    <dimen name="typingSpeechMarginLeft">10dp</dimen>
+    <dimen name="typingSpeechMarginTop">0dp</dimen>
+    <dimen name="typingSpeechMarginRight">10dp</dimen>
+    <dimen name="typingSpeechMarginBottom">0dp</dimen>
+    <dimen name="systemSpeechMarginLeft">10dp</dimen>
+    <dimen name="systemSpeechMarginTop">0dp</dimen>
+    <dimen name="systemSpeechMarginRight">10dp</dimen>
+    <dimen name="systemSpeechMarginBottom">0dp</dimen>
+    <dimen name="agentSpeechPadding">20dp</dimen>
+    <dimen name="customerSpeechPadding">20dp</dimen>
+    <dimen name="typingSpeechPadding">0dp</dimen>
+    <dimen name="systemSpeechPadding">0dp</dimen>
+    <dimen name="agentIconBorderSize">2dp</dimen>
+    <dimen name="customerIconBorderSize">2dp</dimen>
+    <dimen name="customerInputBorderSize">0dp</dimen>
+    <dimen name="customerInputBorderRadius">0dp</dimen>
 
-    <dimen name="margin_5">5dp</dimen>
-    <dimen name="margin_10">10dp</dimen>
-    <dimen name="margin_20">20dp</dimen>
-    <dimen name="margin_30">30dp</dimen>
-    <dimen name="margin_40">40dp</dimen>
+    <!--Email address dialog for transcript-->
+    <dimen name="dialog_email_title_text_size">18sp</dimen>
+    <dimen name="dialog_email_txt_size">16sp</dimen>
 
-    <dimen name="padding_5">5dp</dimen>
-    <dimen name="padding_8">8dp</dimen>
-    <dimen name="padding_10">10dp</dimen>
-    <dimen name="padding_20">20dp</dimen>
-    <dimen name="padding_30">30dp</dimen>
-    <dimen name="padding_40">40dp</dimen>
 
-    <dimen name="textSize_10">10sp</dimen>
-    <dimen name="textSize_12">12sp</dimen>
-    <dimen name="textSize_14">14sp</dimen>
-    <dimen name="textSize_16">16sp</dimen>
-    <dimen name="textSize_18">18sp</dimen>
-    <dimen name="textSize_20">20sp</dimen>
-    <dimen name="textSize_40">40sp</dimen>
+    <!--Close dialog for transcript-->
+    <dimen name="dialog_close_title_text_size">18sp</dimen>
+    <dimen name="dialog_close_txt_size">16sp</dimen>
 
-    <dimen name="max_height_100">100dp</dimen>
-    <dimen name="elevation_5">5dp</dimen>
-    <dimen name="elevation_15">15dp</dimen>
-    <dimen name="width_70">70dp</dimen>
-    <dimen name="height_70">70dp</dimen>
+
+    <dimen name="agent_bubble_compound_padding">10dp</dimen>
+
+
+    <dimen name="customer_bubble_compound_padding">10dp</dimen>
+
+    <dimen name="minimizeIconWidth">35dp</dimen>
+    <dimen name="UrlPreviewIconWidth">100dp</dimen>
+    <dimen name="UrlPreviewIconHeight">80dp</dimen>
+    <dimen name="UrlPreviewIconPaddingLeft">4dp</dimen>
+    <dimen name="UrlPreviewIconPaddingRight">4dp</dimen>
+    <dimen name="UrlPreviewIconPaddingTop">4dp</dimen>
+    <dimen name="UrlPreviewIconPaddingBottom">4dp</dimen>
+    <dimen name="UrlPreviewTitleTextSize">16sp</dimen>
+    <dimen name="UrlPreviewDescriptionTextSize">14sp</dimen>
+    <!--<dimen name="titleAgentUrlLookupBubblePaddingLeft">5dp</dimen>
+    <dimen name="descriptionAgentUrlLookupBubblePaddingLeft">5dp</dimen>-->
+    <dimen name="timestampPadding">5dp</dimen>
+    <dimen name="agentBubbleTimeStampTextSize">12sp</dimen>
+    <dimen name="customerBubbleTimeStampTextSize">12sp</dimen>
+    <dimen name="messagingTitlePaddingLeft">10dp</dimen>
+    <dimen name="messagingTitleSize">18sp</dimen>
+    <dimen name="messagingFooterTopBorderSize">0.5dp</dimen>
+    <dimen name="fileUploadCloseButtonBorderSize">1dp</dimen>
+    <dimen name="fileUploadCloseButtonBorderRadius">5dp</dimen>
+    <dimen name="fileUploadSelectButtonBorderSize">1dp</dimen>
+    <dimen name="fileUploadSelectButtonBorderRadius">5dp</dimen>
+    <dimen name="fileUploadSelectButtonWidth">150dp</dimen>
+    <dimen name="fileUploadSelectButtonPaddingLeft">40dp</dimen>
+    <dimen name="fileUploadSelectButtonPaddingRight">40dp</dimen>
+    <dimen name="fileUploadSelectButtonTextSize">18sp</dimen>
+    <dimen name="fileUploadCloseButtonWidth">150dp</dimen>
+    <dimen name="fileUploadCloseButtonMarginTop">10dp</dimen>
+    <dimen name="fileUploadCloseButtonPaddingLeft">40dp</dimen>
+    <dimen name="fileUploadCloseButtonPaddingRight">40dp</dimen>
+    <dimen name="fileUploadCloseButtonTextSize">18sp</dimen>
+    <dimen name="fileUploadMessagePadding">10dp</dimen>
+    <dimen name="fileUploadDisclaimerMarginBottom">10dp</dimen>
+    <dimen name="fileUploadDisclaimerPadding">10dp</dimen>
+    <dimen name="img_agent_speech_padding">5dp</dimen>
+    <dimen name="img_customer_speech_padding">5dp</dimen>
+    <dimen name="image_thumbnail_size">100dp</dimen>
+    <dimen name="dialog_email_body_padding">5dp</dimen>
+    <dimen name="dialog_email_body_text_size">16sp</dimen>
+
+    <dimen name="dialog_close_body_padding">15dp</dimen>
+    <dimen name="dialog_close_body_text_size">16sp</dimen>
+
+    <item name="title_proportion_up" format="float" type="dimen">1</item>
+    <item name="title_proportion_below" format="float" type="dimen">1</item>
+
+    <dimen name="nina_btn_top_margin">0dp</dimen>
+    <dimen name="nina_btn_left_margin">0dp</dimen>
+    <dimen name="nina_btn_right_margin">0dp</dimen>
+    <dimen name="nina_btn_bottom_margin">0dp</dimen>
+
+    <dimen name="nina_image_size">100dp</dimen>
+    <dimen name="logo_padding">2dp</dimen>
+    <dimen name="progressbarTextSize">16sp</dimen>
+    <dimen name="progressbarTextPadding">5dp</dimen>
+    <dimen name="progressbarPadding">5dp</dimen>
+    <dimen name="progressbarContainerPadding">15dp</dimen>
+    <dimen name="minimizeMediaHeight">50dp</dimen>
+    <dimen name="out_of_ofc_hours_message_size">16sp</dimen>
+    <dimen name="out_of_ofc_hours_message_padding">5dp</dimen>
+    <dimen name="errorIconWidth">200dp</dimen>
+    <dimen name="errorIconHeight">200dp</dimen>
+    <dimen name="startChatErrorIconPadding">10dp</dimen>
+    <dimen name="startChatErrorTitlePadding">10dp</dimen>
+    <dimen name="startChatErrorSubtitlePadding">10dp</dimen>
+    <dimen name="initials_text_size">6sp</dimen>
+    <dimen name="notification_panel_padding">5dp</dimen>
+    <dimen name="media_download_icon_width">10dp</dimen>
+    <dimen name="media_download_icon_height">15dp</dimen>
+    <dimen name="media_download_icon_padding">5dp</dimen>
+    <dimen name="media_download_icon_margin_left">5dp</dimen>
+    <dimen name="media_download_icon_margin_right">5dp</dimen>
+    <dimen name="media_download_icon_margin_top">5dp</dimen>
+    <dimen name="media_download_icon_margin_bottom">5dp</dimen>
+    <dimen name="media_download_icon_margin">10dp</dimen>
+    <dimen name="media_info_icon_width">15dp</dimen>
+    <dimen name="media_info_icon_height">15dp</dimen>
+    <dimen name="media_info_icon_padding">5dp</dimen>
+    <dimen name="media_info_icon_margin">5dp</dimen>
+    <dimen name="media_info_minimum_height">40dp</dimen>
+    <dimen name="media_image_width">0dp</dimen>
+    <dimen name="media_image_height">250dp</dimen>
+    <dimen name="media_video_width">0dp</dimen>
+    <dimen name="media_video_height">250dp</dimen>
+    <dimen name="customerMediaPadding">0dp</dimen>
+    <dimen name="agentMediaPadding">10dp</dimen>
+    <dimen name="agentBubbleCardElevation">0.5dp</dimen>
+    <dimen name="customerBubbleCardElevation">0.5dp</dimen>
+    <dimen name="newMessageBackgroundRadius">10dp</dimen>
+    <dimen name="media_constraint_width_percent">0.7</dimen>
+    <dimen name="notification_icon_marginRight">10dp</dimen>
+    <dimen name="notification_icon_marginLeft">10dp</dimen>
+    <dimen name="notification_icon_marginTop">10dp</dimen>
+    <dimen name="notification_icon_marginBottom">10dp</dimen>
+    <dimen name="notification_icon_margin">10dp</dimen>
+
+    <dimen name="notification_title_marginRight">10dp</dimen>
+    <dimen name="notification_title_marginLeft">10dp</dimen>
+    <dimen name="notification_title_marginTop">10dp</dimen>
+    <dimen name="notification_title_marginBottom">10dp</dimen>
+    <dimen name="notification_title_margin">10dp</dimen>
+
+    <dimen name="seekbar_track_background_height_material">4dp</dimen>
+    <dimen name="seekbar_track_progress_height_material">5dp</dimen>
+    <dimen name="progressBarCornerRadius">4dp</dimen>
+    <dimen name="seekbar_voice_offset">8dp</dimen>
+
+    <dimen name="voiceMuteButtonPadding">4dp</dimen>
+    <dimen name="voiceMuteButtonMarginTop">4dp</dimen>
+    <dimen name="voiceMuteButtonMarginBottom">4dp</dimen>
+    <dimen name="voiceMuteButtonMarginLeft">4dp</dimen>
+    <dimen name="voiceMuteButtonMarginRight">4dp</dimen>
+    <dimen name="voiceContainerPadding">10dp</dimen>
+    <dimen name="transcriptDivider">10dp</dimen>
+    <dimen name="emailIconMarginHorizontal">20dp</dimen>
+    <dimen name="chimeIconMarginHorizontal">30dp</dimen>
+
+    <dimen name="splashIconWidth">100dp</dimen>
+    <dimen name="splashIconHeight">100dp</dimen>
+    <dimen name="fifty_dp">50dp</dimen>
+
+    <dimen name="spinnerLoaderImageHeight">200dp</dimen>
+    <dimen name="spinnerLoaderImageWidth">200dp</dimen>
+
+    <dimen name="speechAdaptiveCardMarginBottom">10dp</dimen>
+    <dimen name="speechAdaptiveCardMarginTop">10dp</dimen>
+    <dimen name="speechAdaptiveCardMarginLeft">10dp</dimen>
+    <dimen name="adaptiveCardCarouselMarginRight">10dp</dimen>
+    <dimen name="adaptiveCardCarouselRightMinMargin">70dp</dimen>
+    <dimen name="adaptiveCardsSpacing">10dp</dimen>
+    <dimen name="adaptiveCardsArrowMargin">16dp</dimen>
+    <dimen name="customerTextViewPadding">0dp</dimen>
+    <dimen name="agentTextViewPadding">0dp</dimen>
+    <dimen name="imageCardTitleTextSize">18sp</dimen>
+    <dimen name="imageCardSubTitleTextSize">14sp</dimen>
+    <dimen name="imageCardTextSize">16sp</dimen>
+    <dimen name="imageCardTitlePadding">5dp</dimen>
+    <dimen name="imageCardSubTitlePadding">5dp</dimen>
+    <dimen name="imageCardTextPadding">5dp</dimen>
+    <dimen name="imageCardViewPadding">5dp</dimen>
+    <dimen name="videoCardViewPadding">10dp</dimen>
+    <dimen name="videoCardTitleTextSize">18sp</dimen>
+    <dimen name="videoCardSubtitleTextSize">14sp</dimen>
+    <dimen name="videoCardDescriptionTextSize">14sp</dimen>
+    <dimen name="videoCardTitleMarginTop">10dp</dimen>
+    <dimen name="videoCardSubtitleTextMarginTop">5dp</dimen>
+    <dimen name="videoCardButtonsSpacing">10dp</dimen>
+    <dimen name="videoCardButtonPaddingLeft">10dp</dimen>
+    <dimen name="videoCardButtonPaddingRight">10dp</dimen>
+    <dimen name="videoCardButtonPaddingTop">5dp</dimen>
+    <dimen name="videoCardButtonPaddingBottom">5dp</dimen>
+    <dimen name="videoCardButtonTextSize">16sp</dimen>
+    <dimen name="videoCardButtonCornerRadius">0dp</dimen>
+    <dimen name="videoCardButtonBorderWidth">1dp</dimen>
+
+    <dimen name="agentSpeechIconWidth">45dp</dimen>
+    <dimen name="agentSpeechIconHeight">45dp</dimen>
+    <dimen name="customerSpeechIconWidth">45dp</dimen>
+    <dimen name="customerSpeechIconHeight">45dp</dimen>
+    <dimen name="agentSpeechIconMaxWidth">45dp</dimen>
+    <dimen name="agentSpeechIconMaxHeight">45dp</dimen>
+    <dimen name="customerSpeechIconMaxWidth">45dp</dimen>
+    <dimen name="customerSpeechIconMaxHeight">45dp</dimen>
+    <dimen name="agentSpeechIconMarginLeft">5dp</dimen>
+    <dimen name="agentSpeechIconMarginTop">0dp</dimen>
+    <dimen name="agentSpeechIconMarginRight">5dp</dimen>
+    <dimen name="agentSpeechIconMarginBottom">0dp</dimen>
+    <dimen name="customerSpeechIconMarginLeft">5dp</dimen>
+    <dimen name="customerSpeechIconMarginTop">0dp</dimen>
+    <dimen name="customerSpeechIconMarginRight">5dp</dimen>
+    <dimen name="customerSpeechIconMarginBottom">0dp</dimen>
+
+    <dimen name="agentSpeechRichContainerPadding">10dp</dimen>
+    <dimen name="customerSpeechRichContainerPadding">10dp</dimen>
+    <dimen name="agentSpeechRichMinHeight">35dp</dimen>
+    <dimen name="customerSpeechRichMinHeight">35dp</dimen>
+
+    <dimen name="agentSpeechRichContainerMarginLeft">0dp</dimen>
+    <dimen name="agentSpeechRichContainerMarginTop">0dp</dimen>
+    <dimen name="agentSpeechRichContainerMarginRight">0dp</dimen>
+    <dimen name="agentSpeechRichContainerMarginBottom">0dp</dimen>
+    <dimen name="customerSpeechRichContainerMarginLeft">0dp</dimen>
+    <dimen name="customerSpeechRichContainerMarginTop">0dp</dimen>
+    <dimen name="customerSpeechRichContainerMarginRight">0dp</dimen>
+    <dimen name="customerSpeechRichContainerMarginBottom">0dp</dimen>
+
+    <dimen name="footerIconContainerMarginLeft">10dp</dimen>
+    <dimen name="footerIconContainerMarginRight">10dp</dimen>
+    <dimen name="footerIconContainerMarginTop">0dp</dimen>
+    <dimen name="footerIconContainerMarginBottom">10dp</dimen>
+
+    <dimen name="reconnectIconWidth">200dp</dimen>
+    <dimen name="reconnectIconHeight">200dp</dimen>
+    <dimen name="reconnectTitleTextSize">18sp</dimen>
+    <dimen name="reconnectDescriptionTextSize">16sp</dimen>
+    <dimen name="reconnectBtnContinueTextSize">18sp</dimen>
+    <dimen name="reconnectBtnNewChatTextSize">18sp</dimen>
+    <dimen name="reconnectBtnContinueHeight">80dp</dimen>
+    <dimen name="reconnectBtnNewHeight">80dp</dimen>
+    <dimen name="reconnectContainerPadding">20dp</dimen>
+
+    <dimen name="reconnectTitleMarginTop">0dp</dimen>
+    <dimen name="reconnectTitleMarginBottom">0dp</dimen>
+    <dimen name="reconnectTitleMarginLeft">0dp</dimen>
+    <dimen name="reconnectTitleMarginRight">0dp</dimen>
+
+    <dimen name="reconnectDescriptionMarginTop">10dp</dimen>
+    <dimen name="reconnectDescriptionMarginBottom">0dp</dimen>
+    <dimen name="reconnectDescriptionMarginLeft">0dp</dimen>
+    <dimen name="reconnectDescriptionMarginRight">0dp</dimen>
+
+    <dimen name="reconnectIconMarginTop">10dp</dimen>
+    <dimen name="reconnectIconMarginBottom">0dp</dimen>
+    <dimen name="reconnectIconMarginLeft">0dp</dimen>
+    <dimen name="reconnectIconMarginRight">0dp</dimen>
+
+    <dimen name="reconnectBtnContinueMarginTop">10dp</dimen>
+    <dimen name="reconnectBtnContinueMarginBottom">0dp</dimen>
+    <dimen name="reconnectBtnContinueMarginLeft">0dp</dimen>
+    <dimen name="reconnectBtnContinueMarginRight">0dp</dimen>
+
+    <dimen name="reconnectBtnNewChatMarginTop">10dp</dimen>
+    <dimen name="reconnectBtnNewChatMarginBottom">0dp</dimen>
+    <dimen name="reconnectBtnNewChatMarginLeft">0dp</dimen>
+    <dimen name="reconnectBtnNewChatMarginRight">0dp</dimen>
+
+    <dimen name="suggestedActionsLeftArrowBtnMarginTop">0dp</dimen>
+    <dimen name="suggestedActionsLeftArrowBtnMarginBottom">0dp</dimen>
+    <dimen name="suggestedActionsLeftArrowBtnMarginLeft">5dp</dimen>
+    <dimen name="suggestedActionsLeftArrowBtnMarginRight">5dp</dimen>
+
+    <dimen name="suggestedActionsRightArrowBtnMarginTop">0dp</dimen>
+    <dimen name="suggestedActionsRightArrowBtnMarginBottom">0dp</dimen>
+    <dimen name="suggestedActionsRightArrowBtnMarginLeft">5dp</dimen>
+    <dimen name="suggestedActionsRightArrowBtnMarginRight">5dp</dimen>
+
+    <dimen name="postChatSurveyContainerWidth">0dp</dimen>
+    <dimen name="postChatSurveyContainerHeight">0dp</dimen>
+
+    <dimen name="minimizeBtnLoaderMarginTop">5dp</dimen>
+    <dimen name="minimizeBtnLoaderMarginBottom">5dp</dimen>
+    <dimen name="minimizeBtnLoaderMarginLeft">5dp</dimen>
+    <dimen name="minimizeBtnLoaderMarginRight">5dp</dimen>
+
+    <dimen name="imageCardButtonBorderWidth">1dp</dimen>
+    <dimen name="imageCardButtonBorderRadius">0dp</dimen>
+
+    <dimen name="image_card_height">250dp</dimen>
+    <dimen name="image_card_width">250dp</dimen>
+    <dimen name="image_card_contianer_margin_bottom">10dp</dimen>
+
+    <dimen name="preChatTextBlockPaddingLeft">10dp</dimen>
+    <dimen name="preChatTextBlockPaddingRight">10dp</dimen>
+    <dimen name="preChatTextBlockPaddingTop">10dp</dimen>
+    <dimen name="preChatTextBlockPaddingBottom">10dp</dimen>
+    <dimen name="preChatTextBlockTextSize">16sp</dimen>
+    <dimen name="preChatButtonTextSize">18sp</dimen>
+
+    <dimen name="preChatTextInputPaddingLeft">10dp</dimen>
+    <dimen name="preChatTextInputPaddingRight">10dp</dimen>
+    <dimen name="preChatTextInputPaddingTop">10dp</dimen>
+    <dimen name="preChatTextInputPaddingBottom">10dp</dimen>
+    <dimen name="preChatTextInputTextSize">16sp</dimen>
+    <dimen name="preChatTextInputBorderWidth">2dp</dimen>
+    <dimen name="preChatTextInputBorderRadius">2dp</dimen>
+    <dimen name="preChatChoiceSetBorderWidth">2dp</dimen>
+    <dimen name="preChatChoiceSetBorderRadius">2dp</dimen>
+    <dimen name="preChatChoiceSetMinHeight">40dp</dimen>
+    <dimen name="preChatTextInputMinHeight">40dp</dimen>
+    <dimen name="preChatButtonMinHeight">40dp</dimen>
 
 </resources>
+
+

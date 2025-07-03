@@ -1,0 +1,21 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item>
+        <shape
+            android:shape="rectangle">
+            <!-- Set the border color of your layout here -->
+            <stroke android:width="@dimen/messagingFooterTopBorderSize"
+                android:color="@color/messagingFooterTopBorderColor" />
+            <solid android:color="@color/messagingFooterBackground" />
+
+        </shape>
+    </item>
+    <!-- This is for border bottom but
+    you can change this according to your need -->
+    <item android:top="@dimen/messagingFooterTopBorderSize" >
+        <shape
+            android:shape="rectangle">
+            <solid android:color="@color/messagingFooterBackground" />
+        </shape>
+    </item>
+
+</layer-list>

@@ -1,0 +1,50 @@
+<resources>
+
+    <string name="newMessageButtonAnnouncement">New Message Arrived</string>
+    <string name="closeButtonAccessibilityMessage">Close chat window.</string>
+    <string name="minimizeButtonAccessibilityMessage">Minimize chat window.</string>
+    <string name="emailButtonAccessibilityMessage">Send copy of chat transcript.</string>
+    <string name="shareButtonAccessibilityMessage">Send copy of chat transcript.</string>
+    <string name="attachButtonAccessibilityMessage">Send file</string>
+    <string name="closeNotificationButtonAccessibilityMessage">Close notification</string>
+
+    <string name="typingArea"/>
+    <string name="footerContainer"/>
+
+
+    <string name="downloadButtonAccessibilityMessage">Download copy of chat transcript.</string>
+    <string name="chimeButtonOffAccessibilityMessage">Incoming chat chime, OFF</string>
+    <string name="chimeButtonOnAccessibilityMessage">Incoming chat chime, ON</string>;
+    <string name="sendAccessibilityMessage">Send</string>
+    <string name="inputAccessibilityMessage">Input text</string>
+    <string name="loadingPaneAccessibilityText">Input text</string>
+
+
+    <!-- Notifications and Feedback -->
+    <string name="loading">Loading, please wait</string>
+    <string name="notifications">Error occurred, please try again</string>
+    <string name="notification_icon_close">Close notification</string>
+    <string name="notification_icon_info">Notification info icon</string>
+    <string name="notification_icon_expand">More notification, expand.</string>
+    <string name="notification_icon_collapse">More notification, collapse.</string>
+
+    <!-- Icons -->
+    <string name="notification_icon">Notification Icon</string>
+    <string name="input_character_count">Character Count</string>
+    <string name="error_icon">Error icon</string>
+    <string name="suggested_action_left">Scroll suggested actions to left</string>
+    <string name="suggested_action_right">Scroll suggested actions to right</string>
+    <string name="adaptive_cards_left_arrow">Scroll adaptive cards to left</string>
+    <string name="adaptive_cards_right_arrow">Scroll adaptive cards to right</string>
+    <string name="image_card_view">Image card</string>
+
+    <!-- Dynamic Updates -->
+    <string name="image_progressbar">Chat initiate in progress</string>
+    <string name="image_minimise_postchatsurveyy">Minimize post chat survey loading</string>
+
+    <string name="new_message_button_appeared_announcement">New message" button has appeared.</string>
+    <string name="download_agent_attachment_button_announcement">Download copy of agent media message.</string>
+    <string name="download_customer_attachment_button_announcement">Download copy of customer media message.</string>
+    <string name="attachment_info_icon">Media info icon</string>
+
+</resources>

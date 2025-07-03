@@ -1,0 +1,12 @@
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/customerInputBackgroundColor"/>
+            <stroke
+                android:width="@dimen/customerInputBorderSize"
+                android:color="@color/customerInputBorderColor"
+                />
+            <corners android:radius="@dimen/customerInputBorderRadius"></corners>
+        </shape>
+    </item>
+</selector>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="initials_width">45</integer>
+    <integer name="initials_height">45</integer>
+    <integer name="max_file_upload_size">20</integer>
+    <integer name="inputCharLimit">120</integer>
+    <integer name="inputCharLimitThreshold">0</integer>
+    <integer name="latencyTrackerThresholdMs">180000</integer>
+</resources>
