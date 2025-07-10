@@ -32,31 +32,6 @@
         <attr name="inputBorderRadius" format="dimension"></attr>
         <attr name="inputBackgroundColor" format="color"></attr>
     </declare-styleable>
-
-    <declare-styleable name="BubbleLayout">
-        <attr name="bubbleArrowWidth" format="dimension|reference" />
-        <attr name="bubbleCornersRadius" format="dimension|reference" />
-        <attr name="bubbleArrowHeight" format="dimension|reference" />
-        <attr name="bubbleArrowPosition" format="dimension|reference" />
-        <attr name="bubbleColor" format="color|reference" />
-        <attr name="bubbleStrokeWidth" format="dimension|reference" />
-        <attr name="bubbleStrokeColor" format="color|reference" />
-
-        <attr name="arrowDirection" format="enum">
-            <enum name="left" value="0" />
-            <enum name="right" value="1" />
-            <enum name="top" value="2" />
-            <enum name="bottom" value="3" />
-            <enum name="left_top" value="4" />
-            <enum name="left_bottom" value="5" />
-            <enum name="top_left" value="6" />
-            <enum name="top_right" value="7" />
-            <enum name="bottom_left" value="8" />
-            <enum name="bottom_right" value="9" />
-            <enum name="right_top" value="10" />
-            <enum name="right_bottom" value="11" />
-        </attr>
-    </declare-styleable>
     <declare-styleable name="BubbleChatLine">
         <attr name="agentIcon" format="reference"></attr>
         <attr name="customerIcon" format="reference"></attr>

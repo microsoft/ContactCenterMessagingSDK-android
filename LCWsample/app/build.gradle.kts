@@ -124,26 +124,26 @@ dependencies {
     // --- NEW: Add react-android directly to the consuming app with exclusions ---
     // This ensures core React Native classes (like ReactPackage) are on the classpath.
     // Exclusions prevent native library duplication/conflicts with your AAR.
-    implementation(files("libs/ContactCenterMessagingWidgetBeta3.aar"))
+    implementation(files("libs/ContactCenterMessagingWidget.aar"))
     implementation(files("libs/OmnichannelChatSDK.aar"))
 
-    implementation("com.facebook.react:react-android:0.80.0")
-    implementation("io.github.react-native-community:jsc-android:2026004.0.1")
+    implementation(libs.react.android)
+    implementation(libs.jsc.android)
 
     // Google Flexbox Layout
-    //implementation("com.google.android.flexbox:flexbox:3.0.0")
+    implementation(libs.flexbox)
 
     // Adaptive Cards (if used in your pure Android app)
-    //implementation ("io.adaptivecards:adaptivecards-android:3.7.1")
+    implementation (libs.adaptivecards.android)
 
-    // currently adaptivr card is built locally with NSDK 28
-    implementation(files("libs/adaptivecards-ndk28.aar"))
+    //adaptive card built locally with NSDK 28
+    //implementation(files("libs/adaptivecards-ndk28.aar"))
 
     // Firebase dependencies (if used in your pure Android app)
     // implementation (libs.firebase.analytics) // Uncomment if needed
     implementation(libs.firebase.messaging.ktx) // Keep if used
     implementation(platform(libs.firebase.bom)) // Keep if used
-    implementation("com.google.code.gson:gson:2.10.1")
+    implementation(libs.gson)
 
     // Core AndroidX libraries (ensure these are aligned with your AAR's dependencies)
     implementation(libs.androidx.core.ktx)
@@ -154,7 +154,7 @@ dependencies {
     implementation(libs.androidx.navigation.ui.ktx)
 
     // Kotlin Coroutines (often used with AndroidX libraries)
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
+    implementation(libs.kotlinx.coroutines.android)
 
     // Test dependencies
     testImplementation(libs.junit)

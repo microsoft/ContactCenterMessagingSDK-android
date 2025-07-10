@@ -23,4 +23,5 @@ object Constants {
     const val orgUrl = "https://unqce4db5f61c20ee11a66d000d3a0a0-crm3.omnichannelengagementhub.com"
     const val orgWidgetId = "94020c2c-a421-4613-958e-bf9260d1514c"
     const val authTkn = ""
+
 }

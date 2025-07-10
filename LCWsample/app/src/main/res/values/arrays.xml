@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string-array name="spinner_items">
-        <item>Standard chat</item>
-        <item>Suggested actions</item>
-        <item>Persistent</item>
-        <item>Auth</item>
-    </string-array>
-</resources>

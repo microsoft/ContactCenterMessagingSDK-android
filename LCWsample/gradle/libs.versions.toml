@@ -1,13 +1,17 @@
 [versions]
+adaptivecardsAndroid = "3.7.1"
 agp = "8.3.0"
 firebaseBom = "33.9.0"
 firebaseMessagingKtx = "24.1.0"
+flexbox = "3.0.0"
+jscAndroid = "2026004.0.1"
 kotlin = "2.1.20"
 coreKtx = "1.13.1"
 junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
 appcompat = "1.7.0"
+kotlinxCoroutinesAndroid = "1.7.3"
 livechatwidget = "0.0.1-pr.12"
 material = "1.12.0"
 constraintlayout = "2.1.4"
@@ -16,16 +20,21 @@ navigationUiKtx = "2.8.1"
 omnichannelchatsdk = "0.0.0-pr.3"
 gson = "2.10.1"
 gs = "4.4.2"
+reactAndroid = "0.80.0"
 
 [libraries]
+adaptivecards-android = { module = "io.adaptivecards:adaptivecards-android", version.ref = "adaptivecardsAndroid" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 firebase-analytics = { module = "com.google.firebase:firebase-analytics" }
 firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebaseBom" }
 firebase-messaging-ktx = { module = "com.google.firebase:firebase-messaging-ktx", version.ref = "firebaseMessagingKtx" }
+flexbox = { module = "com.google.android.flexbox:flexbox", version.ref = "flexbox" }
+jsc-android = { module = "io.github.react-native-community:jsc-android", version.ref = "jscAndroid" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinxCoroutinesAndroid" }
 livechatwidget = { module = "crm.omnichannel.lcwsdk:livechatwidget", version.ref = "livechatwidget" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
@@ -33,6 +42,7 @@ androidx-navigation-fragment-ktx = { group = "androidx.navigation", name = "navi
 androidx-navigation-ui-ktx = { group = "androidx.navigation", name = "navigation-ui-ktx", version.ref = "navigationUiKtx" }
 omnichannelchatsdk = { module = "crm.omnichannel.lcwsdk:OmnichannelChatSDK", version.ref = "omnichannelchatsdk" }
 gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
+react-android = { module = "com.facebook.react:react-android", version.ref = "reactAndroid" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

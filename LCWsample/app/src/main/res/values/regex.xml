@@ -1,6 +1,6 @@
 <resources>
-    <string name="video_card_matcher_url">youtube.com/watch</string>
-    <string name="video_card_matcher_url_short">youtu.be</string>
-    <string name="video_card_matcher_regex">.*\.(mp4|mov|avi|mkv|webm)$</string>
-    <string name="image_card_matcher_regex">.*\.(jpg|jpeg|png|gif|webp|bmp|svg)$</string>
+    <string name="lcw_video_card_matcher_url">youtube.com/watch</string>
+    <string name="lcw_video_card_matcher_url_short">youtu.be</string>
+    <string name="lcw_video_card_matcher_regex">.*\.(mp4|mov|avi|mkv|webm)$</string>
+    <string name="lcw_image_card_matcher_regex">.*\.(jpg|jpeg|png|gif|webp|bmp|svg)$</string>
 </resources>
