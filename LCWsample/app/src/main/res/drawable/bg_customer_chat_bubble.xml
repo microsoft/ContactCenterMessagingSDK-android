@@ -2,10 +2,10 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item>
         <shape android:shape="rectangle">
-            <stroke android:color="@color/customerBubbleBorderColor"
-                android:width="@dimen/customerBubbleBorderSize"></stroke>
-            <corners android:radius="@dimen/customerBubbleBorderRadius"></corners>
-            <solid android:color="@color/customerBubbleBackground"/>
+            <stroke android:color="@color/lcw_customerBubbleBorderColor"
+                android:width="@dimen/lcw_customerBubbleBorderSize"></stroke>
+            <corners android:radius="@dimen/lcw_customerBubbleBorderRadius"></corners>
+            <solid android:color="@color/lcw_customerBubbleBackground"/>
         </shape>
     </item>
 </layer-list>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="rectangle">
-    <solid android:color="@color/colorPreChatTextInputBackgroundColor"/>
-    <stroke android:width="@dimen/preChatTextInputBorderWidth" android:color="@color/colorPreChatTextInputBorderColor"/>
-    <corners android:radius="@dimen/preChatTextInputBorderRadius"/>
+    <solid android:color="@color/lcw_colorPreChatTextInputBackgroundColor"/>
+    <stroke android:width="@dimen/lcw_preChatTextInputBorderWidth" android:color="@color/lcw_colorPreChatTextInputBorderColor"/>
+    <corners android:radius="@dimen/lcw_preChatTextInputBorderRadius"/>
 </shape>

@@ -67,7 +67,6 @@ class ChatActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
 
-        toolbar.setLogo(R.drawable.ic_launcher_background)
         initFCMData()
         initSDK()
     }
@@ -268,7 +267,7 @@ class ChatActivity : AppCompatActivity() {
                                         btnText.setTextColor(
                                             ContextCompat.getColor(
                                                 this@ChatActivity,
-                                                R.color.colorProgressBackgroundNormal
+                                                R.color.lcw_colorProgressBackgroundNormal
                                             )
                                         )
                                     }
@@ -279,7 +278,7 @@ class ChatActivity : AppCompatActivity() {
                                         btnText.setTextColor(
                                             ContextCompat.getColor(
                                                 this@ChatActivity,
-                                                R.color.colorPreChatActionButtonDefault
+                                                R.color.lcw_colorPreChatActionButtonDefault
                                             )
                                         )
                                     }
@@ -289,7 +288,7 @@ class ChatActivity : AppCompatActivity() {
                                         btnText.setTextColor(
                                             ContextCompat.getColor(
                                                 this@ChatActivity,
-                                                R.color.colorPreChatActionButtonDestructive
+                                                R.color.lcw_colorPreChatActionButtonDestructive
                                             )
                                         )
                                     }
@@ -304,7 +303,7 @@ class ChatActivity : AppCompatActivity() {
                             btnText.setTextColor(
                                 ContextCompat.getColor(
                                     this@ChatActivity,
-                                    R.color.colorPreChatActionButtonDestructive
+                                    R.color.lcw_colorPreChatActionButtonDestructive
                                 )
                             )
                         }

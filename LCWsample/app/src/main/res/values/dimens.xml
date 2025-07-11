@@ -371,6 +371,8 @@
     <dimen name="lcw_transcriptContainerMarginLeft">0dp</dimen>
     <dimen name="lcw_transcriptContainerMarginRight">0dp</dimen>
     <dimen name="lcw_toolbarElevation">0dp</dimen>
+    <dimen name="lcw_margin_30dp">30dp</dimen>
+    <dimen name="padding_10dp">30dp</dimen>
 </resources>
 
 

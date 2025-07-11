@@ -3,18 +3,18 @@
         <shape
             android:shape="rectangle">
             <!-- Set the border color of your layout here -->
-            <stroke android:width="@dimen/messagingFooterTopBorderSize"
-                android:color="@color/messagingFooterTopBorderColor" />
-            <solid android:color="@color/messagingFooterBackground" />
+            <stroke android:width="@dimen/lcw_messagingFooterTopBorderSize"
+                android:color="@color/lcw_messagingFooterTopBorderColor" />
+            <solid android:color="@color/lcw_messagingFooterBackground" />
 
         </shape>
     </item>
     <!-- This is for border bottom but
     you can change this according to your need -->
-    <item android:top="@dimen/messagingFooterTopBorderSize" >
+    <item android:top="@dimen/lcw_messagingFooterTopBorderSize" >
         <shape
             android:shape="rectangle">
-            <solid android:color="@color/messagingFooterBackground" />
+            <solid android:color="@color/lcw_messagingFooterBackground" />
         </shape>
     </item>
 

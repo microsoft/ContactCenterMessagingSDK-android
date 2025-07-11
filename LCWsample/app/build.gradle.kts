@@ -126,10 +126,9 @@ dependencies {
     // Exclusions prevent native library duplication/conflicts with your AAR.
     implementation(files("libs/ContactCenterMessagingWidget.aar"))
     implementation(files("libs/OmnichannelChatSDK.aar"))
-
     implementation(libs.react.android)
     implementation(libs.jsc.android)
-
+    implementation("com.squareup.okhttp3:okhttp:4.12.0")
     // Google Flexbox Layout
     implementation(libs.flexbox)
 
