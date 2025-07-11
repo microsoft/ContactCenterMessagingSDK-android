@@ -5,7 +5,15 @@ partners and customers. To receive support for your release, contact CC-Mobile-P
 with your release date and plans. Customers must have an agreement with the Contact Center team
 to guarantee timely support during the Preview period.
 
-### Building the Sample App - LCWsample
+### Building the Sample App - LCWsample(v1.1.0)
+
+1. Clone the repository  
+   `git clone --branch 1.1.0 https://github.com/microsoft/ContactCenterMessagingSDK-android.git`
+
+2. Sync gradle, build and run the app.
+
+
+### Building the Sample App - LCWsample(< v1.1.0)
 
 1. Clone the repository  
    `git clone https://github.com/microsoft/ContactCenterMessagingSDK-android.git`
