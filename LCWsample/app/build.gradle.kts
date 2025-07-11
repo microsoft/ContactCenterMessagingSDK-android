@@ -128,7 +128,6 @@ dependencies {
     implementation(files("libs/OmnichannelChatSDK.aar"))
     implementation(libs.react.android)
     implementation(libs.jsc.android)
-    implementation("com.squareup.okhttp3:okhttp:4.12.0")
     // Google Flexbox Layout
     implementation(libs.flexbox)
 
