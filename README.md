@@ -164,6 +164,24 @@ to our roadmap.
 *	package.json file (included in sample app) 
 
 ### Integration
+**Important (from version 1.1.0 onward):**
+
+- The `randombytes` and `randomvalues` dependency is no longer required.  
+  Ensure any references to `randombytes` and `randomvalues` are removed from your `build.gradle` and/or `settings.gradle` files.
+
+- You no longer need to run `npm install` as part of the setup.
+
+- Add the following dependencies to your **app-level `build.gradle`** file and verify they are downloaded correctly:
+```kotlin
+    implementation(files("libs/ContactCenterMessagingWidget.aar"))
+    implementation(files("libs/OmnichannelChatSDK.aar"))
+    implementation("com.facebook.react:react-android:0.80.0") // As react native version upgraded to 0.80.0
+    implementation("com.facebook.soloader:soloader:0.10.5")
+    implementation("io.github.react-native-community:jsc-android:2026004.0.1") //As JSC would be the default engine and Hermes is disabled
+    implementation ("io.adaptivecards:adaptivecards-android:3.7.1") //Optional
+```
+
+(For versions < 1.1.0 only - React Native version 0.70.6) :
 
 **Adding/Configuring `package.json`**
 
@@ -296,8 +314,8 @@ Initialise the SDK with valid OmnichannelConfig parameters.
 ```kotlin
     val omnichannelConfig = OmnichannelConfig(
         orgId = “YOUR_ORG_ID”,
-        orgUrl = “ORG_URL”,
-        widgetId = “WIDGET_ID”
+        orgUrl = “YOUR_ORG_URL”,
+        widgetId = “YOUR_APP_ID”
     )
 ```
 
@@ -330,8 +348,8 @@ Builders
 ```kotlin
     val omnichannelConfig = OmnichannelConfig(
         orgId = “YOUR_ORG_ID”,
-        orgUrl = “ORG_URL”,
-        widgetId = “WIDGET_ID”
+        orgUrl = “YOUR_ORG_URL”,
+        widgetId = “YOUR_WIDGET_ID”
 )
 ```
 
@@ -527,6 +545,7 @@ LiveChatMessaging.getInstance().getLiveChatTranscript (request, completionHandle
 Ends the current Contact Center conversation.
 #### Method
 ```kotlin
+LiveChatMessaging.getInstance().endChat(CompletionHandler handler) {}
 ```
 
 ### Get Agent Availability
