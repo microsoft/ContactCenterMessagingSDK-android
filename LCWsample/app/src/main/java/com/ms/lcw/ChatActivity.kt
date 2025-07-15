@@ -17,11 +17,13 @@ import androidx.core.content.ContextCompat
 import com.lcw.lsdk.builder.LCWOmniChannelConfigBuilder
 import com.lcw.lsdk.chat.LiveChatMessaging
 import com.lcw.lsdk.chat.Responses.GetMessageResponse
+import com.lcw.lsdk.chat.Responses.MCSCustomEventResponse
 import com.lcw.lsdk.data.api.ApiResult
 import com.lcw.lsdk.data.api.ConversationDetail
 import com.lcw.lsdk.data.model.ErrorResponse
 import com.lcw.lsdk.data.requests.ChatSDKConfig
 import com.lcw.lsdk.data.requests.ChatSDKMessage
+import com.lcw.lsdk.data.requests.LCWCustomEventRequestBuilder
 import com.lcw.lsdk.data.requests.OmnichannelConfig
 import com.lcw.lsdk.data.requests.TelemetrySDKConfig
 import com.lcw.lsdk.enum.ConversationStateEnum
@@ -31,6 +33,9 @@ import com.ms.lcw.Constants.orgId
 import com.ms.lcw.Constants.orgUrl
 import com.ms.lcw.Constants.orgWidgetId
 import com.ms.lcw.script.ScriptAttributeExtractor
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 class ChatActivity : AppCompatActivity() {
 
@@ -45,6 +50,8 @@ class ChatActivity : AppCompatActivity() {
     private lateinit var btnCopyFCM: Button
     private lateinit var btnReset: Button
     private var isNotifictionLanding = false
+    private lateinit var btnInitSDK: Button
+    private lateinit var btnRBE: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -78,6 +85,23 @@ class ChatActivity : AppCompatActivity() {
             utility.clearOrgs(this, "OCAuth")
             resetFields()
         }
+
+        btnInitSDK.setOnClickListener {
+            val extractor = extract(etScript.text.toString())
+            val omnichannelConfig = extractor ?: OmnichannelConfig(
+                orgId = etOrgId.text.toString(),
+                orgUrl = etUrl.text.toString(),
+                widgetId = etWidgetId.text.toString()
+            )
+
+            utility.storeItem(this, "OC", omnichannelConfig)
+            utility.storeAuth(this, "OCAuth", etAuth.text.toString())
+            initSDK()
+        }
+
+        btnRBE.setOnClickListener {
+            sendCustomBotEvent()
+        }
     }
 
     private fun initParams() {
@@ -97,6 +121,8 @@ class ChatActivity : AppCompatActivity() {
         etAuth = findViewById(R.id.et_auth)
         btnText = findViewById(R.id.btnText)
         etScript = findViewById(R.id.etScript)
+        btnInitSDK = findViewById(R.id.btnInitSDK)
+        btnRBE = findViewById(R.id.btnRBE)
     }
 
     private fun checkNotificationPermission() {
@@ -151,6 +177,8 @@ class ChatActivity : AppCompatActivity() {
 
         override fun onChatInitiated() {
             Log.d("ChatWindowStateDelegate:", "onChatInitiated")
+            // Need to put this here because the only way to dispatch an event to the react layer is to have SDK initiated and react bridge present.
+            sendCustomBotEvent()
         }
 
         override fun onCustomerChatEnded() {
@@ -191,6 +219,10 @@ class ChatActivity : AppCompatActivity() {
 
         override fun onChatRestored() {
             Log.d("ChatWindowStateDelegate:", "onChatRestored")
+        }
+
+        override fun onMCSCustomEventReceived(eventData: MCSCustomEventResponse?) {
+            Log.d("ChatWindowStateDelegate:", "onMCSCustomEventReceived-" + eventData.toString())
         }
     }
 
@@ -297,6 +329,29 @@ class ChatActivity : AppCompatActivity() {
                     orgUrl = dataOrgUrl
                 )
             }
+        }
+    }
+
+    private fun sendCustomBotEvent() {
+        try {
+            val customEventRequest = LCWCustomEventRequestBuilder().buildCustomBotEventRequestParams(
+                stringVar = "Hello world!",
+                numberVar = -10.5,
+                boolVar = true,
+                displayableValue = "Hello again!",
+                senderId = "8:acs:...",
+                originalArrivalTime = "2025-06-24T18:54:15.858000Z"
+            )
+
+            val liveChatMessaging = LiveChatMessaging.getInstance()
+
+            val adapter = liveChatMessaging.liveChatAdapter
+
+            adapter.dispatchEvent("MCSCustomEvent", customEventRequest)
+
+        } catch (e: Exception) {
+            Log.e("CustomEvent", "Failed to send custom event: ${e.message}")
+            showToast("Error: ${e.message}")
         }
     }
 }
