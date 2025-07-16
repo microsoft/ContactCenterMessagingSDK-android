@@ -34,9 +34,6 @@ import com.ms.lcw.Constants.orgUrl
 import com.ms.lcw.Constants.orgWidgetId
 import com.ms.lcw.script.ScriptAttributeExtractor
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 class ChatActivity : AppCompatActivity() {
 
     private lateinit var etOrgId: EditText
@@ -50,8 +47,6 @@ class ChatActivity : AppCompatActivity() {
     private lateinit var btnCopyFCM: Button
     private lateinit var btnReset: Button
     private var isNotifictionLanding = false
-    private lateinit var btnInitSDK: Button
-    private lateinit var btnRBE: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -85,23 +80,6 @@ class ChatActivity : AppCompatActivity() {
             utility.clearOrgs(this, "OCAuth")
             resetFields()
         }
-
-        btnInitSDK.setOnClickListener {
-            val extractor = extract(etScript.text.toString())
-            val omnichannelConfig = extractor ?: OmnichannelConfig(
-                orgId = etOrgId.text.toString(),
-                orgUrl = etUrl.text.toString(),
-                widgetId = etWidgetId.text.toString()
-            )
-
-            utility.storeItem(this, "OC", omnichannelConfig)
-            utility.storeAuth(this, "OCAuth", etAuth.text.toString())
-            initSDK()
-        }
-
-        btnRBE.setOnClickListener {
-            sendCustomBotEvent()
-        }
     }
 
     private fun initParams() {
@@ -121,8 +99,6 @@ class ChatActivity : AppCompatActivity() {
         etAuth = findViewById(R.id.et_auth)
         btnText = findViewById(R.id.btnText)
         etScript = findViewById(R.id.etScript)
-        btnInitSDK = findViewById(R.id.btnInitSDK)
-        btnRBE = findViewById(R.id.btnRBE)
     }
 
     private fun checkNotificationPermission() {
@@ -177,7 +153,6 @@ class ChatActivity : AppCompatActivity() {
 
         override fun onChatInitiated() {
             Log.d("ChatWindowStateDelegate:", "onChatInitiated")
-            // Need to put this here because the only way to dispatch an event to the react layer is to have SDK initiated and react bridge present.
             sendCustomBotEvent()
         }
 
@@ -334,7 +309,7 @@ class ChatActivity : AppCompatActivity() {
 
     private fun sendCustomBotEvent() {
         try {
-            val customEventRequest = LCWCustomEventRequestBuilder().buildCustomBotEventRequestParams(
+            val customEventRequest = LCWCustomEventRequestBuilder().buildCustomEventRequestParams(
                 stringVar = "Hello world!",
                 numberVar = -10.5,
                 boolVar = true,

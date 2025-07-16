@@ -245,22 +245,6 @@
                     android:textSize="@dimen/txt_20sp"
                     android:textStyle="bold" />
             </LinearLayout>
-
-            <Button
-                android:id="@+id/btnInitSDK"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/transparent"
-                android:text="Initialize SDK"
-                android:textColor="@android:color/holo_blue_dark" />
-
-            <Button
-                android:id="@+id/btnRBE"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/transparent"
-                android:text="Recieve Bot Event"
-                android:textColor="@android:color/holo_blue_dark" />
         </LinearLayout>
     </ScrollView>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
