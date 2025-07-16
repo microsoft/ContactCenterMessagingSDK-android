@@ -22,6 +22,8 @@ import com.lcw.lsdk.data.api.ConversationDetail
 import com.lcw.lsdk.data.model.ErrorResponse
 import com.lcw.lsdk.data.requests.ChatSDKConfig
 import com.lcw.lsdk.data.requests.ChatSDKMessage
+import com.lcw.lsdk.data.requests.CustomEventRequest
+import com.lcw.lsdk.data.requests.LCWCustomEventRequestBuilder
 import com.lcw.lsdk.data.requests.OmnichannelConfig
 import com.lcw.lsdk.data.requests.TelemetrySDKConfig
 import com.lcw.lsdk.enum.ConversationStateEnum
@@ -151,6 +153,7 @@ class ChatActivity : AppCompatActivity() {
 
         override fun onChatInitiated() {
             Log.d("ChatWindowStateDelegate:", "onChatInitiated")
+            sendCustomBotEvent()
         }
 
         override fun onCustomerChatEnded() {
@@ -191,6 +194,10 @@ class ChatActivity : AppCompatActivity() {
 
         override fun onChatRestored() {
             Log.d("ChatWindowStateDelegate:", "onChatRestored")
+        }
+
+        override fun onMCSCustomEventReceived(eventData: CustomEventRequest?) {
+            Log.d("ChatWindowStateDelegate:", "CustomEventRequest-" + eventData.toString())
         }
     }
 
@@ -297,6 +304,43 @@ class ChatActivity : AppCompatActivity() {
                     orgUrl = dataOrgUrl
                 )
             }
+        }
+    }
+
+    private fun sendCustomBotEvent() {
+        try {
+            // Create the displayable variable
+            val displayableVar = CustomEventRequest.EventValue.DisplayableVar()
+            displayableVar.isDisplayable = true
+            displayableVar.value = "Hello again!"
+
+            // Create the event value with nested data
+            val eventValue = CustomEventRequest.EventValue()
+            eventValue.stringVar = "Hello world!"
+            eventValue.numberVar = -10.5
+            eventValue.boolVar = true
+            eventValue.displayableVar = displayableVar
+
+            // Create the custom event data object with proper structure
+            val customEventData = CustomEventRequest()
+            customEventData.eventValue = eventValue
+            customEventData.senderId = "8:acs:..."
+            customEventData.originalArrivalTime = "2025-06-24T18:54:15.858000Z"
+            customEventData.tags = listOf("ChannelId-custom", "OmnichannelContextMessage", "Hidden")
+
+            // Build the custom event request with the event data
+            val customEventRequest = LCWCustomEventRequestBuilder().buildCustomEventRequestParams(
+                eventData = customEventData,
+                eventName = "MCSCustomEvent"
+            )
+
+            val liveChatMessaging = LiveChatMessaging.getInstance()
+            val adapter = liveChatMessaging.liveChatAdapter
+            adapter.dispatchEvent("MCSCustomEvent", customEventRequest)
+
+        } catch (e: Exception) {
+            Log.e("CustomEvent", "Failed to send custom event: ${e.message}")
+            showToast("Error: ${e.message}")
         }
     }
 }
