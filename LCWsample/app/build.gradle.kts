@@ -1,22 +1,21 @@
-// The `plugins` block must be at the very top of the file for Kotlin DSL.
+import java.net.URL
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
-    // Only include this if your app actually uses Google Services (e.g., Firebase)
-    // alias(libs.plugins.google.services) // Uncomment if your app uses Firebase
 }
 
 
 
 // Android configuration for your application module.
 android {
-    namespace = "com.ms.lcw" // Your application's package name
-    compileSdk = 34 // Compile against Android 14 (API Level 34)
+    namespace = "com.ms.lcw"
+    compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.ms.lcwsamplapp" // Unique application ID
-        minSdk = 26 // Minimum supported Android version (Android 8.0 Oreo)
-        targetSdk = 34 // Target Android 14 (API Level 34)
+        applicationId = "com.ms.lcwsamplapp"
+        minSdk = 26
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -48,12 +47,12 @@ android {
 
     buildFeatures {
         buildConfig = true
-        viewBinding = true // Keep this if you use View Binding
+        viewBinding = true
     }
 
     buildTypes {
         release {
-            isMinifyEnabled = false // Set to true for production to shrink/obfuscate code
+            isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -90,7 +89,7 @@ repositories {
 // If you want Gradle to download them, uncomment and ensure URLs are correct.
 val sdkVersion = "v1.1.0" // Example version, adjust as needed
 task("downloadAarFiles") {
-    /* doLast {
+     doLast {
          println("Download AARs task started...")
          val aar1Url = "https://github.com/microsoft/ContactCenterMessagingSDK-android/releases/download/$sdkVersion/ContactCenterMessagingWidget.aar"
          val aar2Url = "https://github.com/microsoft/ContactCenterMessagingSDK-android/releases/download/$sdkVersion/OmnichannelChatSDK.aar"
@@ -104,7 +103,7 @@ task("downloadAarFiles") {
          URL(aar1Url).openStream().use { input -> aar1File.outputStream().use { output -> input.copyTo(output) } }
          URL(aar2Url).openStream().use { input -> aar2File.outputStream().use { output -> input.copyTo(output) } }
          println("AARs downloaded successfully to ${libsDir.absolutePath}")
-     }*/
+     }
 }
 
 // Ensure the download task runs before the build.
