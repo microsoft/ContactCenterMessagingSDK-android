@@ -1225,11 +1225,11 @@
     </style>
 
     <!--Spinner loader style-->
-    <style name="lcw_SpinnerLoadingContainerDefault.SpinnerLoadingContainer" />
+    <style name="LCWSpinnerLoadingContainerDefault.SpinnerLoadingContainer" />
 
     <style name="LCWSpinnerLoadingImageDefault.SpinnerLoadingImage" />
 
-    <style name="lcw_SpinnerLoadingContainerDefault">
+    <style name="LCWSpinnerLoadingContainerDefault">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
     </style>
