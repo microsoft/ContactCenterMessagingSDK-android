@@ -8,22 +8,9 @@ to guarantee timely support during the Preview period.
 ### Building the Sample App - LCWsample(v1.1.0)
 
 1. Clone the repository  
-   `git clone --branch 1.1.0 https://github.com/microsoft/ContactCenterMessagingSDK-android.git`
-
-2. Sync gradle, build and run the app.
-
-
-### Building the Sample App - LCWsample(< v1.1.0)
-
-1. Clone the repository  
    `git clone https://github.com/microsoft/ContactCenterMessagingSDK-android.git`
 
-2. Open the terminal and run `npm install` in the root folder (the provided `package.json` is copied to the root folder).
-
-3. Download the AAR files (optional)  
-   `./gradlew downloadAarFiles`
-
-4. Sync/configure the app.
+2. Sync gradle
 
 5. Build the app based on your build tools.
 
