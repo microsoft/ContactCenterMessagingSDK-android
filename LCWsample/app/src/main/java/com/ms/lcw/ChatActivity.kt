@@ -44,55 +44,59 @@ class ChatActivity : AppCompatActivity() {
     private lateinit var btnText: TextView
     private lateinit var etScript: EditText
     private lateinit var utility: Utility
-    private var isMinimised = false
     private lateinit var btnCopyFCM: Button
     private lateinit var btnReset: Button
+    private var isMinimised = false
+
+    private val requestPermissionsLauncher =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
+            // Handle permission result if needed
+        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat)
+
+        initViews()
+        setupToolbar()
+        utility = Utility()
+        setDefaultConfig()
+
+        initFCMData()
+        initSDK()
+    }
+
+    private fun initViews() {
         etOrgId = findViewById(R.id.et_orgId)
         etWidgetId = findViewById(R.id.et_orgWidgetId)
         etUrl = findViewById(R.id.et_widgetUrl)
         etAuth = findViewById(R.id.et_auth)
         btnText = findViewById(R.id.btnText)
         etScript = findViewById(R.id.etScript)
-        isMinimised = false
         btnCopyFCM = findViewById(R.id.btnFCM)
         btnReset = findViewById(R.id.btnReset)
-        utility = Utility()
-        setDefaultConfig()
+    }
 
-        val toolbar = findViewById<View>(R.id.MessagingToolbar) as Toolbar
+    private fun setupToolbar() {
+        val toolbar = findViewById<Toolbar>(R.id.MessagingToolbar)
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
-
-        initFCMData()
-        initSDK()
     }
 
     private fun initFCMData() {
         btnCopyFCM.setOnClickListener {
-            var copiedText = utility.getFCMToken(this@ChatActivity, "fcmtoken")
+            var copiedText = utility.getFCMToken(this, "fcmtoken").stripQuotes()
 
-            if (!copiedText.isEmpty()) {
-                if (copiedText.startsWith("\"") && copiedText.endsWith("\"")) {
-                    copiedText = copiedText.substring(
-                        1,
-                        copiedText.length - 1
-                    );  // Remove first and last character
-                }
-                val clipboard: ClipboardManager =
-                    getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+            if (copiedText.isNotEmpty()) {
+                val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
                 val clip = ClipData.newPlainText("Copied Text", copiedText)
                 clipboard.setPrimaryClip(clip)
-                Toast.makeText(this@ChatActivity, "Copied to Clipboard!", Toast.LENGTH_SHORT)
-                    .show()
+                Toast.makeText(this, "Copied to Clipboard!", Toast.LENGTH_SHORT).show()
             } else {
-                Toast.makeText(this@ChatActivity, "Please wait", Toast.LENGTH_SHORT)
-                    .show()
+                Toast.makeText(this, "Please wait", Toast.LENGTH_SHORT).show()
             }
         }
+
         btnReset.setOnClickListener {
             utility.clearOrgs(this, "OC")
             utility.clearOrgs(this, "OCAuth")
@@ -101,14 +105,12 @@ class ChatActivity : AppCompatActivity() {
             etOrgId.setText("")
             etAuth.setText("")
         }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            if (ContextCompat.checkSelfPermission(
-                    this,
-                    android.Manifest.permission.POST_NOTIFICATIONS
-                ) != PackageManager.PERMISSION_GRANTED
-            ) {
-                requestNotificationPermission()
-            }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU &&
+            ContextCompat.checkSelfPermission(this, android.Manifest.permission.POST_NOTIFICATIONS)
+            != PackageManager.PERMISSION_GRANTED
+        ) {
+            requestNotificationPermission()
         }
     }
 
@@ -118,35 +120,33 @@ class ChatActivity : AppCompatActivity() {
         }
     }
 
-
     private fun initSDK() {
         val omnichannelConfig = OmnichannelConfig(
             orgId = etOrgId.text.toString(),
             orgUrl = etUrl.text.toString(),
             widgetId = etWidgetId.text.toString()
         )
-        /*<script v2 id="Microsoft_Omnichannel_LCWidget" src="https://oc-cdn-public.azureedge.net/livechatwidget/scripts/LiveChatBootstrapper.js" data-app-id="4d3cddac-5432-453b-97ef-3b3d60f99252" data-lcw-version="prod" data-org-id="ce4db5f6-1c20-ee11-a66d-000d3a0a02f3" data-org-url="https://m-ce4db5f6-1c20-ee11-a66d-000d3a0a02f3.ca.omnichannelengagementhub.com"></script></body></html>*/
-        var authToken = etAuth.text.toString()
-        if (authToken.startsWith("\"") && authToken.endsWith("\"")) {
-            authToken =
-                authToken.substring(1, authToken.length - 1);  // Remove first and last character
-        }
+
+        val authToken = etAuth.text.toString().stripQuotes()
+
         val chatSdkConfig = ChatSDKConfig(
-            telemetry = TelemetrySDKConfig(
-                disable = false,
-            ),
+            telemetry = TelemetrySDKConfig(disable = false)
         )
-        val lcwOmniChannelConfigBuilder =
-            LCWOmniChannelConfigBuilder.EngagementBuilder(omnichannelConfig, chatSdkConfig).build()
-        LiveChatMessaging.getInstance()
-            .initialize(this@ChatActivity, lcwOmniChannelConfigBuilder, authToken, "test")
-        LiveChatMessaging.getInstance().fcmToken =
-            utility.getFCMToken(this@ChatActivity, "fcmtoken")
+
+        val lcwOmniChannelConfigBuilder = LCWOmniChannelConfigBuilder
+            .EngagementBuilder(omnichannelConfig, chatSdkConfig)
+            .build()
+
+        with(LiveChatMessaging.getInstance()) {
+            initialize(this@ChatActivity, lcwOmniChannelConfigBuilder, authToken, "test")
+            fcmToken = utility.getFCMToken(this@ChatActivity, "fcmtoken")
+        }
     }
 
     private fun setDefaultConfig() {
         val omnichannelConfig = utility.retrieveItem(this, "OC")
         val auth = utility.getAuth(this, "OCAuth")
+
         if (omnichannelConfig != null) {
             etUrl.setText(omnichannelConfig.orgUrl)
             etWidgetId.setText(omnichannelConfig.widgetId)
@@ -161,150 +161,109 @@ class ChatActivity : AppCompatActivity() {
     }
 
     fun launchChat(view: View?) {
-        val extractor = extract(etScript.text.toString())
-        val omnichannelConfig = if (extractor == null) {
+        val omnichannelConfig = extract(etScript.text.toString()) ?: run {
             etScript.setText("")
             OmnichannelConfig(
                 orgId = etOrgId.text.toString(),
                 orgUrl = etUrl.text.toString(),
                 widgetId = etWidgetId.text.toString()
             )
-        } else {
-            extractor
         }
-        var authToken = etAuth.text.toString()
+
+        val authToken = etAuth.text.toString()
+
         utility.storeItem(this, "OC", omnichannelConfig)
         utility.storeAuth(this, "OCAuth", authToken)
-        LiveChatMessaging.getInstance().launchLcwBrandedMessaging(this@ChatActivity)
-        LiveChatMessaging.getInstance().setLCWMessagingDelegate(object : LCWMessagingDelegate {
-            override fun onChatMinimizeButtonClick() {
-                isMinimised = true
-                btnText.setText(if (LiveChatMessaging.getInstance().isChatInProgress) "Restore" else "Lets's Chat")
-            }
 
-            override fun onChatCloseButtonClicked() {
-                Log.d("ChatWindowStateDelegate:", "onChatCloseButtonClicked")
-            }
+        LiveChatMessaging.getInstance().apply {
+            launchLcwBrandedMessaging(this@ChatActivity)
+            setLCWMessagingDelegate(object : LCWMessagingDelegate {
+                override fun onChatMinimizeButtonClick() {
+                    isMinimised = true
+                    btnText.text = if (isChatInProgress) "Restore" else "Let's Chat"
+                }
 
-            override fun onViewDisplayed() {
-                Log.d("ChatWindowStateDelegate:", "onViewDisplayed")
-            }
+                override fun onChatCloseButtonClicked() {
+                    Log.d(TAG, "onChatCloseButtonClicked")
+                }
 
-            override fun onChatInitiated() {
-                Log.d("ChatWindowStateDelegate:", "onChatInitiated")
-            }
+                override fun onViewDisplayed() {
+                    Log.d(TAG, "onViewDisplayed")
+                }
 
-            override fun onCustomerChatEnded() {
-                Log.d("ChatWindowStateDelegate:", "onCustomerChatEnded")
-            }
+                override fun onChatInitiated() {
+                    Log.d(TAG, "onChatInitiated")
+                }
 
-            override fun onAgentChatEnded() {
-                Log.d("ChatWindowStateDelegate:", "onAgentChatEnded")
-            }
+                override fun onCustomerChatEnded() {
+                    Log.d(TAG, "onCustomerChatEnded")
+                }
 
-            override fun onAgentAssigned(content: String) {
-                Log.d("ChatWindowStateDelegate:", "onAgentAssigned-" + content)
-            }
+                override fun onAgentChatEnded() {
+                    Log.d(TAG, "onAgentChatEnded")
+                }
 
-            override fun onLinkClicked(link: String) {
-                Log.d("ChatWindowStateDelegate:", "onLinkClicked-" + link)
-            }
+                override fun onAgentAssigned(content: String) {
+                    Log.d(TAG, "onAgentAssigned-$content")
+                }
 
-            override fun onNewCustomerMessage(message: ChatSDKMessage) {
-                Log.d("ChatWindowStateDelegate:", "onNewMessageSent-" + message.content)
-            }
+                override fun onLinkClicked(link: String) {
+                    Log.d(TAG, "onLinkClicked-$link")
+                }
 
-            override fun onNewMessageReceived(message: GetMessageResponse?) {
-                Log.d("ChatWindowStateDelegate:", "onNewMessageReceived-" + message.toString())
-            }
+                override fun onNewCustomerMessage(message: ChatSDKMessage) {
+                    Log.d(TAG, "onNewMessageSent-${message.content}")
+                }
 
-            override fun onError(error: ErrorResponse?) {
-                Log.d("ChatWindowStateDelegate:", "ChatWindowStateDelegate-" + error?.errorMessage)
-            }
+                override fun onNewMessageReceived(message: GetMessageResponse?) {
+                    Log.d(TAG, "onNewMessageReceived-$message")
+                }
 
-            override fun onPreChatSurveyDisplayed() {
-                Log.d("ChatWindowStateDelegate:", "onPreChatSurveyDisplayed")
-            }
+                override fun onError(error: ErrorResponse?) {
+                    Log.d(TAG, "onError-${error?.errorMessage}")
+                }
 
-            override fun onPostChatSurveyDisplayed() {
-                Log.d("ChatWindowStateDelegate:", "onPostChatSurveyDisplayed")
-            }
+                override fun onPreChatSurveyDisplayed() {
+                    Log.d(TAG, "onPreChatSurveyDisplayed")
+                }
 
-            override fun onChatRestored() {
-                Log.d("ChatWindowStateDelegate:", "onChatRestored")
-            }
+                override fun onPostChatSurveyDisplayed() {
+                    Log.d(TAG, "onPostChatSurveyDisplayed")
+                }
 
-        })
-    }
-
-    private val requestPermissionsLauncher =
-        registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
-            if (isGranted) {
-                // Permission granted, you can now send notifications
-            } else {
-                // Permission denied, handle accordingly
-            }
+                override fun onChatRestored() {
+                    Log.d(TAG, "onChatRestored")
+                }
+            })
         }
+    }
 
     override fun onResume() {
         super.onResume()
-        val isChatInProgress = LiveChatMessaging.getInstance().isChatInProgress
-        OLog.d("ChatActivity onResume: $isChatInProgress")
         if (!isMinimised) {
             LiveChatMessaging.getInstance().getConversationDetails { response ->
                 runOnUiThread {
-                    OLog.d("ChatActivity getConversationDetails: $response")
-
                     when (response) {
                         is ApiResult.Success -> {
+                            val detail = response.response as? ConversationDetail
+                            val state = detail?.state
+                            val textRes = when (state) {
+                                ConversationStateEnum.Closed.key,
+                                ConversationStateEnum.WrapUp.key -> R.color.lcw_colorProgressBackgroundNormal
 
-                            val conversationDetail = response.response as? ConversationDetail
-                            conversationDetail?.state?.let {
-                                when (it) {
-                                    ConversationStateEnum.Closed.key,
-                                    ConversationStateEnum.WrapUp.key -> {
-                                        btnText.setText("Let's Chat")
-                                        btnText.setTextColor(
-                                            ContextCompat.getColor(
-                                                this@ChatActivity,
-                                                R.color.lcw_colorProgressBackgroundNormal
-                                            )
-                                        )
-                                    }
+                                ConversationStateEnum.Active.key -> R.color.lcw_colorPreChatActionButtonDefault
 
-                                    ConversationStateEnum.Active.key -> {
-
-                                        btnText.setText("Restore Chat")
-                                        btnText.setTextColor(
-                                            ContextCompat.getColor(
-                                                this@ChatActivity,
-                                                R.color.lcw_colorPreChatActionButtonDefault
-                                            )
-                                        )
-                                    }
-
-                                    else -> {
-                                        btnText.setText("Let's Chat")
-                                        btnText.setTextColor(
-                                            ContextCompat.getColor(
-                                                this@ChatActivity,
-                                                R.color.lcw_colorPreChatActionButtonDestructive
-                                            )
-                                        )
-                                    }
-                                }
+                                else -> R.color.lcw_colorPreChatActionButtonDestructive
                             }
 
-                            OLog.d("ChatActivity@getConversationDetails: ${response.response}")
+                            btnText.text = if (state == ConversationStateEnum.Active.key) "Restore Chat" else "Let's Chat"
+                            btnText.setTextColor(ContextCompat.getColor(this, textRes))
                         }
 
                         is ApiResult.Error -> {
-                            btnText.setText("Let's Chat")
+                            btnText.text = "Let's Chat"
                             btnText.setTextColor(
-                                ContextCompat.getColor(
-                                    this@ChatActivity,
-                                    R.color.lcw_colorPreChatActionButtonDestructive
-                                )
+                                ContextCompat.getColor(this, R.color.lcw_colorPreChatActionButtonDestructive)
                             )
                         }
                     }
@@ -314,98 +273,23 @@ class ChatActivity : AppCompatActivity() {
     }
 
     fun extract(scriptTag: String?): OmnichannelConfig? {
-        if (scriptTag.isNullOrEmpty()) {
-            return null
-        }
-        val attributes = ScriptAttributeExtractor.extractAttributes(scriptTag)
-
-        attributes?.let {
-            println("ID: ${it.id}")
-            println("SRC: ${it.src}")
-            println("Data App ID: ${it.dataAppId}")
-            println("Data LCW Version: ${it.dataLcwVersion}")
-            println("Data Org ID: ${it.dataOrgId}")
-            println("Data Org URL: ${it.dataOrgUrl}")
-            return OmnichannelConfig(
+        if (scriptTag.isNullOrEmpty()) return null
+        return ScriptAttributeExtractor.extractAttributes(scriptTag)?.let {
+            OmnichannelConfig(
                 widgetId = it.dataAppId,
                 orgId = it.dataOrgId,
                 orgUrl = it.dataOrgUrl
             )
-        } ?: run {
-            println("No valid script attributes found.")
-            return null
         }
     }
 
-//=====================Sample request===========================
-    /*
-// On agent typing listener
-LiveChatMessaging.getInstance().dispatchEvent(
-    OnAgentTypingRequestBuilder().buildOnAgentTypingRequestParams()
-)
-// On agent end session listener
-LiveChatMessaging.getInstance().dispatchEvent(
-    OnAgentEndSessionRequestBuilder().buildOnAgentTypingRequestParams()
-)
-// get live chat context
-LiveChatMessaging.getInstance().dispatchEvent(
-    GetCurrentLiveChatContextRequestBuilder().buildCurrentLiveChatContextRequestParams()
-)
-// Get messages
-LiveChatMessaging.getInstance().dispatchEvent(
-    GetMessagesRequestBuilder().buildGetMessagesRequestRequestParams()
-)
+    private fun String.stripQuotes(): String {
+        return if (startsWith("\"") && endsWith("\"") && length > 1) {
+            substring(1, length - 1)
+        } else this
+    }
 
-// Get get data-masking rules
-LiveChatMessaging.getInstance().dispatchEvent(
-    GetDataMaskingRulesLcwRequestRequestBuilder().buildGetPreChatSurveyLcwRequestRequestParams()
-)
-  // Get pre-chat survey
-  LiveChatMessaging.getInstance().dispatchEvent(
-      GetPreChatSurveyLcwRequestRequestBuilder().buildGetPreChatSurveyLcwRequestRequestParams()
-  )
-  // Get post-chat survey
-  LiveChatMessaging.getInstance().dispatchEvent(
-      GetPostChatSurveyLcwRequestRequestBuilder().buildGetPreChatSurveyLcwRequestRequestParams()
-  )
-
-  // Get current live chat context
-  LiveChatMessaging.getInstance().dispatchEvent(
-      GetCurrentLiveChatContextRequestBuilder().buildCurrentLiveChatContextRequestParams()
-  )
-  // Get current live chat config
-  LiveChatMessaging.getInstance().dispatchEvent(
-      GetLiveChatConfigRequestBuilder().buildGetLiveChatConfigRequestParams()
-  )
-  // Email live chat transcript, use this on popup input email
-  LiveChatMessaging.getInstance().dispatchEvent(
-      EmailLiveChatTranscriptRequestBuilder().buildEmailLiveChatTranscriptRequestParams(
-          ChatTranscriptBody(
-              emailAddress = "takeuser@email.com",
-              attachmentMessage = "email transcript")))
-// Get conversation details
-LiveChatMessaging.getInstance().dispatchEvent(
-    GetConversationDetailsRequestBuilder().buildGetConversationDetailsRequestParams()
-)
-
-// Download file attachment
-LiveChatMessaging.getInstance().dispatchEvent(
-    DownloadAttachmentRequestBuilder().buildGetConversationDetailsRequestParams()
-)
-// Get agent availability
-LiveChatMessaging.getInstance().dispatchEvent(
-    GetLiveChatConfigRequestBuilder().buildGetLiveChatConfigRequestParams()
-)
-
-// Get live chat transcript
-LiveChatMessaging.getInstance().dispatchEvent(
-    GetLiveChatConfigRequestBuilder().buildGetLiveChatConfigRequestParams()
-)
-// Upload file attachment
-LiveChatMessaging.getInstance().dispatchEvent(
-    UploadAttachmentRequestBuilder().buildUploadAttachmentRequestParams(
-    )
-)
-*/
-//======================Comment END=================================================
+    companion object {
+        private const val TAG = "ChatWindowStateDelegate"
+    }
 }
