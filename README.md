@@ -12,9 +12,12 @@ to guarantee timely support during the Preview period.
 
 2. Sync gradle
 
-5. Build the app based on your build tools.
+3. Download the AAR files (optional)  
+   `./gradlew downloadAarFiles`
 
-6. Run the app.
+4. Build the app based on your build tools.
+
+5. Run the app.
 
 ### Android Studio (Recommended)
 (These instructions were tested with Gradle 8.7, Android Studio Koala | 2024.1.1 Patch 2, OpenJDK 19.0.2, minSdkVersion 26, compileSdkVersion 32, targetSdkVersion 32, kotlinVersion 2.1.0)
