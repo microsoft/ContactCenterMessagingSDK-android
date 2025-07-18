@@ -1,4 +1,5 @@
 package com.ms.lcw
+
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
@@ -13,6 +14,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import com.lcw.lsdk.builder.LCWOmniChannelConfigBuilder
 import com.lcw.lsdk.chat.LiveChatMessaging
@@ -26,6 +28,7 @@ import com.lcw.lsdk.data.requests.OmnichannelConfig
 import com.lcw.lsdk.data.requests.TelemetrySDKConfig
 import com.lcw.lsdk.enum.ConversationStateEnum
 import com.lcw.lsdk.listeners.LCWMessagingDelegate
+import com.lcw.lsdk.logger.OLog
 import com.ms.lcw.Constants.authTkn
 import com.ms.lcw.Constants.orgId
 import com.ms.lcw.Constants.orgUrl
@@ -41,70 +44,71 @@ class ChatActivity : AppCompatActivity() {
     private lateinit var btnText: TextView
     private lateinit var etScript: EditText
     private lateinit var utility: Utility
-    private var isMinimised = false
     private lateinit var btnCopyFCM: Button
     private lateinit var btnReset: Button
-    private var isNotifictionLanding = false
+    private var isMinimised = false
+
+    private val requestPermissionsLauncher =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
+            // Handle permission result if needed
+        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat)
-        setBinding()
-        initParams()
+
+        initViews()
+        setupToolbar()
+        utility = Utility()
         setDefaultConfig()
-        checkNotificationPermission()
-        initListener()
+
+        initFCMData()
         initSDK()
     }
 
-    private fun initListener() {
-        btnCopyFCM.setOnClickListener {
-            val copiedText = utility.getFCMToken(this, "fcmtoken").let {
-                if (it.startsWith("\"") && it.endsWith("\"")) it.substring(1, it.length - 1) else it
-            }
-            if (copiedText.isNotEmpty()) {
-                val clipboard: ClipboardManager =
-                    getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-                val clip = ClipData.newPlainText("Copied Text", copiedText)
-                clipboard.setPrimaryClip(clip)
-                showToast("Copied to Clipboard!")
-            } else {
-                showToast("Please wait")
-            }
-        }
-
-        btnReset.setOnClickListener {
-            utility.clearOrgs(this, "OC")
-            utility.clearOrgs(this, "OCAuth")
-            resetFields()
-        }
-    }
-
-    private fun initParams() {
-        utility = Utility()
-        isNotifictionLanding = intent.extras?.getBoolean("notificationFlow") ?: false
-    }
-
-    private fun setBinding() {
-        btnCopyFCM = findViewById(R.id.btnFCM)
-        btnReset = findViewById(R.id.btnReset)
-        val toolbar = findViewById<TextView>(R.id.toolbar_title)
-        toolbar.setText(resources.getString(R.string.app_name))
-        supportActionBar?.setDisplayShowTitleEnabled(false)
+    private fun initViews() {
         etOrgId = findViewById(R.id.et_orgId)
         etWidgetId = findViewById(R.id.et_orgWidgetId)
         etUrl = findViewById(R.id.et_widgetUrl)
         etAuth = findViewById(R.id.et_auth)
         btnText = findViewById(R.id.btnText)
         etScript = findViewById(R.id.etScript)
+        btnCopyFCM = findViewById(R.id.btnFCM)
+        btnReset = findViewById(R.id.btnReset)
     }
 
-    private fun checkNotificationPermission() {
+    private fun setupToolbar() {
+        val toolbar = findViewById<Toolbar>(R.id.MessagingToolbar)
+        setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+    }
+
+    private fun initFCMData() {
+        btnCopyFCM.setOnClickListener {
+            var copiedText = utility.getFCMToken(this, "fcmtoken").stripQuotes()
+
+            if (copiedText.isNotEmpty()) {
+                val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                val clip = ClipData.newPlainText("Copied Text", copiedText)
+                clipboard.setPrimaryClip(clip)
+                Toast.makeText(this, "Copied to Clipboard!", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(this, "Please wait", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        btnReset.setOnClickListener {
+            utility.clearOrgs(this, "OC")
+            utility.clearOrgs(this, "OCAuth")
+            etUrl.setText("")
+            etWidgetId.setText("")
+            etOrgId.setText("")
+            etAuth.setText("")
+        }
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU &&
-            ContextCompat.checkSelfPermission(
-                this,
-                android.Manifest.permission.POST_NOTIFICATIONS
-            ) != PackageManager.PERMISSION_GRANTED
+            ContextCompat.checkSelfPermission(this, android.Manifest.permission.POST_NOTIFICATIONS)
+            != PackageManager.PERMISSION_GRANTED
         ) {
             requestNotificationPermission()
         }
@@ -122,85 +126,33 @@ class ChatActivity : AppCompatActivity() {
             orgUrl = etUrl.text.toString(),
             widgetId = etWidgetId.text.toString()
         )
-        val authToken = etAuth.text.toString().trimQuotes()
-        val chatSdkConfig = ChatSDKConfig(telemetry = TelemetrySDKConfig(disable = false))
 
-        val lcwOmniChannelConfigBuilder =
-            LCWOmniChannelConfigBuilder.EngagementBuilder(omnichannelConfig, chatSdkConfig).build()
-        LiveChatMessaging.getInstance().apply {
+        val authToken = etAuth.text.toString().stripQuotes()
+
+        val chatSdkConfig = ChatSDKConfig(
+            telemetry = TelemetrySDKConfig(disable = false)
+        )
+
+        val lcwOmniChannelConfigBuilder = LCWOmniChannelConfigBuilder
+            .EngagementBuilder(omnichannelConfig, chatSdkConfig)
+            .build()
+
+        with(LiveChatMessaging.getInstance()) {
             initialize(this@ChatActivity, lcwOmniChannelConfigBuilder, authToken, "test")
             fcmToken = utility.getFCMToken(this@ChatActivity, "fcmtoken")
-            setLCWMessagingDelegate(createLCWMessagingDelegate())
-        }
-    }
-
-    private fun createLCWMessagingDelegate() = object : LCWMessagingDelegate {
-        override fun onChatMinimizeButtonClick() {
-            isMinimised = true
-            btnText.text =
-                if (LiveChatMessaging.getInstance().isChatInProgress) "Restore" else "Let's Chat"
-        }
-
-        override fun onChatCloseButtonClicked() {
-            Log.d("ChatWindowStateDelegate:", "onChatCloseButtonClicked")
-        }
-
-        override fun onViewDisplayed() {
-            Log.d("ChatWindowStateDelegate:", "onViewDisplayed")
-        }
-
-        override fun onChatInitiated() {
-            Log.d("ChatWindowStateDelegate:", "onChatInitiated")
-        }
-
-        override fun onCustomerChatEnded() {
-            Log.d("ChatWindowStateDelegate:", "onCustomerChatEnded")
-        }
-
-        override fun onAgentChatEnded() {
-            Log.d("ChatWindowStateDelegate:", "onAgentChatEnded")
-        }
-
-        override fun onAgentAssigned(content: String) {
-            Log.d("ChatWindowStateDelegate:", "onAgentAssigned-" + content)
-        }
-
-        override fun onLinkClicked(link: String) {
-            Log.d("ChatWindowStateDelegate:", "onLinkClicked-" + link)
-        }
-
-        override fun onNewCustomerMessage(message: ChatSDKMessage) {
-            Log.d("ChatWindowStateDelegate:", "onNewMessageSent-" + message.content)
-        }
-
-        override fun onNewMessageReceived(message: GetMessageResponse?) {
-            Log.d("ChatWindowStateDelegate:", "onNewMessageReceived-" + message.toString())
-        }
-
-        override fun onError(error: ErrorResponse?) {
-            Log.d("ChatWindowStateDelegate:", "ChatWindowStateDelegate-" + error?.errorMessage)
-        }
-
-        override fun onPreChatSurveyDisplayed() {
-            Log.d("ChatWindowStateDelegate:", "onPreChatSurveyDisplayed")
-        }
-
-        override fun onPostChatSurveyDisplayed() {
-            Log.d("ChatWindowStateDelegate:", "onPostChatSurveyDisplayed")
-        }
-
-        override fun onChatRestored() {
-            Log.d("ChatWindowStateDelegate:", "onChatRestored")
         }
     }
 
     private fun setDefaultConfig() {
-        utility.retrieveItem(this, "OC")?.let {
-            etUrl.setText(it.orgUrl)
-            etWidgetId.setText(it.widgetId)
-            etOrgId.setText(it.orgId)
-            etAuth.setText(utility.getAuth(this, ""))
-        } ?: run {
+        val omnichannelConfig = utility.retrieveItem(this, "OC")
+        val auth = utility.getAuth(this, "OCAuth")
+
+        if (omnichannelConfig != null) {
+            etUrl.setText(omnichannelConfig.orgUrl)
+            etWidgetId.setText(omnichannelConfig.widgetId)
+            etOrgId.setText(omnichannelConfig.orgId)
+            etAuth.setText(auth)
+        } else {
             etUrl.setText(orgUrl)
             etWidgetId.setText(orgWidgetId)
             etOrgId.setText(orgId)
@@ -208,95 +160,136 @@ class ChatActivity : AppCompatActivity() {
         }
     }
 
-    private fun resetFields() {
-        etUrl.setText("")
-        etWidgetId.setText("")
-        etOrgId.setText("")
-        etAuth.setText("")
-    }
-
-    private fun showToast(message: String) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
-    }
-
-    private fun String.trimQuotes(): String = if (this.startsWith("\"") && this.endsWith("\"")) {
-        this.substring(1, this.length - 1)
-    } else this
-
     fun launchChat(view: View?) {
-        startChatScreen()
-    }
+        val omnichannelConfig = extract(etScript.text.toString()) ?: run {
+            etScript.setText("")
+            OmnichannelConfig(
+                orgId = etOrgId.text.toString(),
+                orgUrl = etUrl.text.toString(),
+                widgetId = etWidgetId.text.toString()
+            )
+        }
 
-    private fun startChatScreen() {
-        val extractor = extract(etScript.text.toString())
-        val omnichannelConfig = extractor ?: OmnichannelConfig(
-            orgId = etOrgId.text.toString(),
-            orgUrl = etUrl.text.toString(),
-            widgetId = etWidgetId.text.toString()
-        )
+        val authToken = etAuth.text.toString()
 
         utility.storeItem(this, "OC", omnichannelConfig)
-        utility.storeAuth(this, "OCAuth", etAuth.text.toString())
-        initSDK()
-        LiveChatMessaging.getInstance().launchLcwBrandedMessaging(this@ChatActivity)
-    }
+        utility.storeAuth(this, "OCAuth", authToken)
 
-    private val requestPermissionsLauncher =
-        registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
-            if (!isGranted) showToast("Notification permission denied.")
+        LiveChatMessaging.getInstance().apply {
+            launchLcwBrandedMessaging(this@ChatActivity)
+            setLCWMessagingDelegate(object : LCWMessagingDelegate {
+                override fun onChatMinimizeButtonClick() {
+                    isMinimised = true
+                    btnText.text = if (isChatInProgress) "Restore" else "Let's Chat"
+                }
+
+                override fun onChatCloseButtonClicked() {
+                    Log.d(TAG, "onChatCloseButtonClicked")
+                }
+
+                override fun onViewDisplayed() {
+                    Log.d(TAG, "onViewDisplayed")
+                }
+
+                override fun onChatInitiated() {
+                    Log.d(TAG, "onChatInitiated")
+                }
+
+                override fun onCustomerChatEnded() {
+                    Log.d(TAG, "onCustomerChatEnded")
+                }
+
+                override fun onAgentChatEnded() {
+                    Log.d(TAG, "onAgentChatEnded")
+                }
+
+                override fun onAgentAssigned(content: String) {
+                    Log.d(TAG, "onAgentAssigned-$content")
+                }
+
+                override fun onLinkClicked(link: String) {
+                    Log.d(TAG, "onLinkClicked-$link")
+                }
+
+                override fun onNewCustomerMessage(message: ChatSDKMessage) {
+                    Log.d(TAG, "onNewMessageSent-${message.content}")
+                }
+
+                override fun onNewMessageReceived(message: GetMessageResponse?) {
+                    Log.d(TAG, "onNewMessageReceived-$message")
+                }
+
+                override fun onError(error: ErrorResponse?) {
+                    Log.d(TAG, "onError-${error?.errorMessage}")
+                }
+
+                override fun onPreChatSurveyDisplayed() {
+                    Log.d(TAG, "onPreChatSurveyDisplayed")
+                }
+
+                override fun onPostChatSurveyDisplayed() {
+                    Log.d(TAG, "onPostChatSurveyDisplayed")
+                }
+
+                override fun onChatRestored() {
+                    Log.d(TAG, "onChatRestored")
+                }
+            })
         }
+    }
 
     override fun onResume() {
         super.onResume()
-        if (isNotifictionLanding) {
-            isNotifictionLanding = false
-            startChatScreen()
-            return
-        }
-
         if (!isMinimised) {
             LiveChatMessaging.getInstance().getConversationDetails { response ->
                 runOnUiThread {
-                    handleConversationDetailsResponse(response)
+                    when (response) {
+                        is ApiResult.Success -> {
+                            val detail = response.response as? ConversationDetail
+                            val state = detail?.state
+                            val textRes = when (state) {
+                                ConversationStateEnum.Closed.key,
+                                ConversationStateEnum.WrapUp.key -> R.color.lcw_colorProgressBackgroundNormal
+
+                                ConversationStateEnum.Active.key -> R.color.lcw_colorPreChatActionButtonDefault
+
+                                else -> R.color.lcw_colorPreChatActionButtonDestructive
+                            }
+
+                            btnText.text = if (state == ConversationStateEnum.Active.key) "Restore Chat" else "Let's Chat"
+                            btnText.setTextColor(ContextCompat.getColor(this, textRes))
+                        }
+
+                        is ApiResult.Error -> {
+                            btnText.text = "Let's Chat"
+                            btnText.setTextColor(
+                                ContextCompat.getColor(this, R.color.lcw_colorPreChatActionButtonDestructive)
+                            )
+                        }
+                    }
                 }
             }
-        }
-    }
-
-    private fun handleConversationDetailsResponse(response: ApiResult) {
-        when (response) {
-            is ApiResult.Success -> {
-                val conversationDetail = response.response as? ConversationDetail
-                conversationDetail?.state?.let { state ->
-                    updateChatButtonState(state)
-                }
-            }
-
-            is ApiResult.Error -> updateChatButtonState(null)
-        }
-    }
-
-    private fun updateChatButtonState(state: String?) {
-        val (text, color) = when (state) {
-            ConversationStateEnum.Active.key -> "Restore Chat" to com.lcw.chat.R.color.infoColor
-            ConversationStateEnum.Closed.key, ConversationStateEnum.WrapUp.key -> "Let's Chat" to R.color.messagingThemeBackground
-            else -> "Let's Chat" to R.color.messagingThemeBackground
-        }
-        btnText.apply {
-            setText(text)
-            setTextColor(ContextCompat.getColor(this@ChatActivity, color))
         }
     }
 
     fun extract(scriptTag: String?): OmnichannelConfig? {
-        return scriptTag?.let {
-            ScriptAttributeExtractor.extractAttributes(it)?.run {
-                OmnichannelConfig(
-                    widgetId = dataAppId,
-                    orgId = dataOrgId,
-                    orgUrl = dataOrgUrl
-                )
-            }
+        if (scriptTag.isNullOrEmpty()) return null
+        return ScriptAttributeExtractor.extractAttributes(scriptTag)?.let {
+            OmnichannelConfig(
+                widgetId = it.dataAppId,
+                orgId = it.dataOrgId,
+                orgUrl = it.dataOrgUrl
+            )
         }
+    }
+
+    private fun String.stripQuotes(): String {
+        return if (startsWith("\"") && endsWith("\"") && length > 1) {
+            substring(1, length - 1)
+        } else this
+    }
+
+    companion object {
+        private const val TAG = "ChatWindowStateDelegate"
     }
 }

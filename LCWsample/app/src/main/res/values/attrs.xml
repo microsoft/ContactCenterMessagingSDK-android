@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="SimpleSendButton">
+        <attr name="backgroundColor" format="color"></attr>
+        <attr name="borderColor" format="color"></attr>
+        <attr name="borderWidth" format="dimension"></attr>
+        <attr name="borderRadius" format="dimension"></attr>
+        <attr name="rightArrowAfterLabel" format="boolean"></attr>
+        <attr name="chatInputTextId" format="integer"></attr>
+    </declare-styleable>
+    <declare-styleable name="GradientSendButton">
+        <attr name="startColor" format="color"></attr>
+        <attr name="endColor" format="color"></attr>
+        <attr name="borderColor"></attr>
+        <attr name="borderWidth"></attr>
+        <attr name="borderRadius"></attr>
+        <attr name="rightArrowAfterLabel"></attr>
+        <attr name="chatInputTextId"></attr>
+    </declare-styleable>
+    <declare-styleable name="ArrowSendButton">
+        <attr name="borderColor"></attr>
+        <attr name="borderWidth"></attr>
+        <attr name="chatInputTextId"></attr>
+        <attr name="arrowColor" format="color"></attr>
+        <attr name="backgroundColor"></attr>
+    </declare-styleable>
+    <declare-styleable name="CustomerTextInput">
+        <attr name="sendMessageOnEnter" format="boolean"></attr>
+        <attr name="hintText" format="string"></attr>
+        <attr name="inputBorderColor" format="color"></attr>
+        <attr name="inputBorderSize" format="dimension"></attr>
+        <attr name="inputBorderRadius" format="dimension"></attr>
+        <attr name="inputBackgroundColor" format="color"></attr>
+    </declare-styleable>
+    <declare-styleable name="BubbleChatLine">
+        <attr name="agentIcon" format="reference"></attr>
+        <attr name="customerIcon" format="reference"></attr>
+        <attr name="agentBubbleColor" format="color"></attr>
+        <attr name="customerBubbleColor" format="color"></attr>
+        <attr name="systemBubbleColor" format="color"></attr>
+        <attr name="typingBubbleColor" format="color"></attr>
+        <attr name="agentTextColor" format="color"></attr>
+        <attr name="agentTextLinkColor" format="color"></attr>
+        <attr name="customerTextColor" format="color"></attr>
+        <attr name="systemTextColor" format="color"></attr>
+        <attr name="typingTextColor" format="color"></attr>
+        <attr name="agentTextStyle" format="enum|integer">
+            <enum name="NORMAL" value="0"></enum>
+            <enum name="BOLD" value="1"></enum>
+            <enum name="ITALIC" value="2"></enum>
+            <enum name="BOLD_ITALIC" value="3"></enum>
+        </attr>
+        <attr name="customerTextStyle" format="enum|integer">
+            <enum name="NORMAL" value="0"></enum>
+            <enum name="BOLD" value="1"></enum>
+            <enum name="ITALIC" value="2"></enum>
+            <enum name="BOLD_ITALIC" value="3"></enum>
+        </attr>
+        <attr name="systemTextStyle" format="enum|integer">
+            <enum name="NORMAL" value="0"></enum>
+            <enum name="BOLD" value="1"></enum>
+            <enum name="ITALIC" value="2"></enum>
+            <enum name="BOLD_ITALIC" value="3"></enum>
+        </attr>
+        <attr name="typingTextStyle" format="enum|integer">
+            <enum name="NORMAL" value="0"></enum>
+            <enum name="BOLD" value="1"></enum>
+            <enum name="ITALIC" value="2"></enum>
+            <enum name="BOLD_ITALIC" value="3"></enum>
+        </attr>
+        <attr name="customerStrokeColor" format="color"></attr>
+        <attr name="agentStrokeColor" format="color"></attr>
+        <attr name="customerStrokeSize" format="dimension"></attr>
+        <attr name="customerCornerRadius" format="dimension"></attr>
+        <attr name="agentStrokeSize" format="dimension"></attr>
+        <attr name="agentCornerRadius" format="dimension"></attr>
+        <attr name="typingStrokeSize" format="dimension"></attr>
+        <attr name="typingCornerRadius" format="dimension"></attr>
+        <attr name="typingStrokeColor" format="color"></attr>
+        <attr name="systemStrokeSize" format="dimension"></attr>
+        <attr name="systemCornerRadius" format="dimension"></attr>
+        <attr name="systemStrokeColor" format="color"></attr>
+        <attr name="agentMarginLeft" format="dimension"></attr>
+        <attr name="agentMarginTop" format="dimension"></attr>
+        <attr name="agentMarginRight" format="dimension"></attr>
+        <attr name="agentMarginBottom" format="dimension"></attr>
+        <attr name="customerMarginLeft" format="dimension"></attr>
+        <attr name="customerMarginTop" format="dimension"></attr>
+        <attr name="customerMarginRight" format="dimension"></attr>
+        <attr name="customerMarginBottom" format="dimension"></attr>
+        <attr name="typingMarginLeft" format="dimension"></attr>
+        <attr name="typingMarginTop" format="dimension"></attr>
+        <attr name="typingMarginRight" format="dimension"></attr>
+        <attr name="typingMarginBottom" format="dimension"></attr>
+        <attr name="systemMarginLeft" format="dimension"></attr>
+        <attr name="systemMarginTop" format="dimension"></attr>
+        <attr name="systemMarginRight" format="dimension"></attr>
+        <attr name="systemMarginBottom" format="dimension"></attr>
+        <attr name="agentBubblePadding" format="dimension"></attr>
+        <attr name="customerBubblePadding" format="dimension"></attr>
+        <attr name="typingBubblePadding" format="dimension"></attr>
+        <attr name="systemBubblePadding" format="dimension"></attr>
+        <attr name="agentBubbletextSize" format="dimension"></attr>
+        <attr name="customerBubbletextSize" format="dimension"></attr>
+        <attr name="typingBubbletextSize" format="dimension"></attr>
+        <attr name="systemBubbletextSize" format="dimension"></attr>
+    </declare-styleable>
+    <declare-styleable name="SpeechChatLine">
+        <attr name="agentSpeechIcon" format="reference"></attr>
+        <attr name="customerSpeechIcon" format="reference"></attr>
+        <attr name="agentSpeechColor" format="color"></attr>
+        <attr name="customerSpeechColor" format="color"></attr>
+        <attr name="systemSpeechColor" format="color"></attr>
+        <attr name="typingSpeechColor" format="color"></attr>
+        <attr name="agentSpeechTextColor" format="color"></attr>
+        <attr name="customerSpeechTextColor" format="color"></attr>
+        <attr name="systemSpeechTextColor" format="color"></attr>
+        <attr name="typingSpeechTextColor" format="color"></attr>
+        <attr name="agentSpeechTextStyle" format="enum|integer">
+            <enum name="NORMAL" value="0"></enum>
+            <enum name="BOLD" value="1"></enum>
+            <enum name="ITALIC" value="2"></enum>
+            <enum name="BOLD_ITALIC" value="3"></enum>
+        </attr>
+        <attr name="customerSpeechTextStyle" format="enum|integer">
+            <enum name="NORMAL" value="0"></enum>
+            <enum name="BOLD" value="1"></enum>
+            <enum name="ITALIC" value="2"></enum>
+            <enum name="BOLD_ITALIC" value="3"></enum>
+        </attr>
+        <attr name="systemSpeechTextStyle" format="enum|integer">
+            <enum name="NORMAL" value="0"></enum>
+            <enum name="BOLD" value="1"></enum>
+            <enum name="ITALIC" value="2"></enum>
+            <enum name="BOLD_ITALIC" value="3"></enum>
+        </attr>
+        <attr name="typingSpeechTextStyle" format="enum|integer">
+            <enum name="NORMAL" value="0"></enum>
+            <enum name="BOLD" value="1"></enum>
+            <enum name="ITALIC" value="2"></enum>
+            <enum name="BOLD_ITALIC" value="3"></enum>
+        </attr>
+        <attr name="customerSpeechStrokeColor" format="color"></attr>
+        <attr name="agentSpeechStrokeColor" format="color"></attr>
+        <attr name="customerSpeechStrokeSize" format="dimension"></attr>
+        <attr name="customerSpeechCornerRadius" format="dimension"></attr>
+        <attr name="agentSpeechStrokeSize" format="dimension"></attr>
+        <attr name="agentSpeechCornerRadius" format="dimension"></attr>
+        <attr name="typingSpeechStrokeSize" format="dimension"></attr>
+        <attr name="typingSpeechCornerRadius" format="dimension"></attr>
+        <attr name="typingSpeechStrokeColor" format="color"></attr>
+        <attr name="systemSpeechStrokeSize" format="dimension"></attr>
+        <attr name="systemSpeechCornerRadius" format="dimension"></attr>
+        <attr name="systemSpeechStrokeColor" format="color"></attr>
+        <attr name="agentSpeechMarginLeft" format="dimension"></attr>
+        <attr name="agentSpeechMarginTop" format="dimension"></attr>
+        <attr name="agentSpeechMarginRight" format="dimension"></attr>
+        <attr name="agentSpeechMarginBottom" format="dimension"></attr>
+        <attr name="customerSpeechMarginLeft" format="dimension"></attr>
+        <attr name="customerSpeechMarginTop" format="dimension"></attr>
+        <attr name="customerSpeechMarginRight" format="dimension"></attr>
+        <attr name="customerSpeechMarginBottom" format="dimension"></attr>
+        <attr name="typingSpeechMarginLeft" format="dimension"></attr>
+        <attr name="typingSpeechMarginTop" format="dimension"></attr>
+        <attr name="typingSpeechMarginRight" format="dimension"></attr>
+        <attr name="typingSpeechMarginBottom" format="dimension"></attr>
+        <attr name="systemSpeechMarginLeft" format="dimension"></attr>
+        <attr name="systemSpeechMarginTop" format="dimension"></attr>
+        <attr name="systemSpeechMarginRight" format="dimension"></attr>
+        <attr name="systemSpeechMarginBottom" format="dimension"></attr>
+        <attr name="agentSpeechPadding" format="dimension"></attr>
+        <attr name="customerSpeechPadding" format="dimension"></attr>
+        <attr name="typingSpeechPadding" format="dimension"></attr>
+        <attr name="systemSpeechPadding" format="dimension"></attr>
+        <attr name="agentSpeechtextSize" format="dimension"></attr>
+        <attr name="customerSpeechtextSize" format="dimension"></attr>
+        <attr name="typingSpeechtextSize" format="dimension"></attr>
+        <attr name="systemSpeechtextSize" format="dimension"></attr>
+        <attr name="agentIconStrokeSize"  format="dimension"></attr>
+        <attr name="agentIconStrokeColor" format="color"></attr>
+        <attr name="customerIconStrokeSize"  format="dimension"></attr>
+        <attr name="customerIconStrokeColor" format="color"></attr>
+    </declare-styleable>
+
+    <declare-styleable name="CircularImageView">
+
+        <!-- Whether or not to draw a circular border around the image. -->
+        <attr name="civ_border" format="boolean"/>
+        <!-- The color of the border draw around the image. (if enabled) -->
+        <attr name="civ_borderColor" format="color"/>
+        <!-- Makes the border this pixels wide. (if enabled) -->
+        <attr name="civ_borderWidth" format="dimension"/>
+        <!-- Whether or not to draw a selector on this view upon touch events. -->
+        <attr name="civ_selector" format="boolean"/>
+        <!-- The color of the selector draw on top of the image upon touch events. (if enabled) -->
+        <attr name="civ_selectorColor" format="color"/>
+        <!-- The color of the selector stroke drawn around the image upon touch events. Be sure to provide some opacity. (if enabled) -->
+        <attr name="civ_selectorStrokeColor" format="color"/>
+        <!-- The selector stroke drawn around the image upon touch events this pixels wide. (if enabled) -->
+        <attr name="civ_selectorStrokeWidth" format="dimension"/>
+        <!-- Whether or not to draw a shadow around your circular image. -->
+        <attr name="civ_shadow" format="boolean"/>
+        <!-- The radius for the shadow to extend to. (if enabled) -->
+        <attr name="civ_shadowRadius" format="float"/>
+        <!-- Horizontal shadow offset. (if enabled) -->
+        <attr name="civ_shadowDx" format="float"/>
+        <!-- Vertical shadow offset. (if enabled) -->
+        <attr name="civ_shadowDy" format="float"/>
+        <!-- The color of the shadow drawn around your circular image. (if enabled) -->
+        <attr name="civ_shadowColor" format="color"/>
+    </declare-styleable>
+
+    <declare-styleable name="CircularImageViewStyle">
+        <attr name="circularImageViewDefault" format="reference"/>
+    </declare-styleable>
+</resources>

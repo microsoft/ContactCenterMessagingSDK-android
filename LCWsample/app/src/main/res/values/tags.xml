@@ -1,0 +1,6 @@
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+    <item name="STYLE_LOADED" type="id"/>
+    <item name="WIDGET_PROPERTIES_KEY" type="id"/>
+    <item name="WIDGET_ID_KEY" type="id"/>
+    <item name="LAYOUT_ID_KEY" type="id"/>
+</resources>

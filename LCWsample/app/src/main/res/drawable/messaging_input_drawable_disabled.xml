@@ -1,0 +1,12 @@
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/lcw_customerInputBackgroundColor"/>
+            <stroke
+                android:width="@dimen/lcw_customerInputBorderSize"
+                android:color="@color/lcw_customerInputBorderColor"
+                />
+            <corners android:radius="@dimen/lcw_customerInputBorderRadius"></corners>
+        </shape>
+    </item>
+</selector>

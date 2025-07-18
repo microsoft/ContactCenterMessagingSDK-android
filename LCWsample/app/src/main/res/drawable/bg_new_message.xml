@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="rectangle">
+            <stroke android:width="@dimen/lcw_agentBubbleBorderSize"
+                android:color="@color/lcw_agentBubbleBorderColor" />
+            <corners android:radius="@dimen/lcw_newMessageBackgroundRadius"/>
+            <solid android:color="@color/lcw_newMessageBackgroundColor" />
+        </shape>
+    </item>
+</layer-list>
