@@ -53,7 +53,7 @@ repositories {
 }
 
 // Download aar files from GitHub
-val sdkVersion = "v1.0.1"
+val sdkVersion = "v1.0.1" // TODO: Need to update this after next release of React Native SDK and Android SDK for bidirectional custom event messaging
 task("downloadAarFiles") {
     doLast {
         println("Download AARs task started...")
