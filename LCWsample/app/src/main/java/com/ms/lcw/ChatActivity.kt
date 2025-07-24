@@ -24,6 +24,7 @@ import com.lcw.lsdk.data.requests.ChatSDKConfig
 import com.lcw.lsdk.data.requests.ChatSDKMessage
 import com.lcw.lsdk.data.requests.CustomEventRequest
 import com.lcw.lsdk.data.requests.LCWCustomEventRequestBuilder
+import com.lcw.lsdk.data.requests.LCWSendCustomerMessageRequestBuilder
 import com.lcw.lsdk.data.requests.OmnichannelConfig
 import com.lcw.lsdk.data.requests.TelemetrySDKConfig
 import com.lcw.lsdk.enum.ConversationStateEnum
@@ -33,6 +34,7 @@ import com.ms.lcw.Constants.orgId
 import com.ms.lcw.Constants.orgUrl
 import com.ms.lcw.Constants.orgWidgetId
 import com.ms.lcw.script.ScriptAttributeExtractor
+import java.util.Date
 
 class ChatActivity : AppCompatActivity() {
 
@@ -153,7 +155,8 @@ class ChatActivity : AppCompatActivity() {
 
         override fun onChatInitiated() {
             Log.d("ChatWindowStateDelegate:", "onChatInitiated")
-            sendCustomBotEvent()
+            // sendCustomBotEvent()
+            // sendCustomEventViaOutboundMessage()
         }
 
         override fun onCustomerChatEnded() {
@@ -174,6 +177,9 @@ class ChatActivity : AppCompatActivity() {
 
         override fun onNewCustomerMessage(message: ChatSDKMessage) {
             Log.d("ChatWindowStateDelegate:", "onNewMessageSent-" + message.content)
+            if (message.content == "event to C1 from android") {
+                sendCustomEventViaOutboundMessage()
+            }
         }
 
         override fun onNewMessageReceived(message: GetMessageResponse?) {
@@ -338,6 +344,44 @@ class ChatActivity : AppCompatActivity() {
             val adapter = liveChatMessaging.liveChatAdapter
             adapter.dispatchEvent("MCSCustomEvent", customEventRequest)
 
+        } catch (e: Exception) {
+            Log.e("CustomEvent", "Failed to send custom event: ${e.message}")
+            showToast("Error: ${e.message}")
+        }
+    }
+
+    private fun sendCustomEventViaOutboundMessage() {
+        try {
+             val metadata = mapOf(
+                 "customEvent" to "true",
+                 "customEventName" to "TestEvent",
+                 "customEventValue" to """{ "stringVar": "Hello world! 123456", "numberVar": -10.5, "boolVar": true, "displayableVar": { "isDisplayable": true, "value": "Hello again!" } }"""
+             )
+
+            val customEventData = ChatSDKMessage(
+                content = "",
+                tags = listOf("ChannelId-lcw", "Hidden"),
+                timestamp = Date(System.currentTimeMillis()),
+                metadata = metadata,
+            )
+
+            // Build the custom event request with the event data
+            val customEventRequest = LCWSendCustomerMessageRequestBuilder().buildSendCustomerMessageRequestParams(
+                message = customEventData,
+                id = "f7a2b8c4-9d6e-4f3a-8b7c-2e1f9a5d6c8b"
+            )
+
+            // Create a completion handler that logs the result
+            LiveChatMessaging.getInstance().sendMessage(customEventRequest) { result ->
+                when (result) {
+                    is ApiResult.Success -> {
+                        Log.d("CustomEvent", "Message sent successfully: ${result.response}")
+                    }
+                    is ApiResult.Error -> {
+                        Log.d("CustomEvent", "Failed to send message: ${result.errorMessage}")
+                    }
+                }
+            }
         } catch (e: Exception) {
             Log.e("CustomEvent", "Failed to send custom event: ${e.message}")
             showToast("Error: ${e.message}")
