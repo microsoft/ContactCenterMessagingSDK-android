@@ -32,6 +32,7 @@ import com.ms.lcw.Constants.orgId
 import com.ms.lcw.Constants.orgUrl
 import com.ms.lcw.Constants.orgWidgetId
 import com.ms.lcw.script.ScriptAttributeExtractor
+import java.util.Date
 
 class ChatActivity : AppCompatActivity() {
 
