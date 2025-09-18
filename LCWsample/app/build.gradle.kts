@@ -125,6 +125,7 @@ dependencies {
     // Exclusions prevent native library duplication/conflicts with your AAR.
     implementation(files("libs/ContactCenterMessagingWidget.aar"))
     implementation(files("libs/OmnichannelChatSDK.aar"))
+    implementation(files("libs/adaptivecards-release-ndk28.aar"))
     implementation(libs.react.android)
     implementation(libs.jsc.android)
     // Google Flexbox Layout
