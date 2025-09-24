@@ -1,0 +1,28 @@
+<!-- res/drawable/rounded_bottom_left_with_shadow.xml -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Bottom shadow layer -->
+    <item android:top="3dp">
+        <shape android:shape="rectangle">
+            <solid android:color="#33000000" /> <!-- Semi-transparent black -->
+            <corners
+                android:topLeftRadius="16dp"
+                android:topRightRadius="16dp"
+                android:bottomRightRadius="0dp"
+                android:bottomLeftRadius="16dp"/>
+        </shape>
+    </item>
+
+    <!-- Main bubble layer -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/lcw_customerBubbleBackground" />
+            <corners
+                android:topLeftRadius="16dp"
+                android:topRightRadius="16dp"
+                android:bottomRightRadius="0dp"
+                android:bottomLeftRadius="16dp"/>
+        </shape>
+    </item>
+
+</layer-list>

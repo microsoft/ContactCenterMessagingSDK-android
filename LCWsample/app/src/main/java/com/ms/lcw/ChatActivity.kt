@@ -58,7 +58,7 @@ class ChatActivity : AppCompatActivity() {
         setContentView(R.layout.activity_chat)
 
         initViews()
-        setupToolbar()
+        //setupToolbar()
         utility = Utility()
         setDefaultConfig()
 
@@ -75,12 +75,6 @@ class ChatActivity : AppCompatActivity() {
         etScript = findViewById(R.id.etScript)
         btnCopyFCM = findViewById(R.id.btnFCM)
         btnReset = findViewById(R.id.btnReset)
-    }
-
-    private fun setupToolbar() {
-        val toolbar = findViewById<Toolbar>(R.id.MessagingToolbar)
-        setSupportActionBar(toolbar)
-        supportActionBar?.setDisplayShowTitleEnabled(false)
     }
 
     private fun initFCMData() {
@@ -227,12 +221,19 @@ class ChatActivity : AppCompatActivity() {
                     Log.d(TAG, "onPreChatSurveyDisplayed")
                 }
 
-                override fun onPostChatSurveyDisplayed() {
-                    Log.d(TAG, "onPostChatSurveyDisplayed")
+                override fun onPostChatSurveyDisplayed(isExternalLink: Boolean) {
                 }
 
                 override fun onChatRestored() {
                     Log.d(TAG, "onChatRestored")
+                }
+
+                override fun onHeaderUtilityClicked() {
+                    TODO("Not yet implemented")
+                }
+
+                override fun onBotSignInAuth(content: String) {
+                    TODO("Not yet implemented")
                 }
             })
         }
@@ -249,11 +250,11 @@ class ChatActivity : AppCompatActivity() {
                             val state = detail?.state
                             val textRes = when (state) {
                                 ConversationStateEnum.Closed.key,
-                                ConversationStateEnum.WrapUp.key -> R.color.lcw_colorProgressBackgroundNormal
+                                ConversationStateEnum.WrapUp.key -> R.color.txt_notification_color
 
-                                ConversationStateEnum.Active.key -> R.color.lcw_colorPreChatActionButtonDefault
+                                ConversationStateEnum.Active.key -> R.color.colorAccent
 
-                                else -> R.color.lcw_colorPreChatActionButtonDestructive
+                                else -> R.color.colorPrimary
                             }
 
                             btnText.text = if (state == ConversationStateEnum.Active.key) "Restore Chat" else "Let's Chat"
@@ -263,7 +264,7 @@ class ChatActivity : AppCompatActivity() {
                         is ApiResult.Error -> {
                             btnText.text = "Let's Chat"
                             btnText.setTextColor(
-                                ContextCompat.getColor(this, R.color.lcw_colorPreChatActionButtonDestructive)
+                                ContextCompat.getColor(this, com.lcw.chat.R.color.lcw_reconnect_title_description_color)
                             )
                         }
                     }

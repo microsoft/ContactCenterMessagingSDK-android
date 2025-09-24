@@ -7,28 +7,6 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/MessageTheme.AppBarTheme">
-
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/MessagingToolbar"
-            style="@style/LCWMessagingToolbarDefault.MessagingToolbar">
-
-            <androidx.appcompat.widget.ActionMenuView
-                android:id="@+id/left_menu"
-                android:layout_width="wrap_content"
-                android:layout_height="?attr/actionBarSize"
-                android:gravity="left" />
-
-            <TextView
-                android:id="@+id/toolbar_title"
-                style="@style/LCWToolbarTitleDefault.ToolbarTitleDefault" />
-        </androidx.appcompat.widget.Toolbar>
-
-    </com.google.android.material.appbar.AppBarLayout>
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -37,17 +15,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="@dimen/lcw_margin_30dp"
+            android:layout_marginTop="30dp"
             android:gravity="center"
             android:orientation="vertical"
-            android:padding="@dimen/padding_10dp"
+            android:padding="10dp"
             tools:context=".ChatActivity">
 
             <EditText
                 android:id="@+id/etScript"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/bg_customer_chat_bubble"
                 android:hint="Paste your script"
                 android:maxHeight="100dp"
                 android:padding="10dp" />
@@ -138,7 +115,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="5dp"
-                        android:background="@drawable/bg_customer_chat_bubble"
                         android:hint="WIDGET ID"
                         android:padding="5dp" />
 
@@ -157,7 +133,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="5dp"
-                        android:background="@drawable/bg_customer_chat_bubble"
                         android:hint="ORG WIDGET ID"
                         android:padding="10dp" />
 
@@ -176,7 +151,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="5dp"
-                        android:background="@drawable/bg_customer_chat_bubble"
                         android:hint="ORG URL"
                         android:padding="10dp" />
 
@@ -195,7 +169,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="5dp"
-                        android:background="@drawable/bg_customer_chat_bubble"
                         android:hint="(Optional)"
                         android:maxHeight="100dp"
                         android:padding="10dp" />
@@ -203,6 +176,7 @@
 
 
             </androidx.cardview.widget.CardView>
+
             <LinearLayout
                 android:id="@+id/llChat"
                 android:layout_width="wrap_content"

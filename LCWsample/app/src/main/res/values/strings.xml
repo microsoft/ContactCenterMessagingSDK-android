@@ -1,119 +1,65 @@
 <resources>
-    <string name="lcw_headerTitle"></string>
-    <string name="lcw_messaging_close_text">Close</string>
-    <string name="lcw_messaging_minimize_text">Minimize</string>
-    <string name="lcw_messagingSendText">Send</string>
-    <string name="lcw_messagingInputText">Type your message.</string>
-    <string name="lcw_messaging_email_text">email</string>
-    <string name="lcw_messaging_share_text">share</string>
-    <string name="lcw_email_success">Email will be sent after chat ends</string>
-    <string name="lcw_email_failure">Failed to send Email</string>
+    <string name="app_name">Let\'s Chat</string>
+    <string name="action_settings">Settings</string>
+    <string name="lcw_headerTitle"><big><b>Let\'s Chat</b></big></string>
+    <string name="lcw_alignBubbleTimeStamp">center</string>
+    <string name="lcw_dialog_email_title">Email</string>
+    <string name="lcw_dialog_email_positive_button_text">Submit</string>
+    <string name="lcw_dialog_email_negative_button_text">No thanks</string>
+    <string name="btn_call_start">Start Call</string>
+    <string name="btn_call_end">End Call</string>
+    <string name="msg_typing">...</string>
+    <string name="msg_stopped_typing">support stopped coming</string>
+    <string name="title_activity_main3">Main3Activity</string>
+    <string name="agent_transfer">transferring</string>
+    <string name="lcw_messagingSendText"></string>
+    <!--<string name="messagingOpenerText">##EmptyAnswer</string>-->
+    <string-array name="rich_button_widgets">
+        <item>Contextual Buttons</item>
+        <item>Outline Contextual Buttons</item>
+        <item>Adjusting Button size</item>
+        <item>Block Buttons</item>
+        <item>Two inline Buttons side by side</item>
+        <item>Two Block Buttons side by side</item>
+        <item>Quick Reply Button</item>
+        <item>Toggle Button</item>
+    </string-array>
+    <string-array name="images_sample">
+        <item>Small size floating images</item>
+        <item>Big size floating images</item>
+        <item>Horizontal images</item>
+    </string-array>
+    <string-array name="list_sample">
+        <item>ListGroup</item>
+        <item>ListSelectableGroup</item>
+    </string-array>
+    <string-array name="card_sample">
+        <item>Card with image and buttons</item>
+        <item>Card with Header</item>
+        <item>Card with listGroup</item>
+        <item>Card with horizontal left layout</item>
+        <item>Card with horizontal right layout</item>
+        <item>Card with Overlay Image</item>
+    </string-array>
+    <string-array name="rich_widgets">
+        <item>Button</item>
+        <item>Heading</item>
+        <item>Paragraph</item>
+        <!--        <item>Form Controls</item>-->
+        <item>Images</item>
+        <item>ListGroup</item>
+        <item>Calendar</item>
+        <item>Card</item>
+        <item>CardDeck</item>
+    </string-array>
+    <integer name="card_image_space_around">20</integer>
+    <string name="disclaimer_text">H&amp;M may process personal data collected in this chat or survey to improve your experience. &lt;a href=\'https://www.privacypolicygenerator.info\'&gt; Please visit &lt;/a&gt; our Privacy Notice for further information.</string>
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
     <!--Email address dialog for transcript-->
-    <string name="lcw_dialog_email_title">Email this chat transcript</string>
-    <string name="lcw_dialog_email_positive_button_text">Send</string>
-    <string name="lcw_dialog_email_negative_button_text">Cancel</string>
-    <string name="lcw_dialog_txt_email_hint">johnsmith@outlook.com</string>
-    <string name="lcw_dialog_txt_email_error">Enter a valid email address.</string>
-    <string name="lcw_dialog_email_contact_error_message">No Email for Selected Contact</string>
-    <string name="lcw_email_dialog_error_on_no_engagement">No active engagement found</string>
-    <string name="lcw_msg_read_contacts_permissions_error">Provide access to read email id from your contact.</string>
-    <string name="lcw_dialog_email_list_title">Choose email id</string>
-    <string name="lcw_dialog_email_body">This will be sent after our chat ends.</string>
-
-    <string name="lcw_customerBubbleFont">sans-serif</string>
-    <string name="lcw_alignBubbleTimeStamp">right</string>
-    <string name="lcw_bubble_timestamp_format">HH:mm</string>
-    <string name="lcw_messaging_toggle_agent_sound_text">toggle_agent_sound</string>
-    <string name="lcw_openWith">Share using</string>
-
-    <string name="lcw_share_talkback_text">Send copy of chat transcript.</string>
-    <string name="lcw_minimize_talkback_text">Minimize chat window.</string>
-    <string name="lcw_close_talkback_text">Close chat window.</string>
-    <string name="lcw_chime_on_talkback_text">Incoming chat chime, ON</string>
-    <string name="lcw_chime_off_talkback_text">Incoming chat chime, OFF</string>
-
-    <string name="lcw_msg_file_type_not_allowed">File type not allowed to upload</string>
-    <string name="lcw_msg_file_too_large">File exceeds the allowed limit of %s MB </string>
-    <string name="lcw_file_upload_error_text">Failed to upload file.</string>
-    <string name="lcw_file_upload_success_text">File successfully uploaded.</string>
-    <string name="lcw_banner_file_null_error">There was an error uploading the file, please try again.</string>
-    <string name="lcw_banner_file_size_without_extension_error">File exceeds the allowed limit of %s MB and please upload the file with an appropriate file extension.</string>
-    <string name="lcw_banner_file_size_extension_error">File exceeds the allowed limit of %s MB and %s files are not supported.</string>
-    <string name="lcw_banner_file_size_error">File exceeds the allowed limit of %s MB.</string>
-    <string name="lcw_banner_file_without_extension">File upload error. Please upload the file with an appropriate file extension.</string>
-    <string name="lcw_banner_file_extension_error">%s files are not supported.</string>
-    <string name="lcw_banner_file_is_empty_error">This file can\'t be attached because it\'s empty. Please try again with a different file.</string>
-    <string name="lcw_banner_file_upload_error_message">Upload failed, please try again</string>
-
-    <string name="lcw_no_internet">No internet</string>
-
-    <string name="lcw_agent_header_text">Agent header</string>
-    <string name="lcw_customer_header_text">Customer header</string>
-    <string name="lcw_new_message_btn_label">New message</string>
-    <string name="lcw_out_of_ofc_hours_title">We\'re offline</string>
-    <string name="lcw_start_chat_error_title">We are unable to load chat at this time.</string>
-    <string name="lcw_start_chat_error_subtitle">Please try again later.</string>
-    <string name="logo">logo</string>
-    <string name="lcw_error_title_default">We are unable to load chat at this time.</string>
-    <string name="lcw_error_title_authentication_failed">Chat authentication has failed.</string>
-    <string name="lcw_error_title_persistent_chat_conversation_retrieval_failure">We are unable to load chat at this time.</string>
-    <string name="lcw_error_title_widget_use_outside_operating_hour">Thanks for contacting us. You have reached us outside of our operating hours. An agent will respond when we open.</string>
-    <string name="lcw_error_title_conversation_initialization_failure">We are unable to load chat at this time.</string>
-    <string name="lcw_error_title_chat_token_retrieval_failure">Chat authentication has failed.</string>
-    <string name="lcw_error_title_uninitialized_chat_sdk">We are unable to load chat at this time.</string>
-    <string name="lcw_error_title_invalid_conversation">We are unable to load chat at this time.</string>
-    <string name="lcw_error_title_closed_conversation">We are unable to load chat at this time.</string>
-    <string name="lcw_error_adaptive_card_required_fields">A required field cannot be empty</string>
-    <string name="lcw_network_disconnect_message">Network interruption occurred. Reconnecting…</string>
-    <string name="lcw_network_reconnect_message">You\'re back online</string>
-    <string name="lcw_network_disconnect_notification">Unable to connect - Please check your internet connection</string>
-    <string name="lcw_network_reconnect_timeout_message">Taking longer than usual to connect.</string>
-    <string name="lcw_error_chat_timeout">Your conversation has been disconnected. For additional assistance, please start a new chat.</string>
-    <string name="lcw_txt_notification_count">%d Notifications: Click here to see details</string>
-    <string name="lcw_txt_agent_typing">%s is typing</string>
-    <string name="lcw_empty_string"/>
-    <string-array name="lcw_activity_registry"/>
-    <string name="lcw_txt_delivered">  Sent</string>
-    <string name="lcw_txt_delivery_failed"> Failed</string>
-    <string name="lcw_txt_delivering">Sending…</string>
-    <string name="lcw_timestamp_separator">-</string>
-    <string name="lcw_image_content_description">Media Image</string>
-    <string name="lcw_customer_video_content_description">Customer video</string>
-    <string name="lcw_voice_play_button">Play button</string>
-    <string name="lcw_voice_mute_button">Mute unmute button</string>
-    <string name="lcw_welcomeText">Welcome to \n\nlive chat support!</string>
-    <string name="lcw_loadingText">Loading…</string>
-    <string name="lcw_transcriptLoadingText">Fetching previous conversation..</string>
-    <string name="lcw_download_transcript_filename">transcript</string>
-    <string name="lcw_download_transcript_page_title">Download Live Chat Transcript</string>
-    <string name="lcw_download_transcript_attachment_message">The following attachment was uploaded during the conversation: </string>
-    <string name="lcw_download_transcript_network_online_message">Connection restored. Please refresh the page</string>
-    <string name="lcw_download_transcript_network_offline_message">Network Error. Please make sure you are connected to the internet.</string>
-    <string name="lcw_download_error_banner_message">An error occurred while downloading the chat transcript.</string>
-    <string name="lcw_download_transcript_cdn_url">https://oc-cdn-public.azureedge.net/livechatwidget</string>
-    <string name="lcw_download_notification_title">Download Complete</string>
-    <string name="lcw_download_notification_subtitle">Tap to view file</string>
-
-    <!--Close dialog for transcript-->
-    <string name="lcw_dialog_close_positive_button_text">Close</string>
-    <string name="lcw_dialog_close_negative_button_text">Cancel</string>
-    <string name="lcw_close_dialog_title_when_email_and_download_enabled">Want a copy of this chat?</string>
-    <string name="lcw_close_dialog_subtitle_when_email_and_download_enabled">Select Cancel and then select the download or email icon.</string>
-    <string name="lcw_close_dialog_title_when_email_enabled">Want a copy of this chat?</string>
-    <string name="lcw_close_dialog_subtitle_when_email_enabled">Select Cancel and then select the email icon.</string>
-    <string name="lcw_close_dialog_title_when_download_enabled">Want a copy of this chat?</string>
-    <string name="lcw_close_dialog_subtitle_when_download_enabled">Select Cancel and then select the download icon</string>
-    <string name="lcw_ic_customer_icon_name">ic_customer_avatar</string>
-    <string name="lcw_close_dialog_title_default">Close chat</string>
-    <string name="lcw_close_dialog_subtitle_default">Do you really want to close this chat?</string>
-
-    <string name="lcw_reconnectTitle">Previous session detected</string>
-    <string name="lcw_reconnectDescription">We have detected a previous chat session. Would you like to continue with your previous session?</string>
-    <string name="lcw_reconnectButtonContinue">Continue conversation</string>
-    <string name="lcw_reconnectButtonNewChat">Start new conversation</string>
-    <string name="lcw_reconnectIconDescription">Reconnect icon</string>
-    <string name="lcw_postChatSurveyLoaderText">Please take a moment to give us feedback about chat experience.\n\nWe are loading the survey for you now.</string>
-    <string name="lcw_invalidConfigParamsError">Live chat widget failed to load, please check the configuration.</string>
-    <string name="lcw_hostconfig_file_name">HostConfig.json</string>
-    <string name="lcw_prechat_hostconfig_file_name">HostConfigPreChat.json</string>
+    <!--<string name="lcw_dialog_email_title">test:Send email to</string>
+    <string name="lcw_dialog_email_positive_button_text">test:Send</string>
+    <string name="lcw_dialog_email_negative_button_text">test:Cancel</string>
+    <string name="lcw_dialog_txt_email_hint">test.example@abc.com</string>
+    <string name="lcw_dialog_txt_email_error">test:Email address not valid</string>-->
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 </resources>
