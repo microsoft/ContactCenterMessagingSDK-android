@@ -20,368 +20,353 @@
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
+    <style name="LCWMessageTheme">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="textAllCaps">false</item>
+        <item name="android:statusBarColor">@color/lcw_messagingStatusBarColor</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:colorPrimary">@color/lcw_agentTextLinkColor</item>
+        <item name="android:colorPrimaryDark">@color/lcw_agentTextLinkColor</item>
+        <item name="android:colorAccent">@color/lcw_agentTextLinkColor</item>
+        <item name="android:windowTranslucentStatus">false</item>
+        <item name="android:actionMenuTextColor">@color/menu_item_text_color</item>
+        <item name="android:windowBackground">@color/white</item>
+    </style>
 
-        <style name="LCWMessageTheme.NoActionBar">
-            <item name="windowActionBar">false</item>
-            <item name="windowNoTitle">true</item>
-            <item name="textAllCaps">false</item>
-            <item name="android:statusBarColor">@color/lcw_messagingStatusBarColor</item>
-            <item name="android:windowLightStatusBar">true</item>
-            <item name="android:colorPrimary">@color/lcw_agentTextLinkColor</item>
-            <item name="android:colorPrimaryDark">@color/lcw_agentTextLinkColor</item>
-            <item name="android:colorAccent">@color/lcw_agentTextLinkColor</item>
-            <item name="android:windowTranslucentStatus">false</item>
-            <item name="android:actionMenuTextColor">@color/menu_item_text_color</item>
-            <item name="android:windowBackground">@color/white</item>
-        </style>
+    <style name="LCWMessageTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="textAllCaps">false</item>
+        <item name="android:statusBarColor">@color/lcw_messagingStatusBarColor</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:colorPrimary">@color/lcw_agentTextLinkColor</item>
+        <item name="android:colorPrimaryDark">@color/lcw_agentTextLinkColor</item>
+        <item name="android:colorAccent">@color/lcw_agentTextLinkColor</item>
+        <item name="android:windowTranslucentStatus">false</item>
+        <item name="android:actionMenuTextColor">@color/menu_item_text_color</item>
+        <item name="android:windowBackground">@color/white</item>
+    </style>
 
-        <style name="LCWAgentBubbleRichContainerDefault">
-            <item name="android:layout_width">wrap_content</item>
-            <item name="android:layout_height">wrap_content</item>
-            <item name="android:minHeight">@dimen/lcw_agentSpeechRichMinHeight</item>
-            <item name="android:padding">@dimen/lcw_agentSpeechRichContainerPadding</item>
-            <item name="cardElevation">@dimen/lcw_agentBubbleCardElevation</item>
-            <item name="android:background">@drawable/corner_agent_bubble</item>
-            <item name="android:layout_marginLeft">@dimen/lcw_agentSpeechRichContainerMarginLeft</item>
-            <item name="android:layout_marginRight">@dimen/lcw_agentSpeechRichContainerMarginRight</item>
-            <item name="android:layout_marginTop">@dimen/lcw_agentSpeechRichContainerMarginTop</item>
-            <item name="android:layout_marginBottom">@dimen/lcw_agentSpeechRichContainerMarginBottom</item>
-        </style>
+    <style name="LCWAgentBubbleRichContainerDefault">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/corner_agent_bubble</item>
+        <item name="android:layout_marginBottom">@dimen/lcw_agentSpeechRichContainerMarginBottom
+        </item>
+    </style>
 
-        <style name="LCWAgentSpeechIconDefault">
-            <item name="android:layout_width">@dimen/lcw_agentSpeechIconWidth</item>
-            <item name="android:layout_height">@dimen/lcw_agentSpeechIconHeight</item>
-            <item name="android:maxWidth">@dimen/lcw_agentSpeechIconMaxWidth</item>
-            <item name="android:maxHeight">@dimen/lcw_agentSpeechIconMaxHeight</item>
-            <item name="android:layout_alignParentLeft">true</item>
-            <item name="android:layout_alignParentBottom">true</item>
-            <item name="android:layout_marginRight">@dimen/lcw_agentSpeechIconMarginRight</item>
-            <item name="android:layout_marginLeft">@dimen/lcw_agentSpeechIconMarginLeft</item>
-            <item name="android:layout_marginTop">@dimen/lcw_agentSpeechIconMarginTop</item>
-            <item name="android:layout_marginBottom">@dimen/lcw_agentSpeechIconMarginBottom</item>
-            <item name="android:paddingBottom">@dimen/lcw_agentSpeechIconPaddingBottom</item>
-            <item name="android:src">@drawable/lcw_ic_agent_avatar</item>
-        </style>
+    <style name="LCWAgentSpeechIconDefault">
+        <item name="android:layout_width">@dimen/agentSpeechIconWidth</item>
+        <item name="android:layout_height">@dimen/agentSpeechIconHeight</item>
+        <item name="android:maxWidth">@dimen/agentSpeechIconMaxWidth</item>
+        <item name="android:maxHeight">@dimen/agentSpeechIconMaxHeight</item>
+        <item name="android:layout_alignParentLeft">true</item>
+        <item name="android:layout_alignParentBottom">true</item>
+        <item name="android:layout_marginRight">@dimen/agentSpeechIconMarginRight</item>
+        <item name="android:layout_marginLeft">@dimen/agentSpeechIconMarginLeft</item>
+        <item name="android:layout_marginTop">@dimen/agentSpeechIconMarginTop</item>
+        <item name="android:layout_marginBottom">@dimen/agentSpeechIconMarginBottom</item>
+        <item name="android:paddingBottom">@dimen/agentSpeechPadding</item>
+        <item name="android:src">@drawable/ic_agent_avatar</item>
+    </style>
 
-        <style name="LCWCustomerBubbleRichContainerDefault">
-            <item name="android:layout_width">wrap_content</item>
-            <item name="android:layout_height">wrap_content</item>
-            <item name="android:minHeight">@dimen/lcw_customerSpeechRichMinHeight</item>
-            <item name="android:padding">@dimen/lcw_customerSpeechRichContainerPadding</item>
-            <item name="cardElevation">@dimen/lcw_customerBubbleCardElevation</item>
-            <item name="android:layout_gravity">right</item>
-            <item name="android:gravity">right</item>
-            <item name="android:paddingRight">@dimen/lcw_customerBubblePaddingRight</item>
-            <item name="android:background">@drawable/corner_customer_bubble</item>
-            <item name="android:layout_marginLeft">@dimen/lcw_customerSpeechRichContainerMarginLeft</item>
-            <item name="android:layout_marginRight">@dimen/lcw_customerSpeechRichContainerMarginRight</item>
-            <item name="android:layout_marginTop">@dimen/lcw_customerSpeechRichContainerMarginTop</item>
-            <item name="android:layout_marginBottom">@dimen/lcw_customerSpeechRichContainerMarginBottom</item>
-        </style>
+    <style name="LCWCustomerBubbleRichContainerDefault">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:minHeight">@dimen/customerSpeechRichMinHeight</item>
+        <item name="android:padding">@dimen/customerSpeechRichContainerPadding</item>
+        <item name="cardElevation">@dimen/customerBubbleCardElevation</item>
+        <item name="android:layout_gravity">right</item>
+        <item name="android:gravity">right</item>
+        <item name="android:paddingRight">@dimen/agentSpeechPadding</item>
+        <item name="android:background">@drawable/corner_customer_bubble</item>
+        <item name="android:layout_marginLeft">@dimen/customerSpeechRichContainerMarginLeft</item>
+        <item name="android:layout_marginRight">@dimen/customerSpeechRichContainerMarginRight</item>
+        <item name="android:layout_marginTop">@dimen/customerSpeechRichContainerMarginTop</item>
+        <item name="android:layout_marginBottom">@dimen/customerSpeechRichContainerMarginBottom
+        </item>
+    </style>
 
-        <style name="LCWWrappedInputDefault" parent="LCWCustomerInputDefault.CustomerTextInput">
-            <item name="android:layout_width">match_parent</item>
-            <item name="android:layout_toLeftOf">@id/length_container</item>
-            <item name="android:padding">@dimen/lcw_customerMessageInputPadding</item>
-            <item name="android:paddingLeft">@dimen/lcw_customerMessageInputPaddingLeft</item>
-            <item name="android:gravity">center_vertical</item>
-            <item name="android:layout_gravity">center_vertical</item>
-            <item name="android:layout_margin">@dimen/lcw_customerMessageInputMargin</item>
-            <item name="android:background">@android:color/transparent</item>
-            <item name="android:fontFamily">@font/arial</item>
-            <item name="android:textSize">@dimen/lcw_customerMessageInputTextSize</item>
-        </style>
+    <style name="LCWWrappedInputDefault" parent="CustomerInputDefault.CustomerTextInput">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_toLeftOf">@id/length_container</item>
+        <item name="android:padding">@dimen/customerMessageInputPadding</item>
+        <item name="android:paddingLeft">@dimen/agentSpeechPadding</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:layout_margin">10dp</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:fontFamily">@font/arial</item>
+        <item name="android:textSize">@dimen/customerMessageInputTextSize</item>
+    </style>
 
-        <style name="LCWCustomerInputDefault">
-            <item name="android:textColorHint">@color/lcw_customerTextHint</item>
-            <item name="android:textColor">@color/lcw_customerTextHint</item>
-            <item name="android:layout_width">match_parent</item>
-            <item name="android:layout_height">wrap_content</item>
-            <item name="android:padding">5dp</item>
-            <item name="android:gravity">center_vertical</item>
-            <item name="android:layout_toLeftOf">@id/send_container</item>
-        </style>
+    <style name="LCWCustomerInputDefault">
+        <item name="android:textColorHint">@color/lcw_customerTextHint</item>
+        <item name="android:textColor">@color/lcw_customerTextHint</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">5dp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:layout_toLeftOf">@id/send_container</item>
+    </style>
 
-        <style name="LCWCloseDialogPositiveButtonDefault">
-            <item name="android:layout_width">wrap_content</item>
-            <item name="android:layout_height">wrap_content</item>
-            <item name="textColor">@color/lcw_txt_color_black</item>
-            <item name="android:background">@color/transparent</item>
-            <item name="android:textAllCaps">false</item>
-            <item name="android:text">@string/lcw_dialog_close_positive_button_text</item>
-            <item name="android:textColor">@color/lcw_dialog_close_positive_button_text_color</item>
-        </style>
+    <style name="LCWCloseDialogPositiveButtonDefault">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/txt_color_black</item>
+        <item name="android:background">@color/transparent</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:text">@string/dialog_close_positive_button_text</item>
+    </style>
 
-        <style name="LCWCloseDialogNegativeButtonDefault">
-            <item name="android:layout_width">wrap_content</item>
-            <item name="android:layout_height">wrap_content</item>
-            <item name="android:layout_gravity">center</item>
-            <item name="android:gravity">center|center_vertical</item>
-            <item name="android:background">@color/transparent</item>
-            <item name="android:textAllCaps">false</item>
-            <item name="android:text">@string/lcw_dialog_close_negative_button_text</item>
-            <item name="android:textColor">@color/lcw_dialog_close_negative_button_text_color</item>
-        </style>
+    <style name="LCWCloseDialogNegativeButtonDefault">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:gravity">center|center_vertical</item>
+        <item name="android:background">@color/transparent</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:text">@string/dialog_close_negative_button_text</item>
+        <item name="android:textColor">@color/dialog_close_negative_button_text_color</item>
+    </style>
 
-        <style name="LCWCloseDialogButtonContainerDefault">
-            <item name="android:gravity">end</item>
-            <item name="textColor">@color/lcw_dialog_close_negative_button_text_color</item>
-            <item name="android:layout_gravity">end</item>
-            <item name="android:layout_width">match_parent</item>
-            <item name="android:layout_height">wrap_content</item>
-        </style>
+    <style name="LCWCloseDialogButtonContainerDefault">
+        <item name="android:gravity">end</item>
+        <item name="android:textColor">@color/dialog_close_negative_button_text_color</item>
+        <item name="android:layout_gravity">end</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
 
-        <style name="LCWCloseDialogBodyDefault">
-            <item name="android:layout_width">match_parent</item>
-            <item name="android:layout_height">wrap_content</item>
-            <item name="android:layout_gravity">center</item>
-            <item name="android:gravity">left</item>
-            <item name="android:paddingLeft">@dimen/lcw_dialog_close_body_paddingLeft</item>
-            <item name="android:padding">@dimen/lcw_dialog_close_body_padding</item>
-            <item name="android:background">@color/lcw_dialog_close_body_bg</item>
-            <item name="android:textColor">@color/lcw_dialog_close_body_color</item>
-            <item name="android:textSize">@dimen/lcw_dialog_close_body_text_size</item>
-        </style>
+    <style name="LCWCloseDialogBodyDefault">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:gravity">left</item>
+        <item name="android:paddingLeft">@dimen/lcw_dialog_close_body_paddingLeft</item>
+        <item name="android:padding">@dimen/dialog_close_body_padding</item>
+        <item name="android:background">@color/dialog_close_body_bg</item>
+        <item name="android:textColor">@color/dialog_close_body_color</item>
+        <item name="android:textSize">@dimen/dialog_close_body_text_size</item>
+    </style>
 
-        <style name="LCWCloseDialogTitleDefault">
-            <item name="android:layout_width">match_parent</item>
-            <item name="android:layout_height">wrap_content</item>
-            <item name="android:layout_gravity">left</item>
-            <item name="android:gravity">left</item>
-            <item name="android:padding">@dimen/lcw_dialog_close_title_padding</item>
-            <item name="android:paddingLeft">@dimen/lcw_dialog_close_title_paddingLeft</item>
-            <item name="android:background">@color/lcw_dialog_close_title_bg</item>
-            <item name="android:textColor">@color/lcw_dialog_close_title_color</item>
-            <item name="android:textSize">@dimen/lcw_dialog_close_title_text_size</item>
-            <item name="android:textStyle">bold</item>
-        </style>
+    <style name="LCWCloseDialogTitleDefault">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">left</item>
+        <item name="android:gravity">left</item>
+        <item name="android:padding">@dimen/startChatErrorTitlePadding</item>
+        <item name="android:paddingLeft">@dimen/agentBubbleMarginLeft</item>
+        <item name="android:background">@color/dialog_close_title_bg</item>
+        <item name="android:textColor">@color/dialog_close_title_color</item>
+        <item name="android:textSize">@dimen/dialog_close_title_text_size</item>
+        <item name="android:textStyle">bold</item>
+    </style>
 
-        <!--    Chat Text-->
-        <style name="LCWToolbarTitleDefault">
-            <item name="android:layout_height">wrap_content</item>
-            <item name="android:layout_width">wrap_content</item>
-            <item name="android:text">@string/lcw_headerTitle</item>
-            <item name="android:ellipsize">end</item>
-            <item name="android:textSize">@dimen/lcw_messaging_title_size</item>
-            <item name="android:lines">1</item>
-            <item name="android:textStyle">bold</item>
-            <item name="android:gravity">center</item>
-            <item name="android:layout_gravity">center</item>
-            <item name="android:paddingRight">3dp</item>
-            <item name="android:textColor">@color/lcw_messagingTitleTextColor</item>
-        </style>
+    <!--    Chat Text-->
+    <style name="LCWToolbarTitleDefault">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:text">@string/headerTitle</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:lines">1</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:paddingRight">3dp</item>
+        <item name="android:textColor">@color/messagingTitleTextColor</item>
+    </style>
 
-        <!--    This is for TextView-->
-        <style name="LCWMessagingInputContainerDefault">
-            <item name="android:layout_width">@dimen/lcw_messagingInputContainerWidth</item>
-            <item name="android:layout_height">match_parent</item>
-            <item name="android:layout_marginLeft">20dp</item>
-            <item name="android:focusable">true</item>
-            <item name="android:layout_centerInParent">true</item>
-            <item name="android:gravity">center</item>
-            <item name="android:focusableInTouchMode">true</item>
-        </style>
+    <!--    This is for TextView-->
+    <style name="LCWMessagingInputContainerDefault">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_marginLeft">20dp</item>
+        <item name="android:focusable">true</item>
+        <item name="android:layout_centerInParent">true</item>
+        <item name="android:gravity">center</item>
+        <item name="android:focusableInTouchMode">true</item>
+    </style>
 
-        <style name="LCWInputContainerTopDefault">
-            <item name="android:layout_width">match_parent</item>
-            <item name="android:layout_height">wrap_content</item>
-            <item name="android:orientation">horizontal</item>
-            <item name="android:gravity">center_vertical</item>
-            <item name="android:layout_gravity">center_vertical</item>
-            <!--        <item name="android:padding">2dp</item>-->
-        </style>
+    <style name="LCWInputContainerTopDefault">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <!--        <item name="android:padding">2dp</item>-->
+    </style>
 
-        <style name="LCWSystemBubbleTextViewDefault">
-            <item name="android:layout_height">wrap_content</item>
-            <item name="android:layout_width">match_parent</item>
-            <item name="android:padding">@dimen/lcw_systemBubblePadding</item>
-            <item name="android:textColor">@color/lcw_system_bubble_connecting_textColor</item>
-            <item name="android:textSize">@dimen/lcw_systemBubbleTextSize</item>
-            <item name="android:layout_marginLeft">@dimen/lcw_systemBubbleMarginLeft</item>
-            <item name="android:layout_marginRight">@dimen/lcw_systemBubbleMarginRight</item>
-            <item name="android:layout_marginTop">@dimen/lcw_systemBubbleMarginTop</item>
-            <item name="android:layout_marginBottom">@dimen/lcw_systemBubbleMarginBottom</item>
-            <item name="android:fontFamily">@font/arial</item>
-            <item name="android:textStyle">bold</item>
-            <item name="android:gravity">center</item>
-        </style>
+    <style name="LCWSystemBubbleTextViewDefault">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:padding">@dimen/systemBubblePadding</item>
+        <item name="android:textColor">@color/lcw_green</item>
+        <item name="android:textSize">@dimen/systemBubbleTextSize</item>
+        <item name="android:layout_marginLeft">@dimen/systemBubbleMarginLeft</item>
+        <item name="android:layout_marginRight">@dimen/systemBubbleMarginRight</item>
+        <item name="android:layout_marginTop">@dimen/systemBubbleMarginTop</item>
+        <item name="android:layout_marginBottom">@dimen/systemBubbleMarginBottom</item>
+        <item name="android:fontFamily">@font/arial</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:gravity">center</item>
+    </style>
 
-        <style name="LCWSimpleSendButtonDefault">
-            <item name="android:layout_width">32dp</item>
-            <item name="android:layout_height">32dp</item>
-            <item name="android:text">@string/lcw_messagingSendText</item>
-            <item name="android:textColor">@color/lcw_txt_color_black</item>
-            <item name="android:textAllCaps">false</item>
-            <item name="android:textSize">@dimen/lcw_messagingSendTextSize</item>
-            <item name="android:gravity">center</item>
-            <item name="android:layout_gravity">center</item>
-        </style>
+    <style name="LCWSimpleSendButtonDefault">
+        <item name="android:layout_width">32dp</item>
+        <item name="android:layout_height">32dp</item>
+        <item name="android:text">@string/messagingSendText</item>
+        <item name="android:textColor">@color/txt_color_black</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textSize">@dimen/messagingSendTextSize</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_gravity">center</item>
+    </style>
 
-        <!--    Post survey loader styles-->
-        <style name="LCWPostChatLoaderContainerDefault">
-            <item name="android:layout_width">match_parent</item>
-            <item name="android:layout_height">match_parent</item>
-            <item name="android:background">@color/lcw_post_chat_loader</item>
-        </style>
 
-        <style name="LCWpostChatSurveyLoaderTextviewDefault">
-            <item name="android:layout_width">wrap_content</item>
-            <item name="android:layout_height">wrap_content</item>
-            <item name="android:gravity">center</item>
-            <item name="android:text">@string/lcw_postChatSurveyLoaderText</item>
-            <item name="android:textSize">18sp</item>
-            <item name="android:textColor">@color/lcw_post_chat_loader_text</item>
-        </style>
+    <!--    Notification Header Styles-->
+    <style name="LCWNotificationCountTextViewDefault">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/txt_notification_color</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:drawablePadding">10dp</item>
+    </style>
 
-        <!--    Notification Header Styles-->
-        <style name="LCWNotificationCountTextViewDefault">
-            <item name="android:layout_width">0dp</item>
-            <item name="android:layout_height">wrap_content</item>
-            <item name="android:padding">10dp</item>
-            <item name="android:textSize">16sp</item>
-            <item name="android:textStyle">bold</item>
-            <item name="android:textColor">@color/txt_notification_color</item>
-            <item name="android:layout_weight">1</item>
-            <item name="android:drawablePadding">10dp</item>
-        </style>
+    <style name="LCWNotificationCountIconDefault">
+        <item name="android:layout_width">20dp</item>
+        <item name="android:layout_height">20dp</item>
+        <item name="android:layout_marginLeft">5dp</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:src">@drawable/ic_network_error</item>
+        <item name="android:visibility">visible</item>
+    </style>
 
-        <style name="LCWNotificationCountIconDefault">
-            <item name="android:layout_width">20dp</item>
-            <item name="android:layout_height">20dp</item>
-            <item name="android:layout_marginLeft">5dp</item>
-            <item name="android:background">@android:color/transparent</item>
-            <item name="android:src">@drawable/lcw_ic_network_error</item>
-            <item name="android:visibility">visible</item>
-        </style>
+    <style name="LCWNotificationToggleButtonDefault">
+        <item name="android:layout_width">30dp</item>
+        <item name="android:layout_height">30dp</item>
+        <item name="android:padding">5dp</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:src">@drawable/ic_notification_expand</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:layout_marginBottom">5dp</item>
+        <item name="android:layout_marginRight">5dp</item>
+    </style>
 
-        <style name="LCWNotificationToggleButtonDefault">
-            <item name="android:layout_width">30dp</item>
-            <item name="android:layout_height">30dp</item>
-            <item name="android:padding">5dp</item>
-            <item name="android:background">@android:color/transparent</item>
-            <item name="android:src">@drawable/lcw_ic_notification_expand</item>
-            <item name="android:orientation">horizontal</item>
-            <item name="android:layout_marginBottom">5dp</item>
-            <item name="android:layout_marginRight">5dp</item>
-        </style>
+    <style name="LCWNotificationCountContainerDefault">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">5dp</item>
+        <item name="android:background">@color/txt_color_black</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:visibility">gone</item>
+    </style>
 
-        <style name="LCWNotificationCountContainerDefault">
-            <item name="android:layout_width">match_parent</item>
-            <item name="android:layout_height">wrap_content</item>
-            <item name="android:padding">5dp</item>
-            <item name="android:background">@color/lcw_txt_color_black</item>
-            <item name="android:textColor">@color/white</item>
-            <item name="android:layout_weight">1</item>
-            <item name="android:visibility">gone</item>
-        </style>
+    <style name="LCWMessagingFragmentDefault">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@drawable/footer_background</item>
+    </style>
 
-        <style name="LCWMessagingFragmentDefault">
-            <item name="android:layout_width">match_parent</item>
-            <item name="android:layout_height">match_parent</item>
-            <item name="android:background">@drawable/lcw_footer_background</item>
-        </style>
+    <style name="LCWImageCardButtonDefault">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/imageCardTitleTextSize</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textColor">@color/imageCardButtonTextColor</item>
+        <item name="android:padding">@dimen/imageCardTitlePadding</item>
+        <item name="android:background">@drawable/bg_image_card_button</item>
+        <!--        <item name="android:titleMarginBottom">8dp</item>-->
+        <!--        <item name="android:layout_marginLeft">8dp</item>-->
+        <!--        <item name="android:layout_marginRight">8dp</item>-->
+    </style>
 
-        <style name="LCWMessagingTranscriptDefault">
-            <item name="android:layout_width">match_parent</item>
-            <item name="android:layout_height">match_parent</item>
-            <item name="android:layout_gravity">top</item>
-            <item name="android:background">@color/lcw_transcriptBackground</item>
-        </style>
+    <!--    Font Size and Color for Agent and Customer Bubble response-->
+    <style name="LCWAgentBubbleTextViewDefault" parent="@android:style/TextAppearance.Medium">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:textColor">@color/agentBubbleTextColor</item>
+        <item name="android:textSize">@dimen/agentBubbleTextSize</item>
+        <item name="android:textColorLink">@color/agentTextLinkColor</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:fontFamily">@font/arial</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:padding">@dimen/agentTextViewPadding</item>
+    </style>
 
-        <style name="LCWImageCardButtonDefault">
-            <item name="android:layout_width">match_parent</item>
-            <item name="android:layout_height">wrap_content</item>
-            <item name="android:gravity">center</item>
-            <item name="android:textSize">@dimen/lcw_imageCardTitleTextSize</item>
-            <item name="android:textAllCaps">false</item>
-            <item name="android:textColor">@color/lcw_imageCardButtonTextColor</item>
-            <item name="android:padding">@dimen/lcw_imageCardTitlePadding</item>
-            <item name="android:background">@drawable/lcw_bg_image_card_button</item>
-            <!--        <item name="android:titleMarginBottom">8dp</item>-->
-            <!--        <item name="android:layout_marginLeft">8dp</item>-->
-            <!--        <item name="android:layout_marginRight">8dp</item>-->
-        </style>
+    <style name="LCWCustomerBubbleTextViewDefault" parent="@android:style/TextAppearance.Medium">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:textColor">@color/customerBubbleTextColor</item>
+        <item name="android:textSize">@dimen/customerBubbleTextSize</item>
+        <item name="android:gravity">right</item>
+        <item name="android:textAlignment">textStart</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:fontFamily">@font/arial</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:padding">@dimen/customerTextViewPadding</item>
+    </style>
 
-        <!--    Font Size and Color for Agent and Customer Bubble response-->
-        <style name="LCWAgentBubbleTextViewDefault" parent="@android:style/TextAppearance.Medium">
-            <item name="android:layout_height">wrap_content</item>
-            <item name="android:layout_width">wrap_content</item>
-            <item name="android:textColor">@color/lcw_agentBubbleTextColor</item>
-            <item name="android:textSize">@dimen/lcw_agentBubbleTextSize</item>
-            <item name="android:textColorLink">@color/lcw_agentTextLinkColor</item>
-            <item name="android:gravity">center_vertical</item>
-            <item name="android:textAllCaps">false</item>
-            <item name="android:fontFamily">@font/arial</item>
-            <item name="android:textStyle">normal</item>
-            <item name="android:padding">@dimen/lcw_agentTextViewPadding</item>
-        </style>
+    <!--    End chat for dark mode-->
+    <style name="LCWToolbarLeftIconDefault">
+        <item name="android:layout_width">24dp</item>
+        <item name="android:layout_height">24dp</item>
+        <item name="android:background">@drawable/back</item>
+        <item name="android:layout_margin">8dp</item>
+        <item name="android:backgroundTint">@color/txt_color_black</item>
+        <item name="android:visibility">visible</item>
+    </style>
 
-        <style name="LCWCustomerBubbleTextViewDefault" parent="@android:style/TextAppearance.Medium">
-            <item name="android:layout_height">wrap_content</item>
-            <item name="android:layout_width">wrap_content</item>
-            <item name="android:textColor">@color/lcw_customerBubbleTextColor</item>
-            <item name="android:textSize">@dimen/lcw_customerBubbleTextSize</item>
-            <item name="android:gravity">right</item>
-            <item name="android:textAlignment">textStart</item>
-            <item name="android:textAllCaps">false</item>
-            <item name="android:fontFamily">@font/arial</item>
-            <item name="android:textStyle">normal</item>
-            <item name="android:padding">@dimen/lcw_customerTextViewPadding</item>
-        </style>
+    <!--End Chat-->
+    <style name="LCWToolbarRightIconDefault">
+        <item name="android:layout_width">32dp</item>
+        <item name="android:layout_height">32dp</item>
+        <item name="android:background">@drawable/close</item>
+        <item name="android:layout_margin">8dp</item>
+        <item name="android:backgroundTint">@color/txt_color_black</item>
+        <item name="android:visibility">visible</item>
+    </style>
 
-        <!--    End chat for dark mode-->
-        <style name="LCWToolbarLeftIconDefault">
-            <item name="android:layout_width">24dp</item>
-            <item name="android:layout_height">24dp</item>
-            <item name="android:background">@drawable/back</item>
-            <item name="android:layout_margin">8dp</item>
-            <item name="android:backgroundTint">@color/lcw_color_arrow_left_icon</item>
-            <item name="android:visibility">visible</item>
-        </style>
+    <style name="LCWToolbarDefault">
+        <item name="android:layout_height">?attr/actionBarSize</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:background">@drawable/lcw_toolbar_background</item>
+        <item name="android:elevation">@dimen/agentBubbleCardElevation</item>
+    </style>
 
-        <!--End Chat-->
-        <style name="LCWToolbarRightIconDefault">
-            <item name="android:layout_width">32dp</item>
-            <item name="android:layout_height">32dp</item>
-            <item name="android:background">@drawable/close</item>
-            <item name="android:layout_margin">8dp</item>
-            <item name="android:backgroundTint">@color/lcw_color_arrow_left_icon</item>
-            <item name="android:visibility">visible</item>
-        </style>
+    <style name="LCWAdaptiveCardContainerDefault">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:minHeight">@dimen/agentSpeechRichMinHeight</item>
+        <item name="android:padding">@dimen/agentSpeechRichContainerPadding</item>
+        <item name="cardElevation">@dimen/agentBubbleCardElevation</item>
+        <item name="android:background">@drawable/corner_agent_bubble</item>
+        <item name="android:layout_marginLeft">@dimen/agentSpeechRichContainerMarginLeft</item>
+        <item name="android:layout_marginRight">@dimen/agentSpeechRichContainerMarginRight</item>
+        <item name="android:layout_marginTop">@dimen/agentSpeechRichContainerMarginTop</item>
+        <item name="android:layout_marginBottom">@dimen/agentSpeechRichContainerMarginBottom
+        </item>
+    </style>
 
-        <style name="LCWToolbarDefault">
-            <item name="android:layout_height">?attr/actionBarSize</item>
-            <item name="android:layout_width">0dp</item>
-            <item name="android:background">@drawable/lcw_toolbar_background</item>
-            <item name="android:elevation">@dimen/lcw_toolbarElevation</item>
-        </style>
-
-        <style name="LCWAdaptiveCardContainerDefault">
-            <item name="android:layout_width">match_parent</item>
-            <item name="android:layout_height">wrap_content</item>
-            <item name="android:minHeight">@dimen/lcw_agentSpeechRichMinHeight</item>
-            <item name="android:padding">@dimen/lcw_agentSpeechRichContainerPadding</item>
-            <item name="cardElevation">@dimen/lcw_agentBubbleCardElevation</item>
-            <item name="android:background">@drawable/corner_agent_bubble</item>
-            <item name="android:layout_marginLeft">@dimen/lcw_agentSpeechRichContainerMarginLeft</item>
-            <item name="android:layout_marginRight">@dimen/lcw_agentSpeechRichContainerMarginRight</item>
-            <item name="android:layout_marginTop">@dimen/lcw_agentSpeechRichContainerMarginTop</item>
-            <item name="android:layout_marginBottom">@dimen/lcw_agentSpeechRichContainerMarginBottom
-            </item>
-        </style>
-
-        <style name="LCWImageCardTitleDefault">
-            <item name="android:layout_width">wrap_content</item>
-            <item name="android:layout_height">wrap_content</item>
-            <item name="android:gravity">start|center_vertical</item>
-            <item name="android:textSize">@dimen/lcw_imageCardTitleTextSize</item>
-            <item name="android:textColor">@color/lcw_imageCardTitleTextColor</item>
-            <item name="android:padding">@dimen/lcw_imageCardTitlePadding</item>
-            <item name="android:textColorLink">@color/lcw_agentTextLinkColor</item>
-            <item name="android:textAllCaps">false</item>
-            <item name="android:fontFamily">@font/arial</item>
-        </style>
-
+    <style name="LCWImageCardTitleDefault">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">start|center_vertical</item>
+        <item name="android:textSize">@dimen/imageCardTitleTextSize</item>
+        <item name="android:textColor">@color/imageCardTitleTextColor</item>
+        <item name="android:padding">@dimen/imageCardTitlePadding</item>
+        <item name="android:textColorLink">@color/agentTextLinkColor</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:fontFamily">@font/arial</item>
+    </style>
 
 
 </resources>

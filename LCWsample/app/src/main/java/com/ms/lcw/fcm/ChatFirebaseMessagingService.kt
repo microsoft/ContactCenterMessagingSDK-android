@@ -33,12 +33,12 @@ class ChatFirebaseMessagingService : FirebaseMessagingService() {
         remoteMessage.data.takeIf { it.isNotEmpty() }?.let {
             Log.d("FCM", "Message data payload: $it")
             try {
-                val jsonString = try {
+              /*  val jsonString = try {
                     JSONObject(it).toString(4)
                 } catch (e: JSONException) {
                     it ?: ""
                 }
-                // Show toast on main thread
+                // Show toast on main thread*/
 
             } catch (ex: Exception) {
                 Log.e("FCM", "Error parsing notification: ${ex.message}")

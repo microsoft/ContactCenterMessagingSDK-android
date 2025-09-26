@@ -12,11 +12,11 @@ allprojects {
         maven { url = uri("https://jitpack.io") }
     }
 
- /*   dependencies {
+    dependencies{
         modules {
             module("com.google.android:flexbox") {
                 replacedBy("com.google.android.flexbox:flexbox")
             }
         }
-    }*/
+    }
 }

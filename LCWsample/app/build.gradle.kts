@@ -123,8 +123,10 @@ dependencies {
     // --- NEW: Add react-android directly to the consuming app with exclusions ---
     // This ensures core React Native classes (like ReactPackage) are on the classpath.
     // Exclusions prevent native library duplication/conflicts with your AAR.
-    implementation(files("libs/ContactCenterMessagingWidget.aar"))
+    implementation(files("libs/ContactCenterMessagingWidget190.aar"))
     implementation(files("libs/OmnichannelChatSDK.aar"))
+    implementation("com.facebook.soloader:soloader:0.10.5")
+
     //implementation(files("libs/adaptivecards-release-ndk28.aar"))
     implementation(libs.react.android)
     implementation(libs.jsc.android)
@@ -159,4 +161,12 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
+}
+configurations.all {
+    resolutionStrategy.eachDependency {
+        if (requested.group == "org.jetbrains.kotlin" && requested.name.startsWith("kotlin-stdlib")) {
+            useVersion("1.9.25")
+            because("Force Kotlin stdlib to match compiler version 1.9.25")
+        }
+    }
 }

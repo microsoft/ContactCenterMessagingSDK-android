@@ -5,7 +5,7 @@ firebaseBom = "33.9.0"
 firebaseMessagingKtx = "24.1.0"
 flexbox = "3.0.0"
 jscAndroid = "2026004.0.1"
-kotlin = "2.1.0"
+kotlin = "1.9.25"
 coreKtx = "1.13.1"
 junit = "4.13.2"
 junitVersion = "1.2.1"
@@ -20,7 +20,7 @@ navigationUiKtx = "2.8.1"
 omnichannelchatsdk = "0.0.0-pr.3"
 gson = "2.10.1"
 gs = "4.4.2"
-reactAndroid = "0.80.0"
+reactAndroid = "0.71.0"
 
 [libraries]
 adaptivecards-android = { module = "io.adaptivecards:adaptivecards-android", version.ref = "adaptivecardsAndroid" }

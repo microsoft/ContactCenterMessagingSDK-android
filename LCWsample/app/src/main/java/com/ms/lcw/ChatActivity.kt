@@ -14,7 +14,6 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import com.lcw.lsdk.builder.LCWOmniChannelConfigBuilder
 import com.lcw.lsdk.chat.LiveChatMessaging
@@ -28,7 +27,6 @@ import com.lcw.lsdk.data.requests.OmnichannelConfig
 import com.lcw.lsdk.data.requests.TelemetrySDKConfig
 import com.lcw.lsdk.enum.ConversationStateEnum
 import com.lcw.lsdk.listeners.LCWMessagingDelegate
-import com.lcw.lsdk.logger.OLog
 import com.ms.lcw.Constants.authTkn
 import com.ms.lcw.Constants.orgId
 import com.ms.lcw.Constants.orgUrl
@@ -126,6 +124,12 @@ class ChatActivity : AppCompatActivity() {
         val chatSdkConfig = ChatSDKConfig(
             telemetry = TelemetrySDKConfig(disable = false)
         )
+        val customContextMap: HashMap<String, Any> = hashMapOf(
+            "user_id" to mapOf("value" to "true", "isDisplayable" to true),
+            "country" to "India",
+        )
+        LiveChatMessaging.getInstance().customContext = customContextMap
+
 
         val lcwOmniChannelConfigBuilder = LCWOmniChannelConfigBuilder
             .EngagementBuilder(omnichannelConfig, chatSdkConfig)
@@ -213,6 +217,9 @@ class ChatActivity : AppCompatActivity() {
                     Log.d(TAG, "onNewMessageReceived-$message")
                 }
 
+                override fun onPostChatSurveyDisplayed() {
+                }
+
                 override fun onError(error: ErrorResponse?) {
                     Log.d(TAG, "onError-${error?.errorMessage}")
                 }
@@ -221,19 +228,8 @@ class ChatActivity : AppCompatActivity() {
                     Log.d(TAG, "onPreChatSurveyDisplayed")
                 }
 
-                override fun onPostChatSurveyDisplayed(isExternalLink: Boolean) {
-                }
-
                 override fun onChatRestored() {
                     Log.d(TAG, "onChatRestored")
-                }
-
-                override fun onHeaderUtilityClicked() {
-                    TODO("Not yet implemented")
-                }
-
-                override fun onBotSignInAuth(content: String) {
-                    TODO("Not yet implemented")
                 }
             })
         }
@@ -264,7 +260,7 @@ class ChatActivity : AppCompatActivity() {
                         is ApiResult.Error -> {
                             btnText.text = "Let's Chat"
                             btnText.setTextColor(
-                                ContextCompat.getColor(this, com.lcw.chat.R.color.lcw_reconnect_title_description_color)
+                                ContextCompat.getColor(this, com.lcw.chat.R.color.colorPreChatTextInputTextColor)
                             )
                         }
                     }

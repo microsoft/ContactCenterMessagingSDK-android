@@ -19,22 +19,22 @@ dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.PREFER_SETTINGS)
     repositories {
         mavenCentral()
+        maven(url = "$rootDir/node_modules")
+        maven(url = "$rootDir/node_modules/react-native/android")
+        maven(url = "$rootDir/node_modules/jsc-android/dist")
+        maven(url = "https://maven.google.com")
         google()
-        maven { url = uri("https://jitpack.io") }
     }
 }
 
 rootProject.name = "LCWsample"
 
 include(":app")
-/*
+
+
 include(":randombytes")
 project(":randombytes").projectDir = file("./node_modules/react-native-randombytes/android")
 
 include(":randomvalues")
 project(":randomvalues").projectDir = file("./node_modules/react-native-get-random-values/android")
-
-include(":ReactAndroid")
-project(":ReactAndroid").projectDir = file("$rootDir/node_modules/react-native/ReactAndroid")
-*/
 
