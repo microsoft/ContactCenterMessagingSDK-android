@@ -1,77 +1,11 @@
 # Dynamics 365 Contact Center - Messaging SDK - Android
 
-> ⚠️ The software is available as a Public Preview with release support for select Microsoft
-partners and customers. To receive support for your release, contact CC-Mobile-Preview@microsoft.com 
-with your release date and plans. Customers must have an agreement with the Contact Center team
-to guarantee timely support during the Preview period.
 
-### Building the Sample App - LCWsample(v1.1.0)
-
-1. Clone the repository  
-   `git clone https://github.com/microsoft/ContactCenterMessagingSDK-android.git`
-
-2. Sync gradle
-
-3. Download the AAR files (optional)  
-   `./gradlew downloadAarFiles`
-
-4. Build the app based on your build tools.
-
-5. Run the app.
-
-### Android Studio (Recommended)
-(These instructions were tested with Gradle 8.7, Android Studio Koala | 2024.1.1 Patch 2, OpenJDK 19.0.2, minSdkVersion 26, compileSdkVersion 32, targetSdkVersion 32, kotlinVersion 2.1.0)
-
-1. Open Android Studio and select `File -> Open...`, or from the Android Launcher, select `Import project (Eclipse ADT, Gradle, etc.)` and navigate to the root directory of your project.
-
-2. Select the directory or drill into the project and select the `build.gradle` file in the cloned repo.
-
-3. Click 'OK' to open the project in Android Studio.
-
-4. A Gradle sync should start. You can force a sync and build the 'app' module as needed.
-
-### Gradle (command line)
-Build the APK:  
-`./gradlew build`
-
-### Android Studio
-1. Select `Run -> Run 'app'` (or `Debug 'app'`) from the menu bar.
-
-2. Select the device you wish to run the app on and click 'OK'.
-
-### Instructions for Using the Chat Feature in the Sample Android App:
-
-1. **Paste Your Script (taken from the Chat Workstream Page) or Add the Required Information:**
-
-   In your app’s landing screen, you will find input fields where you need to enter:
-    - `orgId`
-    - `orgUrl`
-    - `widgetId`
-
-   Alternatively, you can paste a script, which will automatically fill in these details for you.
-
-2. **Click on the "Let's Chat" Button:**
-
-   Once you've entered the required information (or pasted the script), look for a button labeled "Let's Chat" on your screen.
-
-   Tap on this button to initiate the chat. The app will connect to the specified chat system and load the widget for you.
-
-3. **Start Interacting with the Chat:**
-
-   After clicking the button, you will see the chat interface appear on the screen.  
-   You can now type messages, send media, or interact with the chat in real-time.  
-   The app will allow you to communicate with customer support or any automated services available.
-
-## Troubleshooting
-
-If you face a build issue related to the namespace for the `randombytes` package, update the namespace in its `build.gradle`:
-
-```gradle
-   namespace 'com.bitgo.randombytes'  // (path: node_modules -> react-native-randombytes -> android -> build.gradle)
-```
 ## Table of Contents
 
   * [About](#about)
+  * [Building the Sample App](#building-the-sample-app)
+  * [Troubleshooting](#troubleshooting)
   * [Installation](#installation)
     + [Pre-Requisites](#pre-requisites)
     + [Integration](#integration)
@@ -145,6 +79,73 @@ can quickly match their existing program
 If there are any customizations you need that aren't available in our product, please
 don't hesitate to reach out to us at CC-Mobile-Preview@microsoft.com and we'll add them
 to our roadmap.
+
+## Building the Sample App
+
+Get started quickly using a pre-configured sample application.
+
+1. Clone the repository  
+   `git clone https://github.com/microsoft/ContactCenterMessagingSDK-android.git`
+
+2. Sync gradle
+
+3. Download the AAR files (optional)  
+   `./gradlew downloadAarFiles`
+
+4. Build the app based on your build tools.
+
+5. Run the app.
+
+### Android Studio (Recommended)
+(These instructions were tested with Gradle 8.7, Android Studio Koala | 2024.1.1 Patch 2, OpenJDK 19.0.2, minSdkVersion 26, compileSdkVersion 32, targetSdkVersion 32, kotlinVersion 2.1.0)
+
+1. Open Android Studio and select `File -> Open...`, or from the Android Launcher, select `Import project (Eclipse ADT, Gradle, etc.)` and navigate to the root directory of your project.
+
+2. Select the directory or drill into the project and select the `build.gradle` file in the cloned repo.
+
+3. Click 'OK' to open the project in Android Studio.
+
+4. A Gradle sync should start. You can force a sync and build the 'app' module as needed.
+
+### Gradle (command line)
+Build the APK:  
+`./gradlew build`
+
+### Android Studio
+1. Select `Run -> Run 'app'` (or `Debug 'app'`) from the menu bar.
+
+2. Select the device you wish to run the app on and click 'OK'.
+
+### Instructions for Using the Chat Feature in the Sample Android App:
+
+1. **Paste Your Script (taken from the Chat Workstream Page) or Add the Required Information:**
+
+   In your app’s landing screen, you will find input fields where you need to enter:
+    - `orgId`
+    - `orgUrl`
+    - `widgetId`
+
+   Alternatively, you can paste a script, which will automatically fill in these details for you.
+
+2. **Click on the "Let's Chat" Button:**
+
+   Once you've entered the required information (or pasted the script), look for a button labeled "Let's Chat" on your screen.
+
+   Tap on this button to initiate the chat. The app will connect to the specified chat system and load the widget for you.
+
+3. **Start Interacting with the Chat:**
+
+   After clicking the button, you will see the chat interface appear on the screen.  
+   You can now type messages, send media, or interact with the chat in real-time.  
+   The app will allow you to communicate with customer support or any automated services available.
+
+## Troubleshooting
+
+If you face a build issue related to the namespace for the `randombytes` package, update the namespace in its `build.gradle`:
+
+```gradle
+   namespace 'com.bitgo.randombytes'  // (path: node_modules -> react-native-randombytes -> android -> build.gradle)
+```
 
 ## Installation
 ### Pre-Requisites
@@ -695,108 +696,22 @@ You will also need:
 * An authorization **token** for your Contact Center dataverse API
 
 ### Contact Center Configuration
-> ⚠️ Configuration is currently only available through the API. In the near future we will add a configuration
-interface to the Customer Service Admin Center. Your configurations will appear there when it is released
-and it will not require any changes on your part.
+Push notifications are configured through the Customer Service Admin Center, inside the same Live Chat 
+workstream that you are using with your application.
 
-> Configuration settings only need to be set once per workstream to enable both Android and iOS applications.
+1. Select Customer Support -> Workstream
+2. Select the Chat channel workstream that you are using with the SDK
+3. Select "Edit" inside the widget configuration box
+4. Select the Notification tab
+5. Enable the Notification toggle
 
-1. Create a ChannelInstanceSecret entry:
+This enables notifications. To use them, enter these values and save your widget configuration:
 
-```bash
-curl --request POST \
-  --url https://{{org_url}}/api/data/v9.2/msdyn_channelinstancesecrets \
-  --header 'authorization: Bearer {{token}}' \
-  --header 'content-type: application/json' \
-  --data '{
-}'
-```
-
-2. Get ChannelInstance Secret Id (msdyn_channelinstancesecretid):
-
-```bash
-curl --request GET \
-  --url https://{{org_url}}/api/data/v9.2/msdyn_channelinstancesecrets \
-  --header 'authorization: Bearer {{token}}'
-```
-
-3. Update ChannelInstanceSecret entry with the following values:
-
-```bash
-curl --request PATCH \
-  --url 'https://{{org_url}}/api/data/v9.2/msdyn_channelinstancesecrets({{msdyn_channelinstancesecretid}})' \
-  --header 'authorization: Bearer {{token}}' \
-  --header 'content-type: application/json' \
-  --data '{
-  "msdyn_name": "notificationHubConnectionString",
-  "msdyn_secretvalue": "{{azurenotificationhub_connection_string}}"
-}'
-```
-
-4. Create an Azure Notification Hub entry:
-
-```bash
-curl --request POST \
-  --url https://{{org_url}}/api/data/v9.2/msdyn_azurenotificationhubs \
-  --header 'authorization: Bearer {{token}}' \
-  --header 'content-type: application/json' \
-  --data '{
-  
-}'
-```
-
-5. Get Azure Notification Hub Id (msdyn_azurenotificationhubid):
-
-```bash
-curl --request GET \
-  --url https://{{org_url}}/api/data/v9.2/msdyn_azurenotificationhubs \
-  --header 'authorization: Bearer {{token}}'
-```
-
-6. Update Azure Notification Hub entry with the following values:
-
-```bash
-curl --request PATCH \
-  --url 'https://{{org_url}}/api/data/v9.2/msdyn_azurenotificationhubs({{msdyn_azurenotificationhubid}})' \
-  --header 'authorization: Bearer {{token}}' \
-  --header 'content-type: application/json' \
-  --data '{
-  "msdyn_connectionstringid@odata.bind": "msdyn_channelinstancesecrets({{msdyn_channelinstancesecretid}})",
-  "msdyn_defaultnotificationbody": "Default Notification Content",
-  "msdyn_shownotificationtitle": false,
-  "msdyn_notificationtitle": null,
-  "msdyn_showmessagepreview": true,
-  "msdyn_azurenotificationhubname": "{{azurenotificationhub_name}}"
-}'
-```
-> **msdyn_defaultnotificationbody**: String, this is the default message shown in preview<br>
-**msdyn_shownotificationtitle**: Bool, defines whether or not we show a title above the preview message<br>
-**msdyn_notificationtitle**: String, the title shown if notificationtitle is true<br>
-**msdyn_showmessagepreview**: Bool, defines whether the rep's message is shown in the push notification. If
-false, defaultnotificationbody is always used. If true, defaultnotificationbody is only used when the agent
-sends a message without text, such as an attachment.<br>
-**msdyn_azurenotificationhubname**: String, your hub name in Azure Notification Hub.
-
-
-7. Get LiveChatConfig id (msdyn_livechatconfigid) entry linked to the workstream
-
-```bash
-curl --request GET \
-  --url 'https://{{org_url}}/api/data/v9.2/msdyn_livechatconfigs?%24filter=msdyn_widgetappid%2520eq%2520{{widget_app_id}}' \
-  --header 'authorization: Bearer {{token}}'
-```
-
-8. Link the Azure Notification Hub to the LiveChatConfig entry:
-
-```bash
-curl --request PATCH \
-  --url 'https://{{org_url}}/api/data/v9.2/msdyn_livechatconfigs({{msdyn_livechatconfigid}})' \
-  --header 'authorization: Bearer {{token}}' \
-  --header 'content-type: application/json' \
-  --data '{
-  "msdyn_azurenotificationhubid@odata.bind": "msdyn_azurenotificationhubs({{msdyn_azurenotificationhubid}})"
-}'
-```
+* **Azure Notification Hub name**: The hub name (note: not the namespace) for your Azure Notification Hub resouce
+* **Connection string**: Your Azure Notification hub connection string as described [here](https://learn.microsoft.com/en-us/azure/notification-hubs/notification-hubs-push-notification-security). This should have Listen, Send, and Manage permissions.
+* **Default notification message**: This is shown in the push notification if previews are off or when the Customer Service Rep sends a message without text (such as an attachment).
+* **Show message preview in notification**: If enabled, will display the Customer Service Representative's message inside the notification. If disabled, will always show the default notification message.
+* **Show notification title**: If enabled, will display a customizeable title for every notification.
 
 ## Configuring Application
 
