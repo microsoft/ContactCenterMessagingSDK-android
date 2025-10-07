@@ -1,11 +1,11 @@
 [versions]
 adaptivecardsAndroid = "3.7.1"
-agp = "8.3.0"
+agp = "8.4.0"
 firebaseBom = "33.9.0"
 firebaseMessagingKtx = "24.1.0"
 flexbox = "3.0.0"
 jscAndroid = "2026004.0.1"
-kotlin = "2.1.20"
+kotlin = "2.1.0"
 coreKtx = "1.13.1"
 junit = "4.13.2"
 junitVersion = "1.2.1"

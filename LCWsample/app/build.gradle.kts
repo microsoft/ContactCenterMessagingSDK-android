@@ -88,7 +88,7 @@ repositories {
 // If you manually place the AARs in `libs/`, keep this commented.
 // If you want Gradle to download them, uncomment and ensure URLs are correct.
 val sdkVersion = "v1.1.0" // Example version, adjust as needed
-task("downloadAarFiles") {
+/*task("downloadAarFiles") {
      doLast {
          println("Download AARs task started...")
          val aar1Url = "https://github.com/microsoft/ContactCenterMessagingSDK-android/releases/download/$sdkVersion/ContactCenterMessagingWidget.aar"
@@ -104,12 +104,12 @@ task("downloadAarFiles") {
          URL(aar2Url).openStream().use { input -> aar2File.outputStream().use { output -> input.copyTo(output) } }
          println("AARs downloaded successfully to ${libsDir.absolutePath}")
      }
-}
+}*/
 
 // Ensure the download task runs before the build.
-tasks.named("preBuild") {
+/*tasks.named("preBuild") {
     dependsOn("downloadAarFiles")
-}
+}*/
 
 // Dependencies for your pure Android application.
 dependencies {
@@ -125,6 +125,7 @@ dependencies {
     // Exclusions prevent native library duplication/conflicts with your AAR.
     implementation(files("libs/ContactCenterMessagingWidget.aar"))
     implementation(files("libs/OmnichannelChatSDK.aar"))
+    //implementation(files("libs/adaptivecards-release-ndk28.aar"))
     implementation(libs.react.android)
     implementation(libs.jsc.android)
     // Google Flexbox Layout

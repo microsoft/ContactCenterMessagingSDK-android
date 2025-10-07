@@ -1,378 +1,77 @@
 <resources>
-    <dimen name="lcw_messagingActivity_horizontal_margin">16dp</dimen>
-    <dimen name="lcw_messagingActivity_vertical_margin">16dp</dimen>
-    <dimen name="lcw_messagingSendTextSize">16sp</dimen>
-    <dimen name="lcw_messagingSendBorderRadius">0dp</dimen>
-    <dimen name="lcw_messagingSendBorderSize">3dp</dimen>
-    <dimen name="lcw_messagingArrowPadding">20dp</dimen>
-    <dimen name="lcw_agentBubbleBorderSize">2dp</dimen>
-    <dimen name="lcw_agentBubbleTextSize">16sp</dimen>
-    <dimen name="lcw_agentBubbleBorderRadius">5dp</dimen>
-    <dimen name="lcw_customerBubbleBorderSize">1dp</dimen>
-    <dimen name="lcw_customerBubbleTextSize">16sp</dimen>
-    <dimen name="lcw_customerMessageInputTextSize">15sp</dimen>
-    <dimen name="lcw_customerMessageInputPadding">4dp</dimen>
-    <dimen name="lcw_customerBubbleMediaTextSize">12sp</dimen>
-    <dimen name="lcw_customerBubbleBorderRadius">0dp</dimen>
-    <dimen name="lcw_typingBubbleBorderSize">0dp</dimen>
-    <dimen name="lcw_typingBubbleTextSize">16sp</dimen>
-    <dimen name="lcw_typingBubbleBorderRadius">5dp</dimen>
-    <dimen name="lcw_systemBubbleBorderSize">0dp</dimen>
-    <dimen name="lcw_systemBubbleTextSize">12sp</dimen>
-    <dimen name="lcw_systemBubbleBorderRadius">5dp</dimen>
-    <dimen name="lcw_agentBubbleMarginLeft">5dp</dimen>
-    <dimen name="lcw_agentBubbleMarginTop">5dp</dimen>
-    <dimen name="lcw_agentBubbleMarginRight">70dp</dimen>
-    <dimen name="lcw_agentBubbleMarginBottom">10dp</dimen>
-    <dimen name="lcw_customerBubbleMarginLeft">70dp</dimen>
-    <dimen name="lcw_customerBubbleMarginTop">10dp</dimen>
-    <dimen name="lcw_customerBubbleMarginRight">10dp</dimen>
-    <dimen name="lcw_customerBubbleMarginBottom">10dp</dimen>
-    <dimen name="lcw_customerBubbleMediaMarginBottom">10dp</dimen>
-    <dimen name="lcw_typingBubbleMarginLeft">0dp</dimen>
-    <dimen name="lcw_typingBubbleMarginTop">0dp</dimen>
-    <dimen name="lcw_typingBubbleMarginRight">0dp</dimen>
-    <dimen name="lcw_typingBubbleMarginBottom">0dp</dimen>
-    <dimen name="lcw_systemBubbleMarginLeft">0dp</dimen>
-    <dimen name="lcw_systemBubbleMarginTop">0dp</dimen>
-    <dimen name="lcw_systemBubbleMarginRight">0dp</dimen>
-    <dimen name="lcw_systemBubbleMarginBottom">0dp</dimen>
-    <dimen name="lcw_agentBubblePadding">10dp</dimen>
-    <dimen name="lcw_customerBubblePadding">10dp</dimen>
-    <dimen name="lcw_customerBubbleMediaPadding">0dp</dimen>
-    <dimen name="lcw_typingBubblePadding">20dp</dimen>
-    <dimen name="lcw_systemBubblePadding">10dp</dimen>
-    <dimen name="lcw_agentBubbleMediaPadding">0dp</dimen>
-    <dimen name="lcw_typingBubbleDrawablePadding">10dp</dimen>
-    <dimen name="lcw_agentSpeechBorderSize">2dp</dimen>
-    <dimen name="lcw_agentSpeechTextSize">15sp</dimen>
-    <dimen name="lcw_agentSpeechBorderRadius">0dp</dimen>
-    <dimen name="lcw_customerSpeechBorderSize">2dp</dimen>
-    <dimen name="lcw_customerSpeechTextSize">15sp</dimen>
-    <dimen name="lcw_customerSpeechBorderRadius">2dp</dimen>
-    <dimen name="lcw_typingSpeechBorderSize">0dp</dimen>
-    <dimen name="lcw_typingSpeechTextSize">15sp</dimen>
-    <dimen name="lcw_typingSpeechBorderRadius">5dp</dimen>
-    <dimen name="lcw_systemSpeechBorderSize">0dp</dimen>
-    <dimen name="lcw_systemSpeechTextSize">15sp</dimen>
-    <dimen name="lcw_systemSpeechBorderRadius">2dp</dimen>
-    <dimen name="lcw_agentSpeechMarginLeft">0dp</dimen>
-    <dimen name="lcw_agentSpeechMarginTop">0dp</dimen>
-    <dimen name="lcw_agentSpeechMarginRight">0dp</dimen>
-    <dimen name="lcw_agentBubbleMediaMarginBottom">10dp</dimen>
-    <dimen name="lcw_agentSpeechMarginBottom">0dp</dimen>
-    <dimen name="lcw_customerSpeechMarginLeft">0dp</dimen>
-    <dimen name="lcw_customerSpeechMarginTop">0dp</dimen>
-    <dimen name="lcw_customerSpeechMarginRight">0dp</dimen>
-    <dimen name="lcw_customerSpeechMarginBottom">0dp</dimen>
-    <dimen name="lcw_typingSpeechMarginLeft">10dp</dimen>
-    <dimen name="lcw_typingSpeechMarginTop">0dp</dimen>
-    <dimen name="lcw_typingSpeechMarginRight">10dp</dimen>
-    <dimen name="lcw_typingSpeechMarginBottom">0dp</dimen>
-    <dimen name="lcw_systemSpeechMarginLeft">10dp</dimen>
-    <dimen name="lcw_systemSpeechMarginTop">0dp</dimen>
-    <dimen name="lcw_systemSpeechMarginRight">10dp</dimen>
-    <dimen name="lcw_systemSpeechMarginBottom">0dp</dimen>
-    <dimen name="lcw_agentSpeechPadding">20dp</dimen>
-    <dimen name="lcw_customerSpeechPadding">20dp</dimen>
-    <dimen name="lcw_typingSpeechPadding">0dp</dimen>
-    <dimen name="lcw_systemSpeechPadding">0dp</dimen>
-    <dimen name="lcw_agentIconBorderSize">2dp</dimen>
-    <dimen name="lcw_customerIconBorderSize">2dp</dimen>
-    <dimen name="lcw_customerInputBorderSize">0dp</dimen>
-    <dimen name="lcw_customerInputBorderRadius">0dp</dimen>
-
-    <!--Email address dialog for transcript-->
-    <dimen name="lcw_dialog_email_title_text_size">18sp</dimen>
-    <dimen name="lcw_dialog_email_txt_size">16sp</dimen>
-
-
-    <!--Close dialog for transcript-->
-    <dimen name="lcw_dialog_close_title_text_size">18sp</dimen>
-    <dimen name="lcw_dialog_close_txt_size">16sp</dimen>
-
-
-    <dimen name="lcw_agent_bubble_compound_padding">10dp</dimen>
-
-
-    <dimen name="lcw_customer_bubble_compound_padding">10dp</dimen>
-
-    <dimen name="lcw_minimizeIconWidth">35dp</dimen>
-    <dimen name="lcw_UrlPreviewIconWidth">100dp</dimen>
-    <dimen name="lcw_UrlPreviewIconHeight">80dp</dimen>
-    <dimen name="lcw_UrlPreviewIconPaddingLeft">4dp</dimen>
-    <dimen name="lcw_UrlPreviewIconPaddingRight">4dp</dimen>
-    <dimen name="lcw_UrlPreviewIconPaddingTop">4dp</dimen>
-    <dimen name="lcw_UrlPreviewIconPaddingBottom">4dp</dimen>
-    <dimen name="lcw_UrlPreviewTitleTextSize">16sp</dimen>
-    <dimen name="lcw_UrlPreviewDescriptionTextSize">14sp</dimen>
-    <!--<dimen name="titleAgentUrlLookupBubblePaddingLeft">5dp</dimen>
-    <dimen name="descriptionAgentUrlLookupBubblePaddingLeft">5dp</dimen>-->
-    <dimen name="lcw_timestampPadding">5dp</dimen>
-    <dimen name="lcw_agentBubbleTimeStampTextSize">12sp</dimen>
-    <dimen name="lcw_customerBubbleTimeStampTextSize">12sp</dimen>
-    <dimen name="lcw_messagingTitlePaddingLeft">10dp</dimen>
-    <dimen name="lcw_messagingTitleSize">18sp</dimen>
-    <dimen name="lcw_messagingFooterTopBorderSize">0.5dp</dimen>
-    <dimen name="lcw_fileUploadCloseButtonBorderSize">1dp</dimen>
-    <dimen name="lcw_fileUploadCloseButtonBorderRadius">5dp</dimen>
-    <dimen name="lcw_fileUploadSelectButtonBorderSize">1dp</dimen>
-    <dimen name="lcw_fileUploadSelectButtonBorderRadius">5dp</dimen>
-    <dimen name="lcw_fileUploadSelectButtonWidth">150dp</dimen>
-    <dimen name="lcw_fileUploadSelectButtonPaddingLeft">40dp</dimen>
-    <dimen name="lcw_fileUploadSelectButtonPaddingRight">40dp</dimen>
-    <dimen name="lcw_fileUploadSelectButtonTextSize">18sp</dimen>
-    <dimen name="lcw_fileUploadCloseButtonWidth">150dp</dimen>
-    <dimen name="lcw_fileUploadCloseButtonMarginTop">10dp</dimen>
-    <dimen name="lcw_fileUploadCloseButtonPaddingLeft">40dp</dimen>
-    <dimen name="lcw_fileUploadCloseButtonPaddingRight">40dp</dimen>
-    <dimen name="lcw_fileUploadCloseButtonTextSize">18sp</dimen>
-    <dimen name="lcw_fileUploadMessagePadding">10dp</dimen>
-    <dimen name="lcw_fileUploadDisclaimerMarginBottom">10dp</dimen>
-    <dimen name="lcw_fileUploadDisclaimerPadding">10dp</dimen>
-    <dimen name="lcw_img_agent_speech_padding">5dp</dimen>
-    <dimen name="lcw_img_customer_speech_padding">5dp</dimen>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+  <!--  <dimen name="lcw_activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="button_border">10dp</dimen>
+    <dimen name="lcw_messagingSendTextSize">20sp</dimen>
+    <dimen name="lcw_messagingSendBorderRadius">7dp</dimen>
+    <dimen name="lcw_typingBubbleBorderSize">3dp</dimen>
+    <dimen name="lcw_typingBubbleMarginLeft">10dp</dimen>
+    <dimen name="lcw_typingBubbleMarginRight">10dp</dimen>
+    <dimen name="messagingFooterHeight">60dp</dimen>
+    <dimen name="lcw_customerInputBorderSize">5dp</dimen>
     <dimen name="lcw_image_thumbnail_size">100dp</dimen>
-    <dimen name="lcw_dialog_email_body_padding">5dp</dimen>
-    <dimen name="lcw_dialog_email_body_text_size">16sp</dimen>
+    <dimen name="lcw_messagingFooterTopBorderSize">1dp</dimen>
 
-    <dimen name="lcw_dialog_close_body_padding">15dp</dimen>
-    <dimen name="lcw_dialog_close_body_text_size">16sp</dimen>
+    <dimen name="lcw_agentBubbleMarginRight">10dp</dimen>
+    <dimen name="lcw_customerBubbleMarginLeft">10dp</dimen>-->
+    <!--<dimen name="lcw_agentBubbleMarginLeft">50dp</dimen>
+    <dimen name="lcw_customerBubbleMarginRight">50dp</dimen>-->
 
-    <item name="lcw_title_proportion_up" format="float" type="dimen">1</item>
-    <item name="lcw_title_proportion_below" format="float" type="dimen">1</item>
+    <!--<dimen name="lcw_agentBubbleMarginLeft">0dp</dimen>
+    <dimen name="lcw_agentBubbleMarginRight">0dp</dimen>
+    <dimen name="lcw_customerBubbleMarginLeft">0dp</dimen>
+    <dimen name="lcw_customerBubbleMarginRight">0dp</dimen>
 
-    <dimen name="lcw_nina_btn_top_margin">0dp</dimen>
-    <dimen name="lcw_nina_btn_left_margin">0dp</dimen>
-    <dimen name="lcw_nina_btn_right_margin">0dp</dimen>
-    <dimen name="lcw_nina_btn_bottom_margin">0dp</dimen>
+    <dimen name="lcw_customerBubbleTextSize">15sp</dimen>
+    <dimen name="lcw_agentBubbleTextSize">15sp</dimen>
+    <dimen name="lcw_typingBubbleTextSize">15sp</dimen>
+    <dimen name="lcw_systemBubbleTextSize">15sp</dimen>
 
-    <dimen name="lcw_nina_image_size">100dp</dimen>
-    <dimen name="lcw_logo_padding">2dp</dimen>
-    <dimen name="lcw_progressbarTextSize">16sp</dimen>
-    <dimen name="lcw_progressbarTextPadding">5dp</dimen>
-    <dimen name="lcw_progressbarPadding">5dp</dimen>
-    <dimen name="lcw_progressbarContainerPadding">15dp</dimen>
-    <dimen name="lcw_minimizeMediaHeight">50dp</dimen>
-    <dimen name="lcw_out_of_ofc_hours_message_size">16sp</dimen>
-    <dimen name="lcw_out_of_ofc_hours_message_padding">5dp</dimen>
-    <dimen name="lcw_errorIconWidth">200dp</dimen>
-    <dimen name="lcw_errorIconHeight">200dp</dimen>
-    <dimen name="lcw_startChatErrorIconPadding">10dp</dimen>
-    <dimen name="lcw_startChatErrorTitlePadding">10dp</dimen>
-    <dimen name="lcw_startChatErrorSubtitlePadding">10dp</dimen>
-    <dimen name="lcw_initials_text_size">6sp</dimen>
-    <dimen name="lcw_notification_panel_padding">5dp</dimen>
-    <dimen name="lcw_media_download_icon_width">10dp</dimen>
-    <dimen name="lcw_media_download_icon_height">15dp</dimen>
-    <dimen name="lcw_media_download_icon_padding">5dp</dimen>
-    <dimen name="lcw_media_download_icon_margin_left">5dp</dimen>
-    <dimen name="lcw_media_download_icon_margin_right">5dp</dimen>
-    <dimen name="lcw_media_download_icon_margin_top">5dp</dimen>
-    <dimen name="lcw_media_download_icon_margin_bottom">5dp</dimen>
-    <dimen name="lcw_media_download_icon_margin">10dp</dimen>
-    <dimen name="lcw_media_info_icon_width">15dp</dimen>
-    <dimen name="lcw_media_info_icon_height">15dp</dimen>
-    <dimen name="lcw_media_info_icon_padding">5dp</dimen>
-    <dimen name="lcw_media_info_icon_margin">5dp</dimen>
-    <dimen name="lcw_media_info_minimum_height">40dp</dimen>
-    <dimen name="lcw_media_image_width">0dp</dimen>
-    <dimen name="lcw_media_image_height">250dp</dimen>
-    <dimen name="lcw_media_video_width">0dp</dimen>
-    <dimen name="lcw_media_video_height">250dp</dimen>
-    <dimen name="lcw_customerMediaPadding">0dp</dimen>
-    <dimen name="lcw_agentMediaPadding">10dp</dimen>
-    <dimen name="lcw_agentBubbleCardElevation">0.5dp</dimen>
-    <dimen name="lcw_customerBubbleCardElevation">0.5dp</dimen>
-    <dimen name="lcw_newMessageBackgroundRadius">10dp</dimen>
-    <dimen name="lcw_media_constraint_width_percent">0.7</dimen>
-    <dimen name="lcw_notification_icon_marginRight">10dp</dimen>
-    <dimen name="lcw_notification_icon_marginLeft">10dp</dimen>
-    <dimen name="lcw_notification_icon_marginTop">10dp</dimen>
-    <dimen name="lcw_notification_icon_marginBottom">10dp</dimen>
-    <dimen name="lcw_notification_icon_margin">10dp</dimen>
+    <dimen name="lcw_agentSpeechTextSize">15sp</dimen>
+    <dimen name="lcw_customerSpeechTextSize">15sp</dimen>
+    <dimen name="lcw_typingSpeechTextSize">15sp</dimen>
+    <dimen name="lcw_systemSpeechTextSize">15sp</dimen>-->
 
-    <dimen name="lcw_notification_title_marginRight">10dp</dimen>
-    <dimen name="lcw_notification_title_marginLeft">10dp</dimen>
-    <dimen name="lcw_notification_title_marginTop">10dp</dimen>
-    <dimen name="lcw_notification_title_marginBottom">10dp</dimen>
-    <dimen name="lcw_notification_title_margin">10dp</dimen>
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <!--Email address dialog for transcript-->
+    <!--<dimen name="lcw_dialog_email_title">22sp</dimen>
+    <dimen name="dialog_email_txt">16sp</dimen>-->
+    <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 
-    <dimen name="lcw_seekbar_track_background_height_material">4dp</dimen>
-    <dimen name="lcw_seekbar_track_progress_height_material">5dp</dimen>
-    <dimen name="lcw_progressBarCornerRadius">4dp</dimen>
-    <dimen name="lcw_seekbar_voice_offset">8dp</dimen>
+<!--
+    <dimen name="lcw_agentBubblePadding">20dp</dimen>
+    &lt;!&ndash;<dimen name="lcw_customerBubblePadding">2dp</dimen>
+    <dimen name="lcw_agentBubbleTextSize">13dp</dimen>
+    <dimen name="lcw_customerBubbleTextSize">13dp</dimen>&ndash;&gt;
+    <item name="lcw_title_proportion_up" format="float" type="dimen">0.75</item>
+    <item name="lcw_title_proportion_below" format="float" type="dimen">0.5</item>
+    <dimen name="lcw_agentBubbleTextSize">10sp</dimen>
+    <dimen name="lcw_customerBubbleTextSize">10sp</dimen>
+    <dimen name="lcw_customerBubblePadding">10dp</dimen>
+    <dimen name="lcw_agentBubbleMarginTop">20dp</dimen>
+    <dimen name="lcw_agentBubbleMarginBottom">30dp</dimen>
+    <dimen name="agentBubblePaddingBottom">30dp</dimen>
 
-    <dimen name="lcw_voiceMuteButtonPadding">4dp</dimen>
-    <dimen name="lcw_voiceMuteButtonMarginTop">4dp</dimen>
-    <dimen name="lcw_voiceMuteButtonMarginBottom">4dp</dimen>
-    <dimen name="lcw_voiceMuteButtonMarginLeft">4dp</dimen>
-    <dimen name="lcw_voiceMuteButtonMarginRight">4dp</dimen>
-    <dimen name="lcw_voiceContainerPadding">10dp</dimen>
-    <dimen name="lcw_transcriptDivider">10dp</dimen>
-    <dimen name="lcw_emailIconMarginHorizontal">20dp</dimen>
-    <dimen name="lcw_chimeIconMarginHorizontal">30dp</dimen>
+-->
 
-    <dimen name="lcw_splashIconWidth">100dp</dimen>
-    <dimen name="lcw_splashIconHeight">100dp</dimen>
-    <dimen name="lcw_fifty_dp">50dp</dimen>
-
-    <dimen name="lcw_spinnerLoaderImageHeight">200dp</dimen>
-    <dimen name="lcw_spinnerLoaderImageWidth">200dp</dimen>
-
-    <dimen name="lcw_speechAdaptiveCardMarginBottom">10dp</dimen>
-    <dimen name="lcw_speechAdaptiveCardMarginTop">10dp</dimen>
-    <dimen name="lcw_speechAdaptiveCardMarginLeft">10dp</dimen>
-    <dimen name="lcw_adaptiveCardCarouselMarginRight">10dp</dimen>
-    <dimen name="lcw_adaptiveCardCarouselRightMinMargin">70dp</dimen>
-    <dimen name="lcw_adaptiveCardsSpacing">10dp</dimen>
-    <dimen name="lcw_adaptiveCardsArrowMargin">16dp</dimen>
-    <dimen name="lcw_customerTextViewPadding">0dp</dimen>
-    <dimen name="lcw_agentTextViewPadding">0dp</dimen>
-    <dimen name="lcw_imageCardTitleTextSize">18sp</dimen>
-    <dimen name="lcw_imageCardSubTitleTextSize">14sp</dimen>
-    <dimen name="lcw_imageCardTextSize">16sp</dimen>
-    <dimen name="lcw_imageCardTitlePadding">5dp</dimen>
-    <dimen name="lcw_imageCardSubTitlePadding">5dp</dimen>
-    <dimen name="lcw_imageCardTextPadding">5dp</dimen>
-    <dimen name="lcw_imageCardViewPadding">5dp</dimen>
-    <dimen name="lcw_videoCardViewPadding">10dp</dimen>
-    <dimen name="lcw_videoCardTitleTextSize">18sp</dimen>
-    <dimen name="lcw_videoCardSubtitleTextSize">14sp</dimen>
-    <dimen name="lcw_videoCardDescriptionTextSize">14sp</dimen>
-    <dimen name="lcw_videoCardTitleMarginTop">10dp</dimen>
-    <dimen name="lcw_videoCardSubtitleTextMarginTop">5dp</dimen>
-    <dimen name="lcw_videoCardButtonsSpacing">10dp</dimen>
-    <dimen name="lcw_videoCardButtonPaddingLeft">10dp</dimen>
-    <dimen name="lcw_videoCardButtonPaddingRight">10dp</dimen>
-    <dimen name="lcw_videoCardButtonPaddingTop">5dp</dimen>
-    <dimen name="lcw_videoCardButtonPaddingBottom">5dp</dimen>
-    <dimen name="lcw_videoCardButtonTextSize">16sp</dimen>
-    <dimen name="lcw_videoCardButtonCornerRadius">0dp</dimen>
-    <dimen name="lcw_videoCardButtonBorderWidth">1dp</dimen>
-
-    <dimen name="lcw_agentSpeechIconWidth">45dp</dimen>
-    <dimen name="lcw_agentSpeechIconHeight">45dp</dimen>
-    <dimen name="lcw_customerSpeechIconWidth">45dp</dimen>
-    <dimen name="lcw_customerSpeechIconHeight">45dp</dimen>
-    <dimen name="lcw_agentSpeechIconMaxWidth">45dp</dimen>
-    <dimen name="lcw_agentSpeechIconMaxHeight">45dp</dimen>
-    <dimen name="lcw_customerSpeechIconMaxWidth">45dp</dimen>
-    <dimen name="lcw_customerSpeechIconMaxHeight">45dp</dimen>
-    <dimen name="lcw_agentSpeechIconMarginLeft">5dp</dimen>
-    <dimen name="lcw_agentSpeechIconMarginTop">0dp</dimen>
-    <dimen name="lcw_agentSpeechIconMarginRight">5dp</dimen>
-    <dimen name="lcw_agentSpeechIconMarginBottom">0dp</dimen>
-    <dimen name="lcw_customerSpeechIconMarginLeft">5dp</dimen>
-    <dimen name="lcw_customerSpeechIconMarginTop">0dp</dimen>
-    <dimen name="lcw_customerSpeechIconMarginRight">5dp</dimen>
-    <dimen name="lcw_customerSpeechIconMarginBottom">0dp</dimen>
-
-    <dimen name="lcw_agentSpeechRichContainerPadding">10dp</dimen>
-    <dimen name="lcw_customerSpeechRichContainerPadding">10dp</dimen>
-    <dimen name="lcw_agentSpeechRichMinHeight">35dp</dimen>
-    <dimen name="lcw_customerSpeechRichMinHeight">35dp</dimen>
-
-    <dimen name="lcw_agentSpeechRichContainerMarginLeft">0dp</dimen>
-    <dimen name="lcw_agentSpeechRichContainerMarginTop">0dp</dimen>
-    <dimen name="lcw_agentSpeechRichContainerMarginRight">0dp</dimen>
-    <dimen name="lcw_agentSpeechRichContainerMarginBottom">0dp</dimen>
-    <dimen name="lcw_customerSpeechRichContainerMarginLeft">0dp</dimen>
-    <dimen name="lcw_customerSpeechRichContainerMarginTop">0dp</dimen>
-    <dimen name="lcw_customerSpeechRichContainerMarginRight">0dp</dimen>
-    <dimen name="lcw_customerSpeechRichContainerMarginBottom">0dp</dimen>
-
-    <dimen name="lcw_footerIconContainerMarginLeft">10dp</dimen>
-    <dimen name="lcw_footerIconContainerMarginRight">10dp</dimen>
-    <dimen name="lcw_footerIconContainerMarginTop">0dp</dimen>
-    <dimen name="lcw_footerIconContainerMarginBottom">10dp</dimen>
-
-    <dimen name="lcw_reconnectIconWidth">200dp</dimen>
-    <dimen name="lcw_reconnectIconHeight">200dp</dimen>
-    <dimen name="lcw_reconnectTitleTextSize">18sp</dimen>
-    <dimen name="lcw_reconnectDescriptionTextSize">16sp</dimen>
-    <dimen name="lcw_reconnectBtnContinueTextSize">18sp</dimen>
-    <dimen name="lcw_reconnectBtnNewChatTextSize">18sp</dimen>
-    <dimen name="lcw_reconnectBtnContinueHeight">80dp</dimen>
-    <dimen name="lcw_reconnectBtnNewHeight">80dp</dimen>
-    <dimen name="lcw_reconnectContainerPadding">20dp</dimen>
-
-    <dimen name="lcw_reconnectTitleMarginTop">0dp</dimen>
-    <dimen name="lcw_reconnectTitleMarginBottom">0dp</dimen>
-    <dimen name="lcw_reconnectTitleMarginLeft">0dp</dimen>
-    <dimen name="lcw_reconnectTitleMarginRight">0dp</dimen>
-
-    <dimen name="lcw_reconnectDescriptionMarginTop">10dp</dimen>
-    <dimen name="lcw_reconnectDescriptionMarginBottom">0dp</dimen>
-    <dimen name="lcw_reconnectDescriptionMarginLeft">0dp</dimen>
-    <dimen name="lcw_reconnectDescriptionMarginRight">0dp</dimen>
-
-    <dimen name="lcw_reconnectIconMarginTop">10dp</dimen>
-    <dimen name="lcw_reconnectIconMarginBottom">0dp</dimen>
-    <dimen name="lcw_reconnectIconMarginLeft">0dp</dimen>
-    <dimen name="lcw_reconnectIconMarginRight">0dp</dimen>
-
-    <dimen name="lcw_reconnectBtnContinueMarginTop">10dp</dimen>
-    <dimen name="lcw_reconnectBtnContinueMarginBottom">0dp</dimen>
-    <dimen name="lcw_reconnectBtnContinueMarginLeft">0dp</dimen>
-    <dimen name="lcw_reconnectBtnContinueMarginRight">0dp</dimen>
-
-    <dimen name="lcw_reconnectBtnNewChatMarginTop">10dp</dimen>
-    <dimen name="lcw_reconnectBtnNewChatMarginBottom">0dp</dimen>
-    <dimen name="lcw_reconnectBtnNewChatMarginLeft">0dp</dimen>
-    <dimen name="lcw_reconnectBtnNewChatMarginRight">0dp</dimen>
-
-    <dimen name="lcw_suggestedActionsLeftArrowBtnMarginTop">0dp</dimen>
-    <dimen name="lcw_suggestedActionsLeftArrowBtnMarginBottom">0dp</dimen>
-    <dimen name="lcw_suggestedActionsLeftArrowBtnMarginLeft">5dp</dimen>
-    <dimen name="lcw_suggestedActionsLeftArrowBtnMarginRight">5dp</dimen>
-
-    <dimen name="lcw_suggestedActionsRightArrowBtnMarginTop">0dp</dimen>
-    <dimen name="lcw_suggestedActionsRightArrowBtnMarginBottom">0dp</dimen>
-    <dimen name="lcw_suggestedActionsRightArrowBtnMarginLeft">5dp</dimen>
-    <dimen name="lcw_suggestedActionsRightArrowBtnMarginRight">5dp</dimen>
-
-    <dimen name="lcw_postChatSurveyContainerWidth">0dp</dimen>
-    <dimen name="lcw_postChatSurveyContainerHeight">0dp</dimen>
-
-    <dimen name="lcw_minimizeBtnLoaderMarginTop">5dp</dimen>
-    <dimen name="lcw_minimizeBtnLoaderMarginBottom">5dp</dimen>
-    <dimen name="lcw_minimizeBtnLoaderMarginLeft">5dp</dimen>
-    <dimen name="lcw_minimizeBtnLoaderMarginRight">5dp</dimen>
-
-    <dimen name="lcw_imageCardButtonBorderWidth">1dp</dimen>
-    <dimen name="lcw_imageCardButtonBorderRadius">0dp</dimen>
-
-    <dimen name="lcw_image_card_height">250dp</dimen>
-    <dimen name="lcw_image_card_width">250dp</dimen>
-    <dimen name="lcw_image_card_contianer_margin_bottom">10dp</dimen>
-
-    <dimen name="lcw_preChatTextBlockPaddingLeft">10dp</dimen>
-    <dimen name="lcw_preChatTextBlockPaddingRight">10dp</dimen>
-    <dimen name="lcw_preChatTextBlockPaddingTop">10dp</dimen>
-    <dimen name="lcw_preChatTextBlockPaddingBottom">10dp</dimen>
-    <dimen name="lcw_preChatTextBlockTextSize">16sp</dimen>
-    <dimen name="lcw_preChatButtonTextSize">18sp</dimen>
-
-    <dimen name="lcw_preChatTextInputPaddingLeft">10dp</dimen>
-    <dimen name="lcw_preChatTextInputPaddingRight">10dp</dimen>
-    <dimen name="lcw_preChatTextInputPaddingTop">10dp</dimen>
-    <dimen name="lcw_preChatTextInputPaddingBottom">10dp</dimen>
-    <dimen name="lcw_preChatTextInputTextSize">16sp</dimen>
-    <dimen name="lcw_preChatTextInputBorderWidth">2dp</dimen>
-    <dimen name="lcw_preChatTextInputBorderRadius">2dp</dimen>
-    <dimen name="lcw_preChatChoiceSetBorderWidth">2dp</dimen>
-    <dimen name="lcw_preChatChoiceSetBorderRadius">2dp</dimen>
-    <dimen name="lcw_preChatChoiceSetMinHeight">40dp</dimen>
-    <dimen name="lcw_preChatTextInputMinHeight">40dp</dimen>
-    <dimen name="lcw_preChatButtonMinHeight">40dp</dimen>
-    <dimen name="lcw_transcriptContainerMarginTop">0dp</dimen>
-    <dimen name="lcw_transcriptContainerMarginBottom">0dp</dimen>
-    <dimen name="lcw_transcriptContainerMarginLeft">0dp</dimen>
-    <dimen name="lcw_transcriptContainerMarginRight">0dp</dimen>
-    <dimen name="lcw_toolbarElevation">0dp</dimen>
-    <dimen name="lcw_margin_30dp">30dp</dimen>
-    <dimen name="padding_10dp">30dp</dimen>
+        <dimen name="lcw_customerBubbleMarginRight">20dp</dimen>
+        <dimen name="lcw_agentSpeechMarginLeft">10dp</dimen>
+        <dimen name="lcw_endChatCardCornerRadius">10dp</dimen>
+        <dimen name="lcw_dialog_close_body_corner_radius">12dp</dimen>
+        <dimen name="lcw_dialog_close_body_padding">8dp</dimen>
+        <dimen name="lcw_agentBubbleMarginBottom">0dp</dimen>
+        <dimen name="lcw_agentSpeechIconPaddingBottom">8dp</dimen>
+        <dimen name="lcw_customerBubblePaddingRight">16dp</dimen>
+        <dimen name="lcw_customerMessageInputPaddingLeft">10dp</dimen>
+        <dimen name="lcw_customerMessageInputMargin">0dp</dimen>
+        <dimen name="lcw_customerInputPadding">10dp</dimen>
+        <dimen name="lcw_dialog_close_body_paddingLeft">0dp</dimen>
+        <dimen name="lcw_dialog_close_title_padding">5dp</dimen>
+        <dimen name="lcw_dialog_close_title_paddingLeft">5dp</dimen>
+        <dimen name="lcw_messagingInputContainerWidth">0dp</dimen>
+        <dimen name="lcw_imageCardButtonBorderRadius">8dp</dimen>
+        <dimen name="lcw_messaging_title_size">18sp</dimen>
+        <dimen name="lcw_agentSpeechRichContainerMarginBottom">5dp</dimen>
 </resources>
-
-
