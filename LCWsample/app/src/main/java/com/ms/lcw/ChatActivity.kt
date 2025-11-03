@@ -138,7 +138,10 @@ class ChatActivity : AppCompatActivity() {
             .build()
 
         with(LiveChatMessaging.getInstance()) {
-            initialize(this@ChatActivity, lcwOmniChannelConfigBuilder, authToken, "test")
+            // Development phase
+             initialize(this@ChatActivity, lcwOmniChannelConfigBuilder, authToken, "test")
+            // Production Live
+            // initialize(this@ChatActivity, lcwOmniChannelConfigBuilder, authToken, "prod")
             fcmToken = utility.getFCMToken(this@ChatActivity, "fcmtoken")
         }
     }
