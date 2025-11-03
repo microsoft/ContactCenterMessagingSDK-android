@@ -177,7 +177,7 @@ If you face a build issue related to the namespace for the `randombytes` package
     implementation("com.facebook.react:react-android:0.80.0") // As react native version upgraded to 0.80.0
     implementation("com.facebook.soloader:soloader:0.10.5")
     implementation("io.github.react-native-community:jsc-android:2026004.0.1") //As JSC would be the default engine and Hermes is disabled
-    implementation ("io.adaptivecards:adaptivecards-android:3.7.1") //Optional
+    implementation ("io.adaptivecards:adaptivecards-android:3.7.2") //Optional
 ```
 
 (For versions < 1.1.0 only - React Native version 0.70.6) :
@@ -324,7 +324,11 @@ Initialise the SDK with valid OmnichannelConfig parameters.
     LCWOmniChannelConfigBuilder.EngagementBuilder(omnichannelConfig, chatSdkConfig).build()
 
     //Invoking
-     LiveChatMessaging.getInstance().initialize(this, lcwOmniChannelConfigBuilder, "auth_token", "environment")
+    // Development phase: During development or QA, set environment to "test".
+     LiveChatMessaging.getInstance().initialize(this, lcwOmniChannelConfigBuilder, "auth_token", "test");
+
+    // Production phase: For live production, set environment to "prod"
+     LiveChatMessaging.getInstance().initialize(this, lcwOmniChannelConfigBuilder, "auth_token", "prod");
 ```
 ## Messaging Widget
 Customizations available in the out of the box messaging widget are documented here:
