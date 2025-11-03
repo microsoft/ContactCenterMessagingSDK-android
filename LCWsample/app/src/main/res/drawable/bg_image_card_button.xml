@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <solid android:color="@color/lcw_imageCardButtonBackground" />
-    <stroke
-        android:width="@dimen/lcw_imageCardButtonBorderWidth"
-        android:color="@color/lcw_imageCardButtonBorderColor" />
-    <corners android:radius="@dimen/lcw_imageCardButtonBorderRadius" />
-</shape>
