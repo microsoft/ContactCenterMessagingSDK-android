@@ -141,10 +141,38 @@ Build the APK:
 
 ## Troubleshooting
 
-If you face a build issue related to the namespace for the `randombytes` package, update the namespace in its `build.gradle`:
+1. If you face a build issue related to the namespace for the `randombytes` package, update the namespace in its `build.gradle`:
 
 ```gradle
    namespace 'com.bitgo.randombytes'  // (path: node_modules -> react-native-randombytes -> android -> build.gradle)
+```
+2. If you encounter release build crashes or issues related to ProGuard/R8 (such as missing classes or runtime errors), add the following rules to your proguard-rules.pro file:
+[Not all rules may be necessary for your project. 
+To reduce APK size and improve security,
+start with only the rules that fix your crash and remove unused SDK rules.
+
+```gradle
+   
+# Microsoft Copilot ProGuard configuration
+# Preserve critical SDK classes and members to prevent reflection-related crashes
+
+# DCCP SDK (required for Copilot core functionality)
+-keep class com.dccp.oc.** { *; }
+-keepclassmembers class com.dccp.oc.** { *; }
+
+# LCW SDK (chat and LCW integrations)
+-keep class com.lcw.lsdk.** { *; }
+-keep class com.lcw.chat.** { *; }
+-keepclassmembers class com.lcw.chat.** { *; }
+
+# React Native Dev Support (avoid stripping debug helpers)
+-keep class com.facebook.react.devsupport.** { *; }
+
+# Gson (required for JSON serialization/deserialization)
+-keep class com.google.gson.** { *; }
+
+## Keep annotations and generic type signatures
+
 ```
 
 ## Installation
