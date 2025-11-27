@@ -1,9 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <integer name="lcw_initials_width">45</integer>
-    <integer name="lcw_initials_height">45</integer>
-    <integer name="lcw_max_file_upload_size">20</integer>
-    <integer name="lcw_inputCharLimit">120</integer>
-    <integer name="lcw_inputCharLimitThreshold">0</integer>
-    <integer name="lcw_latencyTrackerThresholdMs">180000</integer>
+    <integer name="systemBubbleTextStyle">3</integer>
 </resources>

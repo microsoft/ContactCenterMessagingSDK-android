@@ -19,12 +19,8 @@ dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.PREFER_SETTINGS)
     repositories {
         mavenCentral()
-       /* maven(url = "$rootDir/node_modules")
-        maven(url = "$rootDir/node_modules/react-native/android")
-        maven(url = "$rootDir/node_modules/jsc-android/dist")
-        maven(url = "$rootDir/node_modules/react-native/maven")
-        maven(url = "https://maven.google.com")*/
         google()
+        maven { url = uri("https://jitpack.io") }
     }
 }
 

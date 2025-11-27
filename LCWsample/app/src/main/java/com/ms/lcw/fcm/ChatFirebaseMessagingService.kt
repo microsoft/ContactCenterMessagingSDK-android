@@ -5,14 +5,19 @@ import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Intent
 import android.os.Build
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
+import android.widget.Toast
 import androidx.core.app.NotificationCompat
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import com.lcw.lsdk.chat.LiveChatMessaging
-import com.lcw.lsdk.chat.persistence.ChatData
 import com.ms.lcw.ChatActivity
 import com.ms.lcw.Utility
+import org.json.JSONException
+import org.json.JSONObject
 
 class ChatFirebaseMessagingService : FirebaseMessagingService() {
 
@@ -24,10 +29,20 @@ class ChatFirebaseMessagingService : FirebaseMessagingService() {
 
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
         super.onMessageReceived(remoteMessage)
-
-        // Check if message contains a data payload
+        val payload = remoteMessage.data
         remoteMessage.data.takeIf { it.isNotEmpty() }?.let {
             Log.d("FCM", "Message data payload: $it")
+            try {
+                val jsonString = try {
+                    JSONObject(it).toString(4)
+                } catch (e: JSONException) {
+                    it ?: ""
+                }
+                // Show toast on main thread
+
+            } catch (ex: Exception) {
+                Log.e("FCM", "Error parsing notification: ${ex.message}")
+            }
             showArrivalNotification(
                 remoteMessage.notification?.title ?: "OC FCM Notification",
                 remoteMessage.notification?.body ?: "This is a test message body."
@@ -37,6 +52,24 @@ class ChatFirebaseMessagingService : FirebaseMessagingService() {
         // Check if message contains a notification payload
         remoteMessage.notification?.let {
             Log.d("FCM", "Message Notification Body: ${it.body}")
+
+            try {
+                val intent = Intent("com.app.ACTION_FCM_MESSAGE")
+                intent.putExtra("data_payload","Message Notification Body: ${it.body}")
+                // Send broadcast
+                LocalBroadcastManager.getInstance(this).sendBroadcast(intent)
+                val jsonString = try {
+                    JSONObject(it.body).toString(4)
+                } catch (e: JSONException) {
+                    it.body ?: ""
+                }
+                // Show toast on main thread
+                Handler(Looper.getMainLooper()).post {
+                    Toast.makeText(applicationContext, jsonString, Toast.LENGTH_LONG).show()
+                }
+            } catch (ex: Exception) {
+                Log.e("FCM", "Error parsing notification: ${ex.message}")
+            }
             showArrivalNotification(
                 it.title ?: "OC FCM Notification",
                 it.body ?: "This is a test message body."

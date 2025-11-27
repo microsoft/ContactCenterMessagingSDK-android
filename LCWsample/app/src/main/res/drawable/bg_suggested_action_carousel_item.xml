@@ -1,5 +1,0 @@
-<!-- res/drawable/black_transparent_circle.xml -->
-<shape xmlns:android="http://schemas.android.com/apk/res/android"
-    android:shape="oval">
-    <solid android:color="#80000000" /> <!-- 50% opacity black -->
-</shape>
