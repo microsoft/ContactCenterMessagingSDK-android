@@ -140,8 +140,30 @@ Build the APK:
    The app will allow you to communicate with customer support or any automated services available.
 
 ## Troubleshooting
+1. OkHttp 5.x Compatibility                                                                                                                        
+                                                                                                                                                            
+  This SDK embeds React Native 0.80, which was compiled against OkHttp 4.x and depends on internal OkHttp classes (e.g. `okhttp3.internal.Util`) that were removed in OkHttp 5.x. If your app uses OkHttp 5.x you will see the following crash at runtime:
+                                                                                                                                                              
+  java.lang.NoClassDefFoundError: Failed resolution of: Lokhttp3/internal/Util
+    at okhttp3.JavaNetCookieJar.loadForRequest
+    at com.facebook.react.modules.network.ReactCookieJarContainer.loadForRequest
 
-1. If you face a build issue related to the namespace for the `randombytes` package, update the namespace in its `build.gradle`:
+  **Fix:** Add the following to your app-level `build.gradle.kts` to force OkHttp 4.x across all dependencies:
+
+  ```kotlin
+  configurations.all {
+      resolutionStrategy {
+          force("com.squareup.okhttp3:okhttp:4.12.0")
+          force("com.squareup.okhttp3:logging-interceptor:4.12.0")
+          force("com.squareup.okhttp3:okhttp-urlconnection:4.12.0")
+      }
+   }
+  ```
+
+  **Note: OkHttp 5.x is not yet supported by React Native. This constraint will be lifted in a future SDK release once React Native officially supports OkHttp
+  5.x.**
+
+2. If you face a build issue related to the namespace for the `randombytes` package, update the namespace in its `build.gradle`:
 
 ```gradle
    namespace 'com.bitgo.randombytes'  // (path: node_modules -> react-native-randombytes -> android -> build.gradle)
