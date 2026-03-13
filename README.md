@@ -38,6 +38,7 @@
     + [Post Chat Survey Context](#post-chat-survey-context)
     + [Get Reconnect Context](#get-reconnect-context)
     + [LCWMessagingDelegate](#lcwmessagingdelegate)
+    + [Bot Authentication (Copilot Studio / OAuth Bots)](#Bot-Authentication-(Copilot-Studio/OAuth-Bots))
     + [getConversationDetails Logic in ChatActivity](#getconversationdetails-logic-in-chatactivity)
   * [Troubleshooting](#troubleshooting-1)
   * [Push Notifications](#push-notifications)
@@ -324,6 +325,33 @@ start with only the rules that fix your crash and remove unused SDK rules.
 > Navigate to `app -> libs` and place the downloaded AAR files there.
 
 ### Troubleshooting
+ OkHttp 5.x Compatibility Issue                                  
+
+  Symptom:
+  App crashes at runtime with a NoSuchMethodError or ClassNotFoundException related to okhttp3.JavaNetCookieJar or okhttp3.internal.Util when using OkHttp
+  5.x.
+
+  Root Cause:
+  As of OkHttp 5.0.0-alpha.12, the okhttp-urlconnection artifact was refactored:
+  - okhttp3.JavaNetCookieJar is now a thin delegate to the new okhttp3.java.net.cookiejar.JavaNetCookieJar (from okhttp-java-net-cookiehandler)
+  - It no longer references okhttp3.internal.Util
+
+  Gradle resolves the higher version (5.0.0-alpha.14 over 4.9.2), replacing React Native's transitive 4.x artifact with the 5.x version. However, React
+  Native's ReactCookieJarContainer still references the old class path (okhttp3.JavaNetCookieJar), not the new package
+  (okhttp3.java.net.cookiejar.JavaNetCookieJar), causing the crash.
+
+  Using okhttp-java-net-cookiehandler alone is insufficient because of this class path mismatch.
+
+  Workaround:
+  Add okhttp-urlconnection as an explicit dependency in your app's build.gradle to align with the project's OkHttp version:
+```kotlin
+  dependencies {
+      implementation("com.squareup.okhttp3:okhttp-urlconnection:5.0.0-alpha.14")
+  }
+```
+This resolves the crash by ensuring the correct 5.x compatible artifact is used across all transitive dependencies.
+
+  
 If you face build issue related to flexbox dependency, add below code to project level buld.gradle (inside allprojects block)
 ```kotlin
     dependencies{
@@ -664,7 +692,57 @@ Example: `LiveChatMessaging.getInstance().setLCWMessagingDelegate(object: LCWMes
     - Called when a post-chat survey is displayed.
 * `override fun onChatRestored()`
     - Called when chat is restored or transcript reloaded.
+* `override fun onBotSignInAuth(content: String)`
+    - Called when a bot sign-in card is received (e.g. from a Copilot Studio agent). The content parameter contains the sasUrl to complete bot authentication. The app is responsible for obtaining the auth token and posting it to this URL.
 
+### Bot Authentication (Copilot Studio / OAuth Bots)
+ Overview
+
+  When a Copilot Studio agent or any OAuth-enabled bot requests user authentication during a conversation, the SDK automatically detects the sign-in card, extracts the sasUrl from the bot message, and delegates it to your app via onBotSignInAuth. Your app is responsible for obtaining the user's auth token and posting it to the provided sasUrl to complete the bot sign-in flow.
+  
+ How It Works
+  1. Bot sends an OAuth sign-in card during conversation
+  2. SDK detects and parses the card automatically
+  3. SDK fires onBotSignInAuth(content: String) with the sasUrl
+  4. App receives the URL and handles authentication
+
+Implementation
+
+  Step 1 — Set the delegate before launching the chat:
+
+  LiveChatMessaging.getInstance().setLCWMessagingDelegate(object : LCWMessagingDelegate {
+
+      override fun onBotSignInAuth(content: String) {
+          // content = sasUrl
+          // Handle bot authentication here
+      }
+
+      // ... other delegate methods
+  })
+
+  Step 2 — Override onBotSignInAuth and post your token to the sasUrl:
+
+  override fun onBotSignInAuth(content: String) {
+      // Step 1: Get your auth token from your identity provider.
+      val authToken = yourIdentityProvider.getToken()
+
+      // Step 2: POST the token to the sasUrl
+      // The example below uses OkHttp. You may use any HTTP client (Retrofit, Ktor, HttpURLConnection, etc.)
+
+      // Example using OkHttp:
+      Thread {
+          val client = OkHttpClient()
+          val body = JSONObject().put("token", authToken).toString()
+          val requestBody = RequestBody.create(
+              MediaType.parse("application/json; charset=utf-8"), body
+          )
+          val request = Request.Builder()
+              .url(content)
+              .post(requestBody)
+              .build()
+          client.newCall(request).execute()
+      }.start()
+  }
 
 ### getConversationDetails Logic in ChatActivity
 This code snippet retrieves the details of the current live chat conversation and updates the sample app UI accordingly based on the conversation's state.
