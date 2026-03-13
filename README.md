@@ -723,10 +723,13 @@ Implementation
   Step 2 — Override onBotSignInAuth and post your token to the sasUrl:
 
   override fun onBotSignInAuth(content: String) {
-      // Step 1: Get your auth token from your identity provider (SSO, MSAL, etc.)
+      // Step 1: Get your auth token from your identity provider.
       val authToken = yourIdentityProvider.getToken()
 
-      // Step 2: POST the token to the sasUrl on a background thread
+      // Step 2: POST the token to the sasUrl
+      // The example below uses OkHttp. You may use any HTTP client (Retrofit, Ktor, HttpURLConnection, etc.)
+
+      // Example using OkHttp:
       Thread {
           val client = OkHttpClient()
           val body = JSONObject().put("token", authToken).toString()
