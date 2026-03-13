@@ -1,5 +1,5 @@
 [versions]
-adaptivecardsAndroid = "3.7.1"
+adaptivecardsAndroid = "3.8.1"
 agp = "8.3.0"
 firebaseBom = "33.9.0"
 firebaseMessagingKtx = "24.1.0"

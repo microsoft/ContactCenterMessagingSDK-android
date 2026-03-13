@@ -6,6 +6,8 @@
         <item name="colorPrimaryDark">@color/lcw_messagingColorPrimaryDark</item>
         <item name="colorAccent">@color/lcw_messagingColorAccent</item>
     </style>
+    <style name="AppTheme" parent="Theme.AppCompat.DayNight.NoActionBar">
+    </style>
 
     <style name="LCWMessageTheme.NoActionBar">
         <item name="windowActionBar">false</item>

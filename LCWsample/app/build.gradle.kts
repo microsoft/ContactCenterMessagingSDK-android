@@ -90,19 +90,7 @@ repositories {
 val sdkVersion = "v1.1.0" // Example version, adjust as needed
 task("downloadAarFiles") {
      doLast {
-         println("Download AARs task started...")
-         val aar1Url = "https://github.com/microsoft/ContactCenterMessagingSDK-android/releases/download/$sdkVersion/ContactCenterMessagingWidget.aar"
-         val aar2Url = "https://github.com/microsoft/ContactCenterMessagingSDK-android/releases/download/$sdkVersion/OmnichannelChatSDK.aar"
 
-         val libsDir = file("${project.rootDir}/app/libs")
-         libsDir.mkdirs() // Ensure the directory exists
-
-         val aar1File = file("${libsDir}/ContactCenterMessagingWidget.aar")
-         val aar2File = file("${libsDir}/OmnichannelChatSDK.aar")
-
-         URL(aar1Url).openStream().use { input -> aar1File.outputStream().use { output -> input.copyTo(output) } }
-         URL(aar2Url).openStream().use { input -> aar2File.outputStream().use { output -> input.copyTo(output) } }
-         println("AARs downloaded successfully to ${libsDir.absolutePath}")
      }
 }
 
