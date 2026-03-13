@@ -230,12 +230,20 @@ class ChatActivity : AppCompatActivity() {
                     Log.d(TAG, "onPreChatSurveyDisplayed")
                 }
 
-                override fun onPostChatSurveyDisplayed() {
-                    Log.d(TAG, "onPostChatSurveyDisplayed")
+                override fun onPostChatSurveyDisplayed(isExternalLink: Boolean) {
+                    Log.d(TAG, "onPreChatSurveyDisplayed")
                 }
 
                 override fun onChatRestored() {
                     Log.d(TAG, "onChatRestored")
+                }
+
+                override fun onHeaderUtilityClicked() {
+                    Log.d(TAG, "onHeaderUtilityClicked")
+                }
+
+                override fun onBotSignInAuth(content: String) {
+                    Log.d(TAG, "onBotSignInAuth $content")
                 }
             })
         }
