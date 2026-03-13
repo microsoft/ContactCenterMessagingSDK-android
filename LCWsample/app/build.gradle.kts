@@ -111,8 +111,8 @@ dependencies {
     // --- NEW: Add react-android directly to the consuming app with exclusions ---
     // This ensures core React Native classes (like ReactPackage) are on the classpath.
     // Exclusions prevent native library duplication/conflicts with your AAR.
-    implementation(files("libs/ContactCenterMessagingWidget-.aar"))
-    implementation(files("libs/OmnichannelChatSDK-.aar"))
+    implementation(files("libs/ContactCenterMessagingWidget.aar"))
+    implementation(files("libs/OmnichannelChatSDK.aar"))
     implementation(libs.react.android)
     implementation(libs.jsc.android)
     // Google Flexbox Layout
