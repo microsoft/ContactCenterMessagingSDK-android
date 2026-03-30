@@ -49,6 +49,7 @@
     + [Video adaptive card font & font-family](#video-adaptive-card-font--font-family)
     + [Basic adaptive card font & font-family](#basic-adaptive-card-font--font-family)
   * [Markdown parsing limitations](#markdown-parsing-limitations)
+  * [Native Library Conflict Resolution](native-library-conflict-resolution.md)
    
 
 ## About
