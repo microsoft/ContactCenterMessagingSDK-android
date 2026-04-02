@@ -7,10 +7,7 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.lcw.lsdk.chat.LiveChatMessaging
-import com.lcw.lsdk.chat.Responses.GetMessageResponse
-import com.lcw.lsdk.data.model.ErrorResponse
-import com.lcw.lsdk.data.requests.ChatSDKMessage
-import com.lcw.lsdk.listeners.LCWMessagingDelegate
+import com.lcw.lsdk.data.api.ApiResult
 
 class HomeActivity : AppCompatActivity() {
 
@@ -29,37 +26,16 @@ class HomeActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        // sdk is only init'd after ChatActivity opens, so null check here
-        LiveChatMessaging.getInstance()?.setLCWMessagingDelegate(object : LCWMessagingDelegate {
+        val sdk = LiveChatMessaging.getInstance() ?: return
+        if (!sdk.isChatInProgress()) return
 
-            override fun onNewMessageReceived(message: GetMessageResponse?) {
-                val text = "New message received: $message"
+        sdk.onNewMessage { result ->
+            if (result is ApiResult.Success) {
+                val text = "New message received Home: ${result.response}"
                 Log.d(TAG, text)
                 runOnUiThread { tvMessageLog.text = text }
             }
-
-            override fun onChatMinimizeButtonClick() {}
-            override fun onChatCloseButtonClicked() {}
-            override fun onViewDisplayed() {}
-            override fun onChatInitiated() {}
-            override fun onCustomerChatEnded() {}
-            override fun onAgentChatEnded() {}
-            override fun onAgentAssigned(content: String) {}
-            override fun onLinkClicked(link: String) {}
-            override fun onNewCustomerMessage(message: ChatSDKMessage) {}
-            override fun onError(error: ErrorResponse?) {}
-            override fun onPreChatSurveyDisplayed() {}
-            override fun onPostChatSurveyDisplayed(isExternalLink: Boolean) {}
-            override fun onChatRestored() {}
-            override fun onHeaderUtilityClicked() {}
-            override fun onBotSignInAuth(content: String) {}
-        })
-    }
-
-    override fun onPause() {
-        super.onPause()
-        // clear when leaving so callbacks don't fire on a paused activity
-        LiveChatMessaging.getInstance()?.setLCWMessagingDelegate(null)
+        }
     }
 
     companion object {
