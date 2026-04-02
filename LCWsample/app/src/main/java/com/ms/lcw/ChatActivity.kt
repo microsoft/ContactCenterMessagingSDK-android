@@ -180,77 +180,106 @@ class ChatActivity : AppCompatActivity() {
 
         LiveChatMessaging.getInstance().apply {
             launchLcwBrandedMessaging(this@ChatActivity)
-            setLCWMessagingDelegate(object : LCWMessagingDelegate {
-                override fun onChatMinimizeButtonClick() {
-                    isMinimised = true
-                    btnText.text = if (isChatInProgress) "Restore" else "Let's Chat"
-                }
-
-                override fun onChatCloseButtonClicked() {
-                    Log.d(TAG, "onChatCloseButtonClicked")
-                }
-
-                override fun onViewDisplayed() {
-                    Log.d(TAG, "onViewDisplayed")
-                }
-
-                override fun onChatInitiated() {
-                    Log.d(TAG, "onChatInitiated")
-                }
-
-                override fun onCustomerChatEnded() {
-                    Log.d(TAG, "onCustomerChatEnded")
-                }
-
-                override fun onAgentChatEnded() {
-                    Log.d(TAG, "onAgentChatEnded")
-                }
-
-                override fun onAgentAssigned(content: String) {
-                    Log.d(TAG, "onAgentAssigned-$content")
-                }
-
-                override fun onLinkClicked(link: String) {
-                    Log.d(TAG, "onLinkClicked-$link")
-                }
-
-                override fun onNewCustomerMessage(message: ChatSDKMessage) {
-                    Log.d(TAG, "onNewMessageSent-${message.content}")
-                }
-
-                override fun onNewMessageReceived(message: GetMessageResponse?) {
-                    Log.d(TAG, "onNewMessageReceived-$message")
-                }
-
-                override fun onError(error: ErrorResponse?) {
-                    Log.d(TAG, "onError-${error?.errorMessage}")
-                }
-
-                override fun onPreChatSurveyDisplayed() {
-                    Log.d(TAG, "onPreChatSurveyDisplayed")
-                }
-
-                override fun onPostChatSurveyDisplayed(isExternalLink: Boolean) {
-                    Log.d(TAG, "onPreChatSurveyDisplayed")
-                }
-
-                override fun onChatRestored() {
-                    Log.d(TAG, "onChatRestored")
-                }
-
-                override fun onHeaderUtilityClicked() {
-                    Log.d(TAG, "onHeaderUtilityClicked")
-                }
-
-                override fun onBotSignInAuth(content: String) {
-                    Log.d(TAG, "onBotSignInAuth $content")
-                }
-            })
+            registerDelegate()
         }
+    }
+
+    // Registers this activity's delegate with the SDK singleton.
+    //
+    // Multi-activity delegate pattern:
+    // The SDK uses a single global delegate (LiveChatMessaging is a singleton). If the user
+    // navigates away from this activity (e.g. to HomeActivity), this delegate stops receiving
+    // callbacks because another activity will register its own delegate in its onResume.
+    //
+    // To handle new messages in another activity (e.g. show a badge or log):
+    //   1. In HomeActivity.onResume  → call LiveChatMessaging.getInstance().setLCWMessagingDelegate(...)
+    //      and implement onNewMessageReceived to show a highlight / log the message.
+    //   2. In HomeActivity.onPause   → call LiveChatMessaging.getInstance().setLCWMessagingDelegate(null)
+    //      to avoid delivering callbacks to a stopped activity.
+    //   3. In ChatActivity.onResume  → call registerDelegate() (already done below) to restore
+    //      full chat UI callbacks when the user returns here.
+    private fun registerDelegate() {
+        LiveChatMessaging.getInstance().setLCWMessagingDelegate(object : LCWMessagingDelegate {
+            override fun onChatMinimizeButtonClick() {
+                isMinimised = true
+                btnText.text = if (LiveChatMessaging.getInstance().isChatInProgress) "Restore" else "Let's Chat"
+            }
+
+            override fun onChatCloseButtonClicked() {
+                Log.d(TAG, "onChatCloseButtonClicked")
+            }
+
+            override fun onViewDisplayed() {
+                Log.d(TAG, "onViewDisplayed")
+            }
+
+            override fun onChatInitiated() {
+                Log.d(TAG, "onChatInitiated")
+            }
+
+            override fun onCustomerChatEnded() {
+                Log.d(TAG, "onCustomerChatEnded")
+            }
+
+            override fun onAgentChatEnded() {
+                Log.d(TAG, "onAgentChatEnded")
+            }
+
+            override fun onAgentAssigned(content: String) {
+                Log.d(TAG, "onAgentAssigned-$content")
+            }
+
+            override fun onLinkClicked(link: String) {
+                Log.d(TAG, "onLinkClicked-$link")
+            }
+
+            override fun onNewCustomerMessage(message: ChatSDKMessage) {
+                Log.d(TAG, "onNewMessageSent-${message.content}")
+            }
+
+            override fun onNewMessageReceived(message: GetMessageResponse?) {
+                Log.d(TAG, "onNewMessageReceived-$message")
+            }
+
+            override fun onError(error: ErrorResponse?) {
+                Log.d(TAG, "onError-${error?.errorMessage}")
+            }
+
+            override fun onPreChatSurveyDisplayed() {
+                Log.d(TAG, "onPreChatSurveyDisplayed")
+            }
+
+            override fun onPostChatSurveyDisplayed(isExternalLink: Boolean) {
+                Log.d(TAG, "onPostChatSurveyDisplayed")
+            }
+
+            override fun onChatRestored() {
+                Log.d(TAG, "onChatRestored")
+            }
+
+            override fun onHeaderUtilityClicked() {
+                Log.d(TAG, "onHeaderUtilityClicked")
+            }
+
+            override fun onBotSignInAuth(content: String) {
+                Log.d(TAG, "onBotSignInAuth $content")
+            }
+        })
+    }
+
+    override fun onPause() {
+        super.onPause()
+        // Clear the delegate when leaving this activity so that callbacks are not
+        // delivered to a paused/stopped activity. The next foreground activity
+        // (HomeActivity) should register its own delegate in its onResume.
+        LiveChatMessaging.getInstance().setLCWMessagingDelegate(null)
     }
 
     override fun onResume() {
         super.onResume()
+        // Re-register this activity's delegate so callbacks return here when the user
+        // navigates back from another activity (HomeActivity).
+        registerDelegate()
         if (!isMinimised) {
             LiveChatMessaging.getInstance().getConversationDetails { response ->
                 runOnUiThread {
