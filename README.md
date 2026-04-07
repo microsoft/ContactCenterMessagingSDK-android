@@ -50,6 +50,7 @@
     + [Basic adaptive card font & font-family](#basic-adaptive-card-font--font-family)
   * [Markdown parsing limitations](#markdown-parsing-limitations)
   * [Native Library Conflict Resolution](native-library-conflict-resolution.md)
+  * [Data Masking SDK Integration Guide](#data-masking-sdk-integration-guide)
    
 
 ## About
@@ -1000,6 +1001,71 @@ Single-line blockquotes (e.g., > This is a quote) are generally supported.
 However, complex combinations of Markdown elements within a blockquote — such as bold, lists, or nested formatting — may not render correctly.
 
 Multi-line blockquotes or blockquotes containing rich Markdown may display inconsistently across devices or Android versions.
+
+
+### Data Masking SDK Integration Guide                                                                                                                       
+Data masking applies regex-based masking to customer chat messages at display time. Masking rules are configured on the server (Dynamics 365 Omnichannel) and fetched by the SDK automatically. The client app can enable or disable masking via DataMaskingSDKConfig.                                                       
+   
+**Default Behavior**
+
+By default, data masking is disabled in the SDK:
+// Default — masking OFF
+  ChatSDKConfig(
+      dataMasking = DataMaskingSDKConfig(disable = true)                        
+  )
+          
+Enabling Data Masking
+                       
+Pass disable = false when building the LCWOmniChannelConfigBuilder:
+  ```kotlin                                                                                                                           
+  val omnichannelConfig = OmnichannelConfig(                                                                                                                     
+      orgId = "<YOUR_ORG_ID>",
+      orgUrl = "<YOUR_ORG_URL>",                                                                                                                                 
+      widgetId = "<YOUR_WIDGET_ID>"
+  )                                                                                                                                                              
+                  
+  val chatSDKConfig = ChatSDKConfig(                                                                                                                             
+      dataMasking = DataMaskingSDKConfig(
+          disable = false,          // Enable masking
+          maskingCharacter = '#'    // Character used to replace matched text (default: '#')                                                                     
+      )                                                                                                                                                          
+  )                                                                                                                                                              
+                                                                                                                                                                 
+  val configBuilder = LCWOmniChannelConfigBuilder.EngagementBuilder(
+      omniChannelConfig = omnichannelConfig,
+      chatSDKConfig = chatSDKConfig                                                                                                                              
+  ).build()
+  ```                                                                                                                                                               
+  Configuration Options
+                                 
+| Property          | Type    | Default | Description                                      |
+|-------------------|---------|---------|--------------------------------------------------|
+| disable           | Boolean | true    | false = masking enabled; true = masking disabled |
+| maskingCharacter  | Char?   | '#'     | Character substituted over masked characters     |
+                                                               
+How It Works
+
+1. **Rules are server-driven**  
+   Regex patterns are configured in Dynamics 365 Omnichannel admin settings and fetched via `getDataMaskingRules()` at session start.
+
+2. **Masking applies to customer messages only**  
+   Controlled by the `msdynMaskforcustomer` flag returned from the server.
+
+3. **Client-side, display-only**  
+   Masking is applied when rendering messages in the chat UI; the raw text is not stored masked.
+
+4. **SDK condition check**  
+   The SDK requires both conditions to be true for masking to activate:  
+   - `disable = false` (client config)  
+   - `msdynMaskforcustomer = true` (server config)
+                                                                                                                                                          
+
+Disabling Masking Explicitly
+  ```kotlin
+  val chatSDKConfig = ChatSDKConfig(
+      dataMasking = DataMaskingSDKConfig(disable = true) // Masking OFF regardless of server config                                                              
+  )
+ ```   
 
 
 
