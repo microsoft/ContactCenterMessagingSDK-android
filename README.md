@@ -51,6 +51,7 @@
   * [Markdown parsing limitations](#markdown-parsing-limitations)
   * [Native Library Conflict Resolution](native-library-conflict-resolution.md)
   * [Data Masking SDK Integration Guide](#data-masking-sdk-integration-guide)
+  * [Multi-Screen Event Broadcasting](#multi-screen-event-broadcasting)
    
 
 ## About
@@ -1065,7 +1066,79 @@ Disabling Masking Explicitly
   val chatSDKConfig = ChatSDKConfig(
       dataMasking = DataMaskingSDKConfig(disable = true) // Masking OFF regardless of server config                                                              
   )
- ```   
+ ```
+ 
+### Multi-Screen Event Broadcasting
+
+Extends the existing `setLCWMessagingDelegate` pattern with a lifecycle-aware LiveData hub, enabling any number of Activities/Fragments to observe SDK events simultaneously without interfering with each other. Both patterns are fully supported and can run side by side.
+
+---
+
+#### Key Components
+
+| Class                   | Role                                                                                                                                                                                                        |
+| ----------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **ChatEventDispatcher** | Singleton. Registers as the SDK delegate, deduplicates repeated SDK fires for the same message, and fans out all callbacks into LiveData. Supports optional chaining to an existing `LCWMessagingDelegate`. |
+| **LCWChatEvents**       | Singleton LiveData hub. Exposes one observable field per event. Client observes; SDK posts.                                                                                                                 |
+| **SingleLiveEvent<T>**  | Fire-once LiveData. Delivers each emission exactly once to every active observer. Prevents re-delivery on screen resume or rotation.                                                                        |
+
+---
+
+#### Usage
+
+```kotlin
+// After LiveChatMessaging.getInstance().initialize(...)
+ChatEventDispatcher.attach()
+
+// Observe from any Activity or Fragment
+LCWChatEvents.newMessage.observe(this) { message -> }
+LCWChatEvents.agentAssigned.observe(this) { name -> }
+LCWChatEvents.chatEnded.observe(this) { byAgent -> }
+LCWChatEvents.error.observe(this) { error -> }
+```
+
+No teardown needed — observers are auto-removed when the lifecycle owner is destroyed.
+
+---
+
+#### All Available Events
+
+| Event              | Type                          | Behaviour | Fires when                                 |
+| ------------------ | ----------------------------- | --------- | ------------------------------------------ |
+| newMessage         | LiveData<GetMessageResponse?> | Fire-once | Agent/bot message received                 |
+| newCustomerMessage | LiveData<ChatSDKMessage>      | Fire-once | Customer sends a message                   |
+| error              | LiveData<ErrorResponse?>      | Fire-once | SDK or network error                       |
+| linkClicked        | LiveData<String>              | Fire-once | User taps a link in chat                   |
+| botSignIn          | LiveData<String>              | Fire-once | Bot sign-in auth required                  |
+| transcriptReceived | LiveData<String>              | Fire-once | Transcript download complete               |
+| agentAssigned      | LiveData<String>              | Sticky    | Agent joins the session                    |
+| chatInitiated      | LiveData<Boolean>             | Sticky    | Chat session starts                        |
+| chatEnded          | LiveData<Boolean>             | Sticky    | true = agent ended, false = customer ended |
+| chatRestored       | LiveData<Boolean>             | Sticky    | Chat reconnects                            |
+| minimized          | LiveData<Boolean>             | Sticky    | Minimize button tapped                     |
+| closed             | LiveData<Boolean>             | Sticky    | Close button tapped                        |
+
+**Fire-once** = not re-delivered on rotation or background/foreground
+**Sticky** = last value re-delivered to new observers
+
+---
+
+#### Chaining with Existing Delegate (Backward Compatible)
+
+```kotlin
+ChatEventDispatcher.attach(secondary = myExistingDelegate)
+// LiveData fires AND myExistingDelegate still receives all callbacks
+```
+
+Apps that never call `ChatEventDispatcher.attach()` are completely unaffected — the legacy `setLCWMessagingDelegate()` path is unchanged.
+
+---
+
+#### Important Notes
+
+* Do **not** observe `newMessage` from the Activity that hosts the chat view. The chat UI already renders messages internally; observing it there causes duplicate delivery when the Activity resumes from behind the chat screen.
+* `attach()` can safely be called again on a new session — it clears the internal dedup cache automatically.
+* ProGuard/R8 consumer rules are bundled in the AAR and applied automatically. No manual ProGuard changes are needed.
 
 
 
