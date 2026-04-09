@@ -14,19 +14,29 @@
         android:windowSoftInputMode="adjustResize"
         tools:replace="android:allowBackup,android:roundIcon"
         tools:targetApi="31">
+        <!-- Launcher: live event dashboard -->
         <activity
-            android:name=".ChatActivity"
+            android:name=".HomeActivity"
+            android:label="LCW Chat Monitor"
             android:exported="true"
-            android:theme="@style/AppTheme"
-            android:windowSoftInputMode="adjustResize">
+            android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- Chat configuration and widget launch -->
+        <activity
+            android:name=".ChatActivity"
+            android:label="Chat Configuration"
+            android:exported="false"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="adjustResize" />
+
         <service
-            android:name="com.example.lcw.sdkdemo.fcm.ChatFirebaseMessagingService"
+            android:name=".fcm.ChatFirebaseMessagingService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />

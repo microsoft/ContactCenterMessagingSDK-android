@@ -18,16 +18,14 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import com.lcw.lsdk.builder.LCWOmniChannelConfigBuilder
 import com.lcw.lsdk.chat.LiveChatMessaging
-import com.lcw.lsdk.chat.Responses.GetMessageResponse
 import com.lcw.lsdk.data.api.ApiResult
 import com.lcw.lsdk.data.api.ConversationDetail
-import com.lcw.lsdk.data.model.ErrorResponse
 import com.lcw.lsdk.data.requests.ChatSDKConfig
-import com.lcw.lsdk.data.requests.ChatSDKMessage
 import com.lcw.lsdk.data.requests.OmnichannelConfig
 import com.lcw.lsdk.data.requests.TelemetrySDKConfig
 import com.lcw.lsdk.enum.ConversationStateEnum
-import com.lcw.lsdk.listeners.LCWMessagingDelegate
+import com.lcw.lsdk.events.ChatEventDispatcher
+import com.lcw.lsdk.events.LCWChatEvents
 import com.lcw.lsdk.logger.OLog
 import com.ms.lcw.Constants.authTkn
 import com.ms.lcw.Constants.orgId
@@ -64,6 +62,7 @@ class ChatActivity : AppCompatActivity() {
 
         initFCMData()
         initSDK()
+        observeChatEvents()
     }
 
     private fun initViews() {
@@ -144,6 +143,10 @@ class ChatActivity : AppCompatActivity() {
             // initialize(this@ChatActivity, lcwOmniChannelConfigBuilder, authToken, "prod")
             fcmToken = utility.getFCMToken(this@ChatActivity, "fcmtoken")
         }
+
+        // Attach the global dispatcher — routes all SDK callbacks into LCWChatEvents LiveData.
+        // Any Activity observing LCWChatEvents will receive events from this point forward.
+        ChatEventDispatcher.attach()
     }
 
     private fun setDefaultConfig() {
@@ -178,74 +181,65 @@ class ChatActivity : AppCompatActivity() {
         utility.storeItem(this, "OC", omnichannelConfig)
         utility.storeAuth(this, "OCAuth", authToken)
 
-        LiveChatMessaging.getInstance().apply {
-            launchLcwBrandedMessaging(this@ChatActivity)
-            setLCWMessagingDelegate(object : LCWMessagingDelegate {
-                override fun onChatMinimizeButtonClick() {
-                    isMinimised = true
-                    btnText.text = if (isChatInProgress) "Restore" else "Let's Chat"
-                }
+        LiveChatMessaging.getInstance().launchLcwBrandedMessaging(this@ChatActivity)
+    }
 
-                override fun onChatCloseButtonClicked() {
-                    Log.d(TAG, "onChatCloseButtonClicked")
-                }
+    private fun observeChatEvents() {
+        // New agent or bot message received
+        LCWChatEvents.newMessage.observe(this) { message ->
+            val text = (message?.getProperty("content") ?: message)?.toString() ?: "null"
+            Log.d(TAG, "newMessage: $text")
+        }
 
-                override fun onViewDisplayed() {
-                    Log.d(TAG, "onViewDisplayed")
-                }
+        // Minimize button tapped — update the chat launch button label
+        LCWChatEvents.minimized.observe(this) {
+            isMinimised = true
+            btnText.text = if (LiveChatMessaging.getInstance()?.isChatInProgress == true) "Restore" else "Let's Chat"
+        }
 
-                override fun onChatInitiated() {
-                    Log.d(TAG, "onChatInitiated")
-                }
+        // Close button tapped
+        LCWChatEvents.closed.observe(this) {
+            Log.d(TAG, "onChatCloseButtonClicked")
+        }
 
-                override fun onCustomerChatEnded() {
-                    Log.d(TAG, "onCustomerChatEnded")
-                }
+        // Agent assigned to the conversation
+        LCWChatEvents.agentAssigned.observe(this) { content ->
+            Log.d(TAG, "onAgentAssigned: $content")
+        }
 
-                override fun onAgentChatEnded() {
-                    Log.d(TAG, "onAgentChatEnded")
-                }
+        // Chat session started
+        LCWChatEvents.chatInitiated.observe(this) {
+            Log.d(TAG, "onChatInitiated")
+        }
 
-                override fun onAgentAssigned(content: String) {
-                    Log.d(TAG, "onAgentAssigned-$content")
-                }
+        // Chat ended — true = agent ended, false = customer ended
+        LCWChatEvents.chatEnded.observe(this) { byAgent ->
+            Log.d(TAG, if (byAgent) "onAgentChatEnded" else "onCustomerChatEnded")
+        }
 
-                override fun onLinkClicked(link: String) {
-                    Log.d(TAG, "onLinkClicked-$link")
-                }
+        // Chat restored from a previous session
+        LCWChatEvents.chatRestored.observe(this) {
+            Log.d(TAG, "onChatRestored")
+        }
 
-                override fun onNewCustomerMessage(message: ChatSDKMessage) {
-                    Log.d(TAG, "onNewMessageSent-${message.content}")
-                }
+        // Bot sign-in auth required
+        LCWChatEvents.botSignIn.observe(this) { content ->
+            Log.d(TAG, "onBotSignInAuth: $content")
+        }
 
-                override fun onNewMessageReceived(message: GetMessageResponse?) {
-                    Log.d(TAG, "onNewMessageReceived-$message")
-                }
+        // Link tapped inside a chat message
+        LCWChatEvents.linkClicked.observe(this) { link ->
+            Log.d(TAG, "onLinkClicked: $link")
+        }
 
-                override fun onError(error: ErrorResponse?) {
-                    Log.d(TAG, "onError-${error?.errorMessage}")
-                }
+        // Transcript download completed
+        LCWChatEvents.transcriptReceived.observe(this) { transcript ->
+            Log.d(TAG, "onTranscriptReceived: $transcript")
+        }
 
-                override fun onPreChatSurveyDisplayed() {
-                    Log.d(TAG, "onPreChatSurveyDisplayed")
-                }
-
-                override fun onPostChatSurveyDisplayed(isExternalLink: Boolean) {
-                    Log.d(TAG, "onPreChatSurveyDisplayed")
-                }
-
-                override fun onChatRestored() {
-                    Log.d(TAG, "onChatRestored")
-                }
-
-                override fun onHeaderUtilityClicked() {
-                    Log.d(TAG, "onHeaderUtilityClicked")
-                }
-
-                override fun onBotSignInAuth(content: String) {
-                    Log.d(TAG, "onBotSignInAuth $content")
-                }
-            })
+        // SDK or network error
+        LCWChatEvents.error.observe(this) { error ->
+            Log.d(TAG, "onError: ${error?.errorMessage}")
         }
     }
 
@@ -301,6 +295,6 @@ class ChatActivity : AppCompatActivity() {
     }
 
     companion object {
-        private const val TAG = "ChatWindowStateDelegate"
+        private const val TAG = "###LCW_CHAT"
     }
 }

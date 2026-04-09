@@ -5,8 +5,12 @@
     android:id="@+id/layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#F4F6FB"
     android:fitsSystemWindows="true">
 
+    <!-- ══════════════════════════════════════════════════════ -->
+    <!-- APP BAR                                                -->
+    <!-- ══════════════════════════════════════════════════════ -->
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -20,7 +24,7 @@
                 android:id="@+id/left_menu"
                 android:layout_width="wrap_content"
                 android:layout_height="?attr/actionBarSize"
-                android:gravity="left" />
+                android:gravity="start" />
 
             <TextView
                 android:id="@+id/toolbar_title"
@@ -29,59 +33,263 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
+    <!-- ══════════════════════════════════════════════════════ -->
+    <!-- SCROLLABLE CONTENT                                     -->
+    <!-- ══════════════════════════════════════════════════════ -->
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:context=".ChatActivity">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="@dimen/lcw_margin_30dp"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:padding="@dimen/padding_10dp"
-            tools:context=".ChatActivity">
+            android:orientation="vertical">
 
-            <EditText
-                android:id="@+id/etScript"
+            <!-- Sub-header banner -->
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/bg_customer_chat_bubble"
-                android:hint="Paste your script"
-                android:maxHeight="100dp"
-                android:padding="10dp" />
+                android:background="@color/lcw_messagingGradientStart"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:paddingTop="14dp"
+                android:paddingBottom="14dp">
 
-            <TextView
-                android:id="@+id/titleDialogSearch"
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Connect your Microsoft Omnichannel org to start chatting"
+                    android:textColor="#CCE0FF"
+                    android:textSize="13sp" />
+
+            </LinearLayout>
+
+            <!-- Body -->
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:padding="5dp"
-                android:text="OR"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:visibility="visible" />
+                android:orientation="vertical"
+                android:padding="16dp">
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardContainer"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:visibility="visible"
-                app:cardElevation="5dp">
-
-                <LinearLayout
+                <!-- ── Script Tag Card ─────────────────────────── -->
+                <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="top"
-                    android:gravity="top"
-                    android:orientation="vertical">
+                    android:layout_marginBottom="4dp"
+                    app:cardCornerRadius="14dp"
+                    app:cardElevation="3dp"
+                    app:cardBackgroundColor="@android:color/white">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:orientation="vertical"
+                        android:padding="16dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="PASTE SCRIPT TAG"
+                            android:textColor="@color/lcw_messagingColorPrimary"
+                            android:textSize="11sp"
+                            android:textStyle="bold"
+                            android:letterSpacing="0.1"
+                            android:layout_marginBottom="10dp" />
+
+                        <EditText
+                            android:id="@+id/etScript"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/bg_input_field"
+                            android:hint="&lt;script src=&quot;...&quot; /&gt;"
+                            android:textColorHint="#AAAAAA"
+                            android:maxHeight="90dp"
+                            android:minHeight="48dp"
+                            android:padding="12dp"
+                            android:textSize="13sp"
+                            android:inputType="textMultiLine"
+                            android:gravity="top" />
+
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <!-- ── OR Divider ──────────────────────────────── -->
+                <LinearLayout
+                    android:id="@+id/titleDialogSearch"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:paddingTop="16dp"
+                    android:paddingBottom="16dp">
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:layout_weight="1"
+                        android:background="#D0D8E4" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingStart="16dp"
+                        android:paddingEnd="16dp"
+                        android:text="OR"
+                        android:textColor="@color/lcw_colorPreChatTextSubtitle"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:layout_weight="1"
+                        android:background="#D0D8E4" />
+
+                </LinearLayout>
+
+                <!-- ── Manual Configuration Card ──────────────── -->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    app:cardCornerRadius="14dp"
+                    app:cardElevation="3dp"
+                    app:cardBackgroundColor="@android:color/white">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="16dp">
+
+                        <TextView
+                            android:id="@+id/usernameInfo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="MANUAL CONFIGURATION"
+                            android:textColor="@color/lcw_messagingColorPrimary"
+                            android:textSize="11sp"
+                            android:textStyle="bold"
+                            android:letterSpacing="0.1"
+                            android:layout_marginBottom="16dp"
+                            android:visibility="visible" />
+
+                        <!-- Org ID -->
+                        <TextView
+                            android:id="@+id/tvOrgId"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Org ID"
+                            android:textColor="@color/lcw_txt_color_black"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:layout_marginBottom="6dp" />
+
+                        <EditText
+                            android:id="@+id/et_orgId"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/bg_input_field"
+                            android:hint="Enter org ID"
+                            android:textColorHint="#AAAAAA"
+                            android:padding="12dp"
+                            android:textSize="13sp"
+                            android:singleLine="true"
+                            android:layout_marginBottom="16dp" />
+
+                        <!-- Org Widget ID -->
+                        <TextView
+                            android:id="@+id/tv_owid"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Org Widget ID"
+                            android:textColor="@color/lcw_txt_color_black"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:layout_marginBottom="6dp" />
+
+                        <EditText
+                            android:id="@+id/et_orgWidgetId"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/bg_input_field"
+                            android:hint="Enter widget ID"
+                            android:textColorHint="#AAAAAA"
+                            android:padding="12dp"
+                            android:textSize="13sp"
+                            android:singleLine="true"
+                            android:layout_marginBottom="16dp" />
+
+                        <!-- Org URL -->
+                        <TextView
+                            android:id="@+id/tvUrl"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Org URL"
+                            android:textColor="@color/lcw_txt_color_black"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:layout_marginBottom="6dp" />
+
+                        <EditText
+                            android:id="@+id/et_widgetUrl"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/bg_input_field"
+                            android:hint="https://your-org.omnichannelengagementhub.com"
+                            android:textColorHint="#AAAAAA"
+                            android:padding="12dp"
+                            android:textSize="13sp"
+                            android:singleLine="true"
+                            android:inputType="textUri"
+                            android:layout_marginBottom="16dp" />
+
+                        <!-- Auth Token -->
+                        <TextView
+                            android:id="@+id/tvAuth"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Auth Token  (optional)"
+                            android:textColor="@color/lcw_txt_color_black"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:layout_marginBottom="6dp" />
+
+                        <EditText
+                            android:id="@+id/et_auth"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/bg_input_field"
+                            android:hint="Paste auth token if required"
+                            android:textColorHint="#AAAAAA"
+                            android:maxHeight="90dp"
+                            android:minHeight="48dp"
+                            android:padding="12dp"
+                            android:textSize="13sp"
+                            android:inputType="textMultiLine"
+                            android:gravity="top" />
+
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <!-- ── Actions Card (FCM / Reset) ──────────────── -->
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="24dp"
+                    app:cardCornerRadius="14dp"
+                    app:cardElevation="3dp"
+                    app:cardBackgroundColor="@android:color/white">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
 
                         <Button
                             android:id="@+id/btnFCM"
@@ -89,153 +297,67 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:background="@color/transparent"
-                            android:gravity="center"
-                            android:padding="12dp"
                             android:text="Copy FCM Token"
-                            android:textColor="@android:color/holo_blue_dark"
-                            android:textSize="14sp"
-                            android:textStyle="italic"
-                            android:visibility="visible" />
+                            android:textColor="@color/lcw_messagingColorPrimary"
+                            android:textSize="13sp"
+                            android:padding="14dp"
+                            android:stateListAnimator="@null" />
+
+                        <View
+                            android:layout_width="1dp"
+                            android:layout_height="24dp"
+                            android:background="#E0E0E0" />
 
                         <Button
                             android:id="@+id/btnReset"
-                            android:layout_width="0dp"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
                             android:background="@color/transparent"
-                            android:gravity="center"
-                            android:padding="12dp"
                             android:text="Reset"
-                            android:textColor="@android:color/holo_blue_dark"
-                            android:textSize="14sp"
-                            android:textStyle="italic"
-                            android:visibility="visible" />
+                            android:textColor="@color/lcw_txt_color_error"
+                            android:textSize="13sp"
+                            android:paddingStart="20dp"
+                            android:paddingEnd="20dp"
+                            android:padding="14dp"
+                            android:stateListAnimator="@null" />
+
                     </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <!-- ── Launch Button ───────────────────────────── -->
+                <LinearLayout
+                    android:id="@+id/llChat"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:background="@drawable/bg_launch_button"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:onClick="launchChat"
+                    android:elevation="4dp"
+                    android:layout_marginBottom="8dp">
+
+                    <ImageView
+                        android:id="@+id/ivChat"
+                        android:layout_width="22dp"
+                        android:layout_height="22dp"
+                        android:src="@drawable/ic_chat_icon"
+                        android:tint="@android:color/white"
+                        android:layout_marginEnd="10dp"
+                        android:contentDescription="Chat" />
 
                     <TextView
-                        android:id="@+id/usernameInfo"
-                        android:layout_width="match_parent"
+                        android:id="@+id/btnText"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:padding="8dp"
-                        android:text="Verify your configuration and press Let's Chat button below to start."
-                        android:textSize="16sp"
-                        android:textStyle="normal"
-                        android:visibility="gone" />
-
-                    <TextView
-                        android:id="@+id/tvOrgId"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:gravity="start"
-                        android:text="ORG ID"
-                        android:textSize="10sp"
+                        android:text="Let's Chat"
+                        android:textColor="@android:color/white"
+                        android:textSize="17sp"
                         android:textStyle="bold" />
 
-                    <EditText
-                        android:id="@+id/et_orgId"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:background="@drawable/bg_customer_chat_bubble"
-                        android:hint="WIDGET ID"
-                        android:padding="5dp" />
-
-                    <TextView
-                        android:id="@+id/tv_owid"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:gravity="start"
-                        android:text="ORG WIDGET ID"
-                        android:textSize="10sp"
-                        android:textStyle="bold" />
-
-                    <EditText
-                        android:id="@+id/et_orgWidgetId"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:background="@drawable/bg_customer_chat_bubble"
-                        android:hint="ORG WIDGET ID"
-                        android:padding="10dp" />
-
-                    <TextView
-                        android:id="@+id/tvUrl"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:gravity="start"
-                        android:text="ORG URL"
-                        android:textSize="10sp"
-                        android:textStyle="bold" />
-
-                    <EditText
-                        android:id="@+id/et_widgetUrl"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:background="@drawable/bg_customer_chat_bubble"
-                        android:hint="ORG URL"
-                        android:padding="10dp" />
-
-                    <TextView
-                        android:id="@+id/tvAuth"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:gravity="start"
-                        android:text="Auth Token"
-                        android:textSize="10sp"
-                        android:textStyle="bold" />
-
-                    <EditText
-                        android:id="@+id/et_auth"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:background="@drawable/bg_customer_chat_bubble"
-                        android:hint="(Optional)"
-                        android:maxHeight="100dp"
-                        android:padding="10dp" />
                 </LinearLayout>
 
-
-            </androidx.cardview.widget.CardView>
-            <LinearLayout
-                android:id="@+id/llChat"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right|center_vertical"
-                android:layout_margin="20dp"
-                android:elevation="15dp"
-                android:gravity="right|center"
-                android:onClick="launchChat"
-                android:orientation="horizontal"
-                android:padding="15dp">
-
-                <ImageView
-                    android:id="@+id/ivChat"
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
-                    android:layout_gravity="center"
-                    android:layout_margin="10dp"
-                    android:background="@drawable/blue_circular"
-                    android:elevation="10dp"
-                    android:gravity="right"
-                    android:padding="20dp"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@android:color/white" />
-
-                <TextView
-                    android:id="@+id/btnText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Let's Chat"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
