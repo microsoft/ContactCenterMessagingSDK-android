@@ -7,16 +7,22 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import com.lcw.lsdk.builder.LCWOmniChannelConfigBuilder
+import com.lcw.lsdk.chat.LiveChatMessaging
+import com.lcw.lsdk.data.api.ApiResult
+import com.lcw.lsdk.chat.Responses.GetMessageResponse
+import com.lcw.lsdk.constants.MessageTypes
+import com.lcw.lsdk.data.requests.ChatSDKConfig
+import com.lcw.lsdk.data.requests.LCWStartChatRequest
+import com.lcw.lsdk.data.requests.OmnichannelConfig
+import com.lcw.lsdk.data.requests.TelemetrySDKConfig
+import com.lcw.lsdk.events.ChatEventDispatcher
 import com.lcw.lsdk.events.LCWChatEvents
 
-/**
- * Entry-point activity. Displays a live-updating event dashboard that reflects
- * all SDK callbacks routed through [LCWChatEvents] LiveData. Chat configuration
- * and launch are handled in [ChatActivity].
- */
+// Home screen that shows live SDK events. Chat config and launch are handled in ChatActivity.
 class HomeActivity : AppCompatActivity() {
 
-    // ── Event value TextViews ─────────────────────────────────────────────────
+    // event TextViews
     private lateinit var tvNewMessage: TextView
     private lateinit var tvAgentAssigned: TextView
     private lateinit var tvChatInitiated: TextView
@@ -27,7 +33,7 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var tvBotSignIn: TextView
     private lateinit var tvError: TextView
 
-    // ── Action buttons ────────────────────────────────────────────────────────
+    // buttons
     private lateinit var btnOpenChat: Button
     private lateinit var btnClearLog: Button
     private lateinit var btnClearNewMessage: Button
@@ -47,6 +53,13 @@ class HomeActivity : AppCompatActivity() {
         bindViews()
         setupButtons()
         observeChatEvents()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (!sdkReady) {
+            tryInitSdkFromSavedConfig()
+        }
     }
 
     private fun bindViews() {
@@ -78,10 +91,8 @@ class HomeActivity : AppCompatActivity() {
             startActivity(Intent(this, ChatActivity::class.java))
         }
 
-        // Clear All — resets every row at once
         btnClearLog.setOnClickListener { clearAll() }
 
-        // Per-row clear buttons
         btnClearNewMessage.setOnClickListener    { resetRow(tvNewMessage) }
         btnClearAgentAssigned.setOnClickListener { resetRow(tvAgentAssigned) }
         btnClearChatInitiated.setOnClickListener { resetRow(tvChatInitiated) }
@@ -94,8 +105,7 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun observeChatEvents() {
-        // newMessage: fire-once — will NOT re-deliver on screen resume.
-        // Safe to observe here because HomeActivity does not host the chat view.
+        // won't re-deliver on resume, safe to observe from home screen
         LCWChatEvents.newMessage.observe(this) { message ->
             val text = (message?.getProperty("content") ?: message)?.toString() ?: "null"
             Log.d(TAG, "newMessage: $text")
@@ -121,6 +131,7 @@ class HomeActivity : AppCompatActivity() {
         LCWChatEvents.chatRestored.observe(this) {
             Log.d(TAG, "chatRestored")
             updateEventView(tvChatRestored, "true")
+            fetchLastMessage()
         }
 
         LCWChatEvents.minimized.observe(this) {
@@ -145,11 +156,7 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
-    /**
-     * Sets event text and colors it:
-     * - green for normal active events
-     * - red for errors
-     */
+    // green for events, red for errors
     private fun updateEventView(tv: TextView, value: String, isError: Boolean = false) {
         tv.text = value
         tv.setTextColor(
@@ -160,13 +167,11 @@ class HomeActivity : AppCompatActivity() {
         )
     }
 
-    /** Resets a single event row to the idle placeholder. */
     private fun resetRow(tv: TextView) {
         tv.text = "—"
         tv.setTextColor(ContextCompat.getColor(this, R.color.lcw_colorPreChatTextSubtitle))
     }
 
-    /** Resets every event row at once. */
     private fun clearAll() {
         listOf(
             tvNewMessage, tvAgentAssigned, tvChatInitiated, tvChatEnded,
@@ -174,7 +179,85 @@ class HomeActivity : AppCompatActivity() {
         ).forEach { resetRow(it) }
     }
 
+    // Init SDK from saved config so we can detect new messages on the home screen
+    // without the user needing to open ChatActivity first. Runs once per process.
+    private fun tryInitSdkFromSavedConfig() {
+        val utility = Utility()
+        val savedConfig = utility.retrieveItem(this, "OC") ?: run {
+            Log.d(TAG, "tryInitSdkFromSavedConfig: no saved config, skipping")
+            return
+        }
+
+        val authToken = utility.getAuth(this, "OCAuth")
+
+        val omnichannelConfig = OmnichannelConfig(
+            orgId    = savedConfig.orgId,
+            orgUrl   = savedConfig.orgUrl,
+            widgetId = savedConfig.widgetId
+        )
+        val lcwConfig = LCWOmniChannelConfigBuilder
+            .EngagementBuilder(omnichannelConfig, ChatSDKConfig(telemetry = TelemetrySDKConfig(disable = false)))
+            .build()
+
+        LiveChatMessaging.getInstance().initialize(this, lcwConfig, authToken, "test")
+        ChatEventDispatcher.attach()
+        sdkReady = true
+
+        try {
+            LiveChatMessaging.getInstance().initChat { initResult ->
+                Log.d(TAG, "tryInitSdkFromSavedConfig: initChat result=${initResult.javaClass.simpleName}")
+                if (initResult !is ApiResult.Success) {
+                    Log.d(TAG, "tryInitSdkFromSavedConfig: initChat failed, aborting")
+                    return@initChat
+                }
+                try {
+                    LiveChatMessaging.getInstance().startChat(LCWStartChatRequest()) { startResult ->
+                        val event = (startResult as? ApiResult.Success)?.event
+                        Log.d(TAG, "tryInitSdkFromSavedConfig: startChat result=${startResult.javaClass.simpleName}, event=$event")
+                        // fetch messages — empty for new sessions, history for restored ones
+                        if (startResult is ApiResult.Success) {
+                            fetchLastMessage()
+                        }
+                    }
+                } catch (e: Exception) {
+                    Log.e(TAG, "tryInitSdkFromSavedConfig: startChat threw — ${e.message}", e)
+                }
+            }
+        } catch (e: Exception) {
+            Log.e(TAG, "tryInitSdkFromSavedConfig: initChat threw — ${e.message}", e)
+        }
+    }
+
+    // Fetch messages and show the last one on the dashboard
+    private fun fetchLastMessage() {
+        Log.d(TAG, "fetchLastMessage: calling getMessages")
+        try {
+            LiveChatMessaging.getInstance().getMessages { msgResult ->
+                Log.d(TAG, "fetchLastMessage: callback result=$msgResult")
+                @Suppress("UNCHECKED_CAST")
+                val messages = (msgResult as? ApiResult.Success)?.response as? List<*>
+                Log.d(TAG, "fetchLastMessage: message count=${messages?.size}")
+                val last = messages
+                    ?.filterIsInstance<GetMessageResponse>()
+                    ?.filter { it.messageType != MessageTypes.TYPE_SYSTEM }
+                    ?.lastOrNull { !it.getProperty("messageText")?.toString().isNullOrBlank() }
+                    ?: return@getMessages
+                val content = last.getProperty("messageText")?.toString() ?: return@getMessages
+                val senderName = last.getProperty("agent.alias")?.toString()
+                val display = buildString {
+                    senderName?.takeIf { it.isNotEmpty() }?.let { append("$it: ") }
+                    append(content)
+                }
+                Log.d(TAG, "fetchLastMessage: showing '$display'")
+                runOnUiThread { updateEventView(tvNewMessage, display) }
+            }
+        } catch (e: Exception) {
+            Log.e(TAG, "fetchLastMessage: getMessages threw — ${e.message}", e)
+        }
+    }
+
     companion object {
         private const val TAG = "###LCW_CHAT"
+        private var sdkReady = false
     }
 }
