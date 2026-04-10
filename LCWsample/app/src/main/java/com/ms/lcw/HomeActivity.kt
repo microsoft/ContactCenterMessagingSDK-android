@@ -33,6 +33,11 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var tvBotSignIn: TextView
     private lateinit var tvError: TextView
 
+    // track last shown message to avoid re-displaying seen messages (LiveData is sticky)
+    private var lastShownMessage: String? = null
+    // suppress newMessage events after the session is closed
+    private var chatSessionEnded = false
+
     // buttons
     private lateinit var btnOpenChat: Button
     private lateinit var btnClearLog: Button
@@ -105,9 +110,11 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun observeChatEvents() {
-        // won't re-deliver on resume, safe to observe from home screen
         LCWChatEvents.newMessage.observe(this) { message ->
+            if (chatSessionEnded) return@observe
             val text = (message?.getProperty("content") ?: message)?.toString() ?: "null"
+            if (text == lastShownMessage) return@observe
+            lastShownMessage = text
             Log.d(TAG, "newMessage: $text")
             updateEventView(tvNewMessage, text)
         }
@@ -120,6 +127,8 @@ class HomeActivity : AppCompatActivity() {
         LCWChatEvents.chatInitiated.observe(this) {
             Log.d(TAG, "chatInitiated")
             updateEventView(tvChatInitiated, "true")
+            chatSessionEnded = false
+            lastShownMessage = null
         }
 
         LCWChatEvents.chatEnded.observe(this) { byAgent ->
@@ -131,6 +140,7 @@ class HomeActivity : AppCompatActivity() {
         LCWChatEvents.chatRestored.observe(this) {
             Log.d(TAG, "chatRestored")
             updateEventView(tvChatRestored, "true")
+            chatSessionEnded = false
             fetchLastMessage()
         }
 
@@ -142,6 +152,9 @@ class HomeActivity : AppCompatActivity() {
         LCWChatEvents.closed.observe(this) {
             Log.d(TAG, "closed")
             updateEventView(tvClosed, "true")
+            chatSessionEnded = true
+            lastShownMessage = null
+            resetRow(tvNewMessage)
         }
 
         LCWChatEvents.botSignIn.observe(this) { content ->
@@ -177,6 +190,8 @@ class HomeActivity : AppCompatActivity() {
             tvNewMessage, tvAgentAssigned, tvChatInitiated, tvChatEnded,
             tvChatRestored, tvMinimized, tvClosed, tvBotSignIn, tvError
         ).forEach { resetRow(it) }
+        lastShownMessage = null
+        chatSessionEnded = false
     }
 
     // Init SDK from saved config so we can detect new messages on the home screen
@@ -249,7 +264,10 @@ class HomeActivity : AppCompatActivity() {
                     append(content)
                 }
                 Log.d(TAG, "fetchLastMessage: showing '$display'")
-                runOnUiThread { updateEventView(tvNewMessage, display) }
+                runOnUiThread {
+                    lastShownMessage = display
+                    updateEventView(tvNewMessage, display)
+                }
             }
         } catch (e: Exception) {
             Log.e(TAG, "fetchLastMessage: getMessages threw — ${e.message}", e)
