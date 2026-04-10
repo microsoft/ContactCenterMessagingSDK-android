@@ -128,7 +128,6 @@ class HomeActivity : AppCompatActivity() {
             Log.d(TAG, "chatInitiated")
             updateEventView(tvChatInitiated, "true")
             chatSessionEnded = false
-            lastShownMessage = null
         }
 
         LCWChatEvents.chatEnded.observe(this) { byAgent ->
@@ -153,7 +152,6 @@ class HomeActivity : AppCompatActivity() {
             Log.d(TAG, "closed")
             updateEventView(tvClosed, "true")
             chatSessionEnded = true
-            lastShownMessage = null
             resetRow(tvNewMessage)
         }
 
