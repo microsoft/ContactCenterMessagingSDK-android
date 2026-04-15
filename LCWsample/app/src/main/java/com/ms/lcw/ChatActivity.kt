@@ -243,6 +243,16 @@ class ChatActivity : AppCompatActivity() {
         }
     }
 
+    override fun onStart() {
+        super.onStart()
+        isActive = true
+    }
+
+    override fun onStop() {
+        super.onStop()
+        isActive = false
+    }
+
     override fun onResume() {
         super.onResume()
         if (!isMinimised) {
@@ -295,6 +305,7 @@ class ChatActivity : AppCompatActivity() {
     }
 
     companion object {
+        var isActive = false
         private const val TAG = "###LCW_CHAT"
     }
 }
