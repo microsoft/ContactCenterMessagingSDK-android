@@ -112,6 +112,7 @@ class HomeActivity : AppCompatActivity() {
     private fun observeChatEvents() {
         LCWChatEvents.newMessage.observe(this) { message ->
             if (chatSessionEnded) return@observe
+            if (ChatActivity.isActive) return@observe
             val text = (message?.getProperty("content") ?: message)?.toString() ?: "null"
             if (text == lastShownMessage) return@observe
             lastShownMessage = text
