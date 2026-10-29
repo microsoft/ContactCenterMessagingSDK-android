@@ -428,8 +428,11 @@ This starts a Contact Center session, and is used when the customer opens the me
 val request = StartChatRequestBuilder().buildStartChatRequestParams(
     StartChatOptionalParams(
         liveChatContext = // EXISTING chat context data
-        preChatResponse = // PreChatSurvey response,
-        customContext =//// EXISTING custom context data
+        preChatResponse = surveySubmitData, // data submitted from the getPreChatSurvey card
+        customContext = hashMapOf(
+            "contextKey1" to hashMapOf("value" to "contextValue1", "isDisplayable" to true),
+            "contextKey2" to hashMapOf("value" to "contextValue2", "isDisplayable" to false)
+        ),
         os = "Android",
         locale = null,
         device = Build.DEVICE,
@@ -444,6 +447,10 @@ val request = StartChatRequestBuilder().buildStartChatRequestParams(
   )
 public void startChat(requestParam, completionHandler) {}
 ```
+
+#### Parameters
+* `preChatResponse`: The data submitted from the pre-chat survey card that `getPreChatSurvey` returns, passed unchanged; it includes `"Type": "InputSubmit"`. Any other map is ignored without an error. To send values that your app collects itself, use `customContext`.
+* `customContext`: A map of context variables. Each entry must itself be a map with `value` (a non-empty string, number, or Boolean) and `isDisplayable` (`true` to show the value to service representatives in the Conversation summary). Entries in any other form, such as a plain string, are removed before the chat starts, without an error. To use a value in routing rules, define a context variable with the same name on the workstream. If you use the Messaging Widget, set the same map with `LiveChatMessaging.getInstance().setCustomContext(customContext)` before the chat starts. `GetAgentAvailabilityOptionalParams` takes `customContext` in the same format. For authenticated chat, pass context variables in the `lwicontexts` claim of the authentication token instead; see [Configure authentication settings](https://learn.microsoft.com/dynamics365/customer-service/administer/create-chat-auth-settings).
 
 ### Get PreChat Survey
 Retrieves the Pre-Chat Survey configured in Customer Service Admin Center for the selected Org and App ID.
