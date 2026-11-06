@@ -209,7 +209,7 @@ start with only the rules that fix your crash and remove unused SDK rules.
     implementation("com.facebook.react:react-android:0.80.0") // As react native version upgraded to 0.80.0
     implementation("com.facebook.soloader:soloader:0.10.5")
     implementation("io.github.react-native-community:jsc-android:2026004.0.1") //As JSC would be the default engine and Hermes is disabled
-    implementation ("io.adaptivecards:adaptivecards-android:3.7.2") //Optional
+    implementation ("io.adaptivecards:adaptivecards-android:3.8.2") //Optional
 ```
 
 (For versions < 1.1.0 only - React Native version 0.70.6) :
@@ -289,7 +289,7 @@ start with only the rules that fix your crash and remove unused SDK rules.
         implementation(project(":randombytes"))  
         implementation(project(":randomvalues"))
         implementation("com.google.android.flexbox:flexbox:3.0.0")
-        implementation("io.adaptivecards:adaptivecards-android:2.9.0")
+        implementation("io.adaptivecards:adaptivecards-android:3.8.2")
     }
     ```
 
